@@ -27,12 +27,12 @@ Figure~\ref{fig:3.3.3} illustrates our strategy for doing the integral.
 \end{align*}
 The assumption that $\lim_{p \rightarrow \infty} K(p) = 0$ actually isn't enough to make progress.
 For example, if $K(p) \propto 1/p$ the second integral doesn't even converge.
-I think we have to assume that the integral of $K$ converges in the following sense: there is a value $\tau K^*$ such that for any $\epsilon$ there is a time $T$ such that $\abs{\int_0^t dp \, K(p) - K^*} < \epsilon$ for any $t > T$.
+I think we have to assume that the integral of $K$ converges in the following sense: there is a value $\tau K^*$ such that for any $\epsilon$ there is a time $T$ such that $\abs{\int_0^t dp \, K(p) - \tau K^*} < \epsilon$ for any $t > T$.
 In other words, beyond a certain correlation time $\tau$, the correlation function $K$ contains negligible weight.
-If this is the case then we can always take $t$ to be large enough such that $\int_0^t dp \, K(p) \approx K^*$ and therefore
+If this is the case then we can always take $t$ to be large enough such that $\int_0^t dp \, K(p) \approx \tau K^*$ and therefore
 \begin{equation*}
   m^2 \baravg{v(t)^2} = 2 \tau K^* \int_{q=0}^{\sqrt{2} t} dq = 2 \tau K^* \sqrt{2} t
   \, .
 \end{equation*}
 
-\quickfig{\columnwidth}{3.3.3}{This is the caption}{fig:3.3.3}
+\quickfig{\columnwidth}{3.3.3}{The original integral is over the region indicated by the solid square. Because $K(\abs{t_1 - t_2})$ depends only on the magnitude of the difference of the time variables, the contributions from the grey, blue, yellow and green regions are all equal, and we express the integral as four times the integral over the blue region. Furthermore, adding the red region to the blue one merely doubles the value of the integral, so the total integral can be expressed as twice the value over the blue and red regions combined. The integral over the blue and red regions is expressed most simply in a rotated coordinate system defined by $q = t_1 + t_2$ and $p = t_1 - t_2$.}{fig:3.3.3}
