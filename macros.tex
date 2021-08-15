@@ -1,0 +1,25 @@
+\newcommand{\angavg}[1]{\left \langle #1 \right \rangle}
+\newcommand{\baravg}[1]{\overline{#1}}
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+
+% Figures. Example usage:
+% \quickfig{\columnwidth}{my_image}{This is the caption}{fig:my_fig}
+\DeclareRobustCommand{\quickfig}[4]{
+\begin{figure}
+\begin{centering}
+\includegraphics[width=#1]{#2}
+\par\end{centering}
+\caption{#3}
+\label{#4}
+\end{figure}
+}
+
+\DeclareRobustCommand{\quickwidefig}[4]{
+\begin{figure*}[h]
+\begin{centering}
+\includegraphics[width=#1]{#2}
+\par\end{centering}
+\caption{#3}
+\label{#4}
+\end{figure*}
+}
