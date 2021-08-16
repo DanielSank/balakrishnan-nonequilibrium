@@ -20,19 +20,52 @@ In the absence of friction, the Lengevin equation reads
 Figure~\ref{fig:3.3.3} illustrates our strategy for doing the integral.
 \begin{align*}
   m^2 \baravg{v(t)^2}
-  &= \int_0^t dt_1 \int_0^t dt_2 K(\abs{t_1 - t_2}) \\
-  \text{(by symmetry)} \qquad &= 4 \int_\text{(blue region)} K(\abs{t_1 - t_2}) \\
-  \text{(by symmetry again)} \qquad &= 2 \int_\text{(blue + red regions)} K(\abs{t_1 - t_2}) \\
-  &= 2 \int_{q=0}^{\sqrt{2}t} dq \int_{p=0}^{\sqrt{2}t}dp  K(p) \, .
+  &= \int_0^t dt_1 \int_0^t dt_2 K(\abs{t_1 - t_2}) \equiv \mathcal{I}(t) \\
+  (\text{Fig.~\ref{fig:3.3.3}\,a}) \quad &= \int_\text{(A + B)} K(\abs{t_1 - t_2}) \\
+  \text{(by symmetry)} \quad &= 2 \int_\text{A} K(\abs{t_1 - t_2}) \\
+  &= 2 \int_0^t dt_1 \int_0^{t_1} dt_2 \, K(\abs{t_1 - t_2}) \\
+  (\text{Fig~\ref{fig:3.3.3}\, b: Let }t' \equiv t_1 - t_2) \quad &= 2 \int_0^t dt_1 \int_0^{t_1} dt' \, K(t')
+  \, .
 \end{align*}
-The assumption that $\lim_{p \rightarrow \infty} K(p) = 0$ actually isn't enough to make progress.
-For example, if $K(p) \propto 1/p$ the second integral doesn't even converge.
-I think we have to assume that the integral of $K$ converges in the following sense: there is a value $\tau K^*$ such that for any $\epsilon$ there is a time $T$ such that $\abs{\int_0^t dp \, K(p) - \tau K^*} < \epsilon$ for any $t > T$.
-In other words, beyond a certain correlation time $\tau$, the correlation function $K$ contains negligible weight.
-If this is the case then we can always take $t$ to be large enough such that $\int_0^t dp \, K(p) \approx \tau K^*$ and therefore
+This last integral is over a right triangle where we scan the horizontal axis first, and then the vertical one.
+It's more convenient to make $t'$ the first integration variable, so we instead integrate over vertical axis (see Fig.~\ref{fig:3.3.3}\,c):
 \begin{equation*}
-  m^2 \baravg{v(t)^2} = 2 \tau K^* \int_{q=0}^{\sqrt{2} t} dq = 2 \tau K^* \sqrt{2} t
+  \mathcal{I}(t) = \int_0^t dt' \, K(t') \int_{t'}^t dt_1 = \int_0^t dt' \, K(t') \, (t - t')
   \, .
 \end{equation*}
 
-\quickfig{\columnwidth}{3.3.3}{The original integral is over the region indicated by the solid square. Because $K(\abs{t_1 - t_2})$ depends only on the magnitude of the difference of the time variables, the contributions from the grey, blue, yellow and green regions are all equal, and we express the integral as four times the integral over the blue region. Furthermore, adding the red region to the blue one merely doubles the value of the integral, so the total integral can be expressed as twice the value over the blue and red regions combined. The integral over the blue and red regions is expressed most simply in a rotated coordinate system defined by $q = t_1 + t_2$ and $p = t_1 - t_2$.}{fig:3.3.3}
+Now while the exercise says to assume that $\lim_{t \rightarrow \infty} K(t) = 0$, that's actually neither a sufficient nor necessary assumption for what we're supposed to be proving here.
+In fact, the author even gives in Ch 15 the case of $K(x) \sim 1/x$ as a counterexample where the integrals don't even converge.
+Furthermore, the author makes several somewhat vague statements about superdiffusive and subdiffusive behavior, without really commenting on how those behaviors relate to the long time behavior of $K$.
+In this solution set, we do not tolerate such Textbook Terrorism.
+Instead, we do things right.
+
+A much more reasonable assumption to make about $K$ is that it's integral approaches a finite constant $K^*$.
+To make that statement specific, we assume that given any $\epsilon > 0$, there is a time $T$ such that
+\begin{equation*}
+  \abs{\int_0^t K(t') \, dt' - K^*} < \epsilon
+\end{equation*}
+for all $t > T$.
+In other words, the integral of $K$ can be as close to $K^*$ as you want as long as you integrate out far enough.
+Now let's take a look at that integral $\mathcal{I}(t)$.
+Naturally, we split it into two pieces
+\begin{equation*}
+  \mathcal{I}(t) = \int_0^T dt' \, K(t') (t - t') + \int_T^t dt' \, K(t')(t - t')
+  \, .
+\end{equation*}
+We're interested in it's scaling behavior at large times so we study $d\mathcal{I}/dt$:
+\begin{align*}
+	\frac{d\mathcal{I}}{dt}
+	&= \frac{d}{dt}
+	\left(
+		t \int_0^t dt' \, K(t') - \int_0^t dt' \, t' K(t')
+	\right) \\
+	&= t K(t) + \int_0^t dt' \, K(t') - t K(t) \\
+	&= \int_0^t dt' \, K(t') \\
+	&\approx K^*
+\end{align*}
+where the last approximation holds to arbitary accuracy for sufficiently large $t$.
+We've shown that for sufficiently large $t$, $d\mathcal{I}/dt$ is approximately constant, which means that $\mathcal{I}(t)$ is increasing linearly in $t$, as we set out to show.
+
+
+\quickfig{\columnwidth}{3.3.3}{a) The original integral is over the region indicated by the black square, i.e. A + B. The integrand depends only on $\abs{t_1 - t_2}$ so the integrals over regions $A$ and $B$ are equal. b) After the change of variables $t' = t_1 - t_2$, we are integrating over a triangle (similar to region A) where the vertical axis is the argument of the $K$ function. We integrate over $t$ first and then $t'$, i.e. $t$ is the outer integration variable. c) We switch so that $t'$ is the outer integration variable.}{fig:3.3.3}
