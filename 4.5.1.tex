@@ -1,0 +1,103 @@
+\levelstay{Problem 4.5.1}
+
+\leveldown{Problem}
+
+\begin{enumerate}[a.]
+\item Use Eq.~(4.38) to show that
+\begin{equation*}
+  \angavg{v(t_1) v(t_2) v(t_3)}_\text{eq} = 0 \, .
+\end{equation*}
+Eq.~(4.38) is
+\begin{equation*}
+  \baravg{\eta(t_1) \eta(t_2) \eta(t_3)} = 0 \, .
+\end{equation*}
+\item Use Eq.~(4.40) to show that
+\begin{align*}
+  \angavg{v(t_1) v(t_2) v(t_3) v(t_4)}_\text{eq}
+  = \left( \frac{k_b T}{m} \right) \{
+    &\exp \left(-\gamma \abs{t_1 - t_2} - \gamma \abs{t_3 - t_4} \right) \\
+  + &\exp \left(-\gamma \abs{t_1 - t_3} - \gamma \abs{t_2 - t_4} \right) \\
+  + &\exp \left(-\gamma \abs{t_1 - t_4} - \gamma \abs{t_2 - t_3} \right)
+  \}
+  \, .
+\end{align*}
+Eq.~(4.40) is
+\begin{align*}
+  \baravg{\eta(t_1) \eta(t_2) \eta(t_3) \eta(t_4)} =
+  &  \baravg{\eta(t_1) \eta(t_2)} \times \baravg{\eta(t_3) \eta(t_4)} \\
+  +& \baravg{\eta(t_1) \eta(t_3)} \times \baravg{\eta(t_2) \eta(t_4)} \\
+  +& \baravg{\eta(t_1) \eta(t_4)} \times \baravg{\eta(t_2) \eta(t_3)}
+  \, .
+\end{align*}
+\end{enumerate}
+
+\levelstay{Solution}
+
+First of all, we know that the formal solution for $v(t)$ is
+\begin{equation*}
+  v(t) = v_0 e^{-\gamma t} + \frac{1}{m} \int_0^t dt' \, \eta(t') \, e^{-\gamma(t - t')}
+\end{equation*}
+where $v_0$ is the initial velocity and $eta$ is the noise process.
+The thermal average $\angavg{}_\text{eq}$ averages over the noise and over the initial velocity, which is given by the Boltzman distribution.
+Following the strategy in the book, let's first compute the conditional average, i.e. the average where $v_0$ is considered to be a given sure variable, and then we'll compute the thermal averages from that by allowing $\{t_i\}$ to go to infinity while keeping their differences constant.
+
+Note that the integral of $\eta$ has an even probability distribution so its average is zero, even with the exponential weight factor inside the integral.
+This fact causes a bunch of crossterms in the following calculation to go to zero.
+Let's create a convenient notation
+\begin{equation*}
+  v(t_i) = v_0 e^{-\gamma t_i} + \frac{1}{m} \int_0^{t_i} ds_i \eta(s_i) e^{-\gamma(t_i - s_i)}
+\end{equation*}
+i.e. for each time $t_i$ we use the dummy integration variable $s_i$.
+
+There are four kinds of terms in $\baravg{v(t_1) v(t_2) v(t_3)}$:
+\begin{enumerate}[1.]
+  \item The term with no integrals:
+    \begin{equation*}
+      v_0^3 \exp \left( -\gamma \sum_a t_a \right)
+    \end{equation*}
+    This term goes to zero in the thermal limit as $t_i \rightarrow \infty$.
+  \item The three terms with one integral:
+    \begin{equation*}
+      \frac{v_0^2}{m} \exp \left(-\gamma \sum_a t_a \right) \int_0^{t_i} ds_i \, \eta(s_i) e^{\gamma s_i}
+    \end{equation*}
+    These terms all go to zero because $\baravg{\eta(s_i)} = 0$.
+  \item The three terms with two integrals:
+    \begin{equation*}
+	    \frac{v_0}{m^2} e^{-\gamma t_i} \left[ e^{-\gamma (t_j + t_k)} \int_0^{t_j} ds_i \int_0^{t_k} ds_j \, ds_k \,  \eta(s_j) \eta(s_k) e^{\gamma (s_j + s_k)} \right]
+    \end{equation*}
+    where the three terms correspond to the three permutations of $\{1, 2, 3 \}$.
+    The thermal average of the factor in square brackets is computed on page 32 of the book where the result is
+    \begin{equation*}
+      \frac{k_b T}{m} e^{-\gamma \abs{t_j - t_k}} \, .
+    \end{equation*}
+    That factor doesn't vanish, but the prefactor $(v_0 / m^2) e^{-\gamma t_i}$ does vanish because $t_i \rightarrow \infty$ causes the exponential to go to zero.
+  \item The term with three integrals:
+    \begin{equation*}
+      \frac{e^{-\gamma \sum_a t_a}}{m^3} \prod_{a=1}^3 \int_0^{t_a} ds_a \, e^{\gamma s_a} \eta(s_a)
+    \end{equation*}
+		The conditional (and therefore thermal) average of this expression is zero because $\baravg{\prod_{a=1}^3 \eta(s_a)} = 0$.
+\end{enumerate}
+We've shown that all terms in $\angavg{v(t_1) v(t_2) v(t_3)}$ are zero, which proves part a.
+
+Part b is pretty much the same thing. Here again there is a variety of terms but we've learned from part a that only the term with four integrals needs consideration.
+\begin{equation*}
+    \frac{1}{m^4} e^{-\gamma \sum_a t_a} \prod_{a=1}^4 \int_0^{t_a} ds_a \, e^{\gamma s_a} \eta(s_a)
+\end{equation*}
+Now we use the fact that
+\begin{equation*}
+  \baravg{\prod_{a=1}^4 \eta(s_a)} = \Gamma^2 \sum_\text{comb} \delta(s_i - s_j)\delta(s_k - s_l)
+\end{equation*}
+where $\sum_\text{comb}$ means that we sum over all unique pairings of the numbers $\{1, 2, 3, 4\}$.
+Using this fact, our quadruple integral term becomes
+\begin{equation*}
+  \frac{1}{m^4} \sum_\text{comb}
+  \left( e^{-\gamma (t_i + t_j)}\int_0^{t_i} ds_i \int_0^{t_j} ds_j \, e^{\gamma ( s_i + s_j )} \eta(s_i) \eta(s_j) \right)
+  \left( e^{-\gamma (t_k + t_l)}\int_0^{t_k} ds_k \int_0^{t_l} ds_l \, e^{\gamma ( s_k + s_l )} \eta(s_k) \eta(s_l) \right)
+  \, .
+\end{equation*}
+The factors in parantheses are the same integral we discussed above (from page 32 of the book) so we can just plug in their values
+\begin{equation*}
+  \frac{1}{m^4} \sum_\text{comb}
+  \left( \frac{k_b T}{m} \right)^2 e^{-\gamma \abs{t_i - t_j}} e^{-\gamma \abs{t_k - t_l}}
+\end{equation*}
+which is what we set out to show.
