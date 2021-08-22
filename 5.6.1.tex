@@ -1,0 +1,135 @@
+\levelstay{stuff}
+\leveldown{Problem}
+\levelstay{Solution}
+Part a is a straightforward consequence of part b so we'll just go straight for part b.
+We have the matrix
+\begin{equation*}
+  W =
+  \begin{pmatrix}
+    - \lambda_1 & \lambda_2 \\ \lambda_1 & - \lambda_2
+  \end{pmatrix}
+\end{equation*}
+and we need to compute $\exp \left( W t \right)$.
+Note that
+\begin{align*}
+  W^2 &=
+  \begin{pmatrix}
+    - \lambda_1 & \lambda_2 \\ \lambda_1 & - \lambda_2
+  \end{pmatrix}
+  \begin{pmatrix}
+    - \lambda_1 & \lambda 2 \\ \lambda_1 & - \lambda_2
+  \end{pmatrix}
+  \\
+  &=
+  \begin{pmatrix}
+	  \lambda_1(\lambda_1 + \lambda_2) & -\lambda_2 (\lambda_1 + \lambda_2) \\
+	  -\lambda_1 (\lambda_1 + \lambda_2) & \lambda_2 (\lambda_1 + \lambda_2)
+  \end{pmatrix}
+  \\
+  &=
+  -(\lambda_1 + \lambda_2)
+  \begin{pmatrix}
+	  - \lambda_1 & \lambda_2 \\ \lambda_1 & -\lambda_2
+  \end{pmatrix}
+  \\
+  &= -2 \lambda W
+\end{align*}
+where $\lambda \equiv (\lambda_1 + \lambda_2) / 2$.
+Therefore, $W^n = $.
+Therefore we can write
+\begin{align*}
+  T(t) \equiv \exp(t W)
+  &= \mathbb{I} - \frac{W}{2 \lambda} \sum_{n=1}^\infty \frac{(-2 \lambda t)^n}{n!} \\
+  &= \mathbb{I} - \frac{W}{2 \lambda} \left( e^{-2 \lambda t} - 1 \right) \\
+  &= \frac{1}{2\lambda}
+  \begin{pmatrix}
+    \lambda_2 + \lambda_1 \exp(-2 \lambda t) & \lambda_2 ( 1 - \exp(-2 \lambda t)) \\
+    \lambda_1 ( 1 - \exp(-2 \lambda t)) & \lambda_1 + \lambda_2 \exp(-2 \lambda t)
+  \end{pmatrix}
+  \, .
+\end{align*}
+In the limit $t \rightarrow \infty$
+\begin{equation*}
+	\lim_{t \rightarrow \infty}T(t) = \frac{1}{2\lambda}
+	\begin{pmatrix}
+		\lambda_2 & \lambda_2 \\ \lambda_1 & \lambda_1
+	\end{pmatrix}
+\end{equation*}
+so the unconditioned mean of the process is
+\begin{align*}
+  \angavg{\xi}
+  &= \xi_1 P_1 + \xi_2 P_2 \\
+  &= \left(\xi_1 \quad \xi_2 \right) \cdot \begin{pmatrix} P_1 \\ P_2 \end{pmatrix} \\
+  &= \left(\xi_1 \quad \xi_2 \right)
+  \cdot \frac{1}{2\lambda}
+  \begin{pmatrix}
+  \lambda_2 & \lambda_2 \\ \lambda_1 & \lambda_1
+  \end{pmatrix}
+  \cdot \begin{pmatrix} P_1(0) \\ P_2(0) \end{pmatrix} \\
+  &= \left(\xi_1 \quad \xi_2 \right)
+  \cdot \frac{1}{2\lambda}
+  \begin{pmatrix} \lambda_2 \\ \lambda_1 \end{pmatrix} \\
+  &= \frac{\xi_1 \lambda_2 + \xi_2 \lambda_1}{\lambda_1 + \lambda_2}
+  \, .
+\end{align*}
+Note that
+\begin{equation*}
+  P_1 = \frac{\lambda_2}{2 \lambda} \qquad P_2 = \frac{\lambda_1}{2 \lambda}
+  \, .
+\end{equation*}
+Now we do the variance.
+The notation is clean if we define $\sum_\text{pairs}$ to mean that we have two terms: one where $i=1, j=2$ and a second where $i=2, j=1$.
+\begin{align*}
+  \angavg{(\xi - \angavg{\xi})^2}
+  &= \sum_{i=1,2} P_i (\xi_i - \angavg{\xi})^2 \\
+  &= \sum_\text{pairs} \frac{\lambda_j}{2 \lambda} \left( \xi_i - \frac{\xi_1 \lambda_2 + \xi_2 \lambda_1}{\lambda_1 + \lambda_2}\right)^2 \\
+  &= \sum_\text{pairs} \frac{\lambda_j}{2 \lambda} \left( \xi_1 - \xi_2 \right)^2 \left( \frac{\lambda_i}{\lambda_1 + \lambda_2} \right)^2 \\
+  &= (\xi_1 - \xi_2)^2 \frac{\lambda_1 \lambda_2}{(\lambda_1 + \lambda_2)^2}
+  \, .
+\end{align*}
+Now we have to compute the correlation function.
+To make this easier, we define some notation.
+Let $\ket{i}$ be the vector describing the state when the system has value $\xi_i$.
+The the correlation function is
+\begin{align*}
+  C(t)
+  &= \sum_\text{pairs} P_i (\xi_i - \angavg{\xi}) \left[ \bbraket{i}{T(t)}{i}(\xi_i - \angavg{\xi}) + \bbraket{j}{T(t)}{i} (\xi_j - \angavg{\xi}) \right]
+  \, .
+\end{align*}
+Noting that
+\begin{equation*}
+  P_i \left( \xi_i - \angavg{\xi} \right) = (\xi_i - \xi_j) \frac{\lambda_1 \lambda_2}{(\lambda_1 + \lambda_2)^2}
+\end{equation*}
+and defining $\Delta \equiv \xi_1 - \xi_2$ and $1/\Lambda \equiv \lambda_1 \lambda_2 / (\lambda_1 + \lambda_2)^2$
+we can write
+\begin{align*}
+  C(t)
+  &= \frac{\Delta}{\Lambda}
+  \left[
+    \bbraket{1}{T(t)}{1}(\xi_1 - \angavg{\xi}) + \bbraket{2}{T(t)}{1}(\xi_2 - \angavg{\xi})
+  \right] \\
+  &- \frac{\Delta}{\Lambda}
+  \left[
+    \bbraket{1}{T(t)}{2}(\xi_1 - \angavg{\xi}) + \bbraket{2}{T(t)}{2}(\xi_2 - \angavg{\xi})
+  \right] \\
+  &= \frac{\Delta}{\Lambda}
+  \left[
+    \left(\xi_1 - \angavg{\xi} \right) \bra{1} + \left( \xi_2 - \angavg{\xi} \right) \bra{2}
+  \right]
+  T(t)
+  \left( \ket{1} - \ket{2} \right) \\
+  &= \frac{\Delta^2}{\Lambda}
+  \begin{pmatrix} \lambda_1 / 2\lambda & -\lambda_2 / 2\lambda \end{pmatrix}
+  \frac{1}{2\lambda}
+  \begin{pmatrix}
+    \lambda_2 + \lambda_1 \exp(-2 \lambda t) & \lambda_2 ( 1 - \exp(-2 \lambda t)) \\
+    \lambda_1 ( 1 - \exp(-2 \lambda t)) & \lambda_1 + \lambda_2 \exp(-2 \lambda t)
+  \end{pmatrix}
+  \begin{pmatrix} 1 \\ -1 \end{pmatrix} \\
+  &= \frac{\Delta^2}{\Lambda}
+  \frac{\exp(-2 \lambda t)}{2\lambda}
+  \begin{pmatrix} \lambda_1 & -\lambda_2 \end{pmatrix}
+  \begin{pmatrix} 1 \\ -1  \end{pmatrix} \\
+  &= \Delta^2 \frac{\lambda_1 \lambda_2}{(\lambda_1 + \lambda_2)^2} \exp(-2 \lambda t)
+  \, .
+\end{align*}
