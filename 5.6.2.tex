@@ -1,0 +1,68 @@
+\levelstay{5.6.2 - The Kubo-Anderson process}
+\leveldown{Problem}
+Consider a process where $w(\xi, \xi')$ is a function only of $\xi$, i.e. $w(\xi, \xi') = \lambda u(\xi)$.
+Part a) is to show that
+\begin{equation*}
+  p(\xi, t; \xi_0)
+  = \delta(\xi - \xi_0) e^{-\lambda t} + p(\xi) \left( 1 - e^{-\lambda t} \right)
+  \, .
+\end{equation*}
+where $p(\xi)$ is the unconditional probability.
+Part b) is to show that
+\begin{equation*}
+  \angavg{\delta \xi(0) \delta \xi(t)} = \angavg{(\delta \xi)^2} \exp(- \lambda t)
+\end{equation*}
+where $\angavg{(\delta \xi)^2} = \angavg{\xi^2} - \angavg{\xi}^2$.
+
+\levelstay{Solution}
+
+The master equation takes a simple form:
+\begin{align*}
+	\frac{dp(\xi, t; \xi_0)}{dt}
+	&= \int d\xi' p(\xi', t; \xi_0) w(\xi, \xi') - \int d\xi' p(\xi, t; \xi_0) w(\xi', \xi) \\
+	&= \lambda u(\xi) \underbrace{\int d\xi' p(\xi', t; \xi_0)}_1 - \lambda p(\xi, t; \xi_0) \underbrace{\int d\xi' u(\xi')}_W \\
+	&= \lambda u(\xi) - \lambda W p(\xi, t; \xi_0)
+	\, .
+\end{align*}
+Notice that the parameters $\xi$ and $\xi_0$ are constants in this differential equation, i.e. the form of the equation we're solving is
+\begin{equation*}
+	\frac{dy}{dx} = \lambda \left( u - W y(x) \right)
+\end{equation*}
+where $y$ represents $p(\xi, t; \xi_0)$ and $w$ represents $w(\xi)$.
+The solution to this equation is
+\begin{equation*}
+	y(x) = c e^{-W \lambda x} + u/W
+\end{equation*}
+for an arbitrary constant $c$.
+Translating back to original symbols, we have
+\begin{equation*}
+	p(\xi, t; \xi_0) = c \, e^{-W \lambda t} + \frac{u(\xi)}{W} \, .
+\end{equation*}
+At $t=0$ all of the probability is at $\xi_0$, so $c = \delta(\xi - \xi_0) - u(\xi) / W$, and therefore
+\begin{equation*}
+	p(\xi, t; \xi_0)
+	= \delta(\xi - \xi_0) e^{-W \lambda t} + \frac{u(\xi)}{W} \left( 1 - e^{-W \lambda t} \right)
+	\, .
+\end{equation*}
+At $t \rightarrow \infty$ we see that $p(\xi, t; \xi_0) \rightarrow u(\xi)/W$, which means that $p(\xi) = u(\xi)/W$.
+Therefore, we have
+\begin{equation*}
+	p(\xi, t; \xi_0) = \delta(\xi - \xi_0) e^{-W \lambda t} + p(\xi) \left( 1 - e^{-W \lambda t} \right)
+	\, .
+\end{equation*}
+This solution would be what we want to show if $W = 1$.
+
+For part b), write $\delta \xi(0) = (\xi_0 - \angavg{\xi})$ and note that this term is weighted by $p(\xi)$ in the ensemble average.
+Similarly note that $\delta \xi(t) = \xi(t) - \angavg{\xi})$ and note that this term is weighted by $p(\xi, t; \xi_0)$.
+Therefore, the ensemble average is
+\begin{align*}
+	\angavg{\delta \xi(0) \delta \xi(t)}
+	&= \int d\xi \int d\xi_0 (\xi_0 - \angavg{\xi}) p(\xi_0) (\xi - \angavg{\xi}) p(\xi, t; \xi_0) \\
+	&= \int d\xi \int d\xi_0 (\xi_0 - \angavg{\xi}) p(\xi_0) (\xi - \angavg{\xi})
+	\underbrace{\left[ \delta(\xi - \xi_0) e^{-\lambda t} + p(\xi) \left( 1 - e^{-\lambda t} \right) \right]}_{p(\xi, t; \xi_0)} \\
+	&= e^{-\lambda t} \int d\xi (\xi - \angavg{\xi})^2 p(\xi) + (1 - e^{-\lambda t})
+	\underbrace{\int d\xi (\xi - \angavg{\xi}) p(\xi)}_0
+	\underbrace{\int d\xi_0 (\xi_0 - \angavg{\xi}) p(\xi_0)}_0 \\
+	&= \angavg{(\delta \xi)^2} e^{-\lambda t}
+\end{align*}
+which is what we wanted to show.
