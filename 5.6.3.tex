@@ -1,0 +1,67 @@
+\levelstay{5.6.3}
+
+\leveldown{Problem}
+
+\levelstay{Solution}
+
+For part a) we need to formally solve the integral equation
+\begin{equation}
+  \tilde{p}(\xi, s)
+  = \frac{\delta(\xi - \xi_0)}{s + \lambda(\xi)}
+  + \frac{\lambda(\xi) p(\xi)}{\angavg{\lambda} (s + \lambda(\xi))}
+  \int d\xi' \, \lambda(\xi') \tilde{p}(\xi', s)
+\end{equation}
+This is an especially simple form of a Fredholm equation.
+To solve it, we just multiply both sides of the equation by $\lambda(\xi)$ and integrate over $\xi$:
+\begin{align}
+  \underbrace{\int d\xi \, \lambda(\xi) \tilde{p}(\xi, s)}_\mathcal{I}
+  &= \int d\xi \, \frac{\lambda(\xi) \delta(\xi - \xi_0)}{s + \lambda(\xi)}
+  + \int d\xi \frac{\lambda(\xi)^2 p(\xi)}{\angavg{\lambda}(s + \lambda(\xi))}
+  \underbrace{\int d\xi' \, \lambda(\xi') \tilde{p}(\xi', s)}_\mathcal{I} \nonumber \\
+  \mathcal{I}
+  \left(
+    1 - \int d\xi' \frac{\lambda(\xi')^2p(\xi')}{\angavg{\lambda}(s + \lambda(\xi'))}
+  \right)
+  &= \frac{\lambda(\xi_0)}{s + \lambda(\xi_0)} \nonumber \\
+  \mathcal{I}
+  &= \frac{\lambda(\xi_0)}{s + \lambda(\xi_0)}
+  \bigg/
+  \left(
+    1 - \int d\xi' \frac{\lambda(\xi')^2p(\xi')}{\angavg{\lambda}(s + \lambda(\xi'))}
+  \right) \nonumber
+  \, .
+\end{align}
+We have successfully re-expressed the integral $\mathcal{I}$, which involves $\tilde{p}$, in terms of an integral that does not involve $\tilde{p}$, so we formally solve the equation simply by inserting $\mathcal{I}$ into the original equation.
+\begin{equation}
+  \tilde{p}(\xi, s)
+  = \frac{\delta(\xi - \xi_0)}{s + \lambda(\xi)}
+  + \frac{\lambda(\xi) \lambda(\xi_0) p(\xi)}{\angavg{\lambda}(s + \lambda(\xi))(s + \lambda(\xi_0))\phi(s)}
+\end{equation}
+where
+\begin{equation}
+  \phi(s)
+  = 1 - \int d\xi' \, \frac{\lambda(\xi)^2 p(\xi')}{\angavg{\lambda} (s + \lambda(\xi'))}
+\end{equation}
+which is what we wanted to show.
+
+For part b), we assume $\lambda(\xi) = \text{const.}$ and see if we can recover the result from the previous problem.
+If $\lambda(\xi)$ is constant, then
+\begin{align}
+  \phi(s)
+  &= 1 - \int d\xi' \, \frac{p(\xi') \lambda^2}{\angavg{\lambda}(s + \lambda)} \nonumber \\
+  &= 1 - \frac{\lambda}{s + \lambda}
+  \, .
+\end{align}
+Sticking that into our solution for $\tilde{p}(\xi, s)$ we get
+\begin{align}
+  \tilde{p}(\xi, s)
+  &= \frac{\delta(\xi - \xi_0)}{s + \lambda}
+  + \frac{\lambda^2 p(\xi)}{(s + \lambda)^2 \lambda \left( 1 - \frac{\lambda}{s + \lambda}\right)} \nonumber \\
+  &= \frac{\delta(\xi - \xi_0)}{s + \lambda}
+  + \frac{\lambda p(\xi)}{(s + \lambda) s} \nonumber \\
+  (\text{partial fractions}) \quad
+  &= \frac{\delta(\xi - \xi_0)}{s + \lambda} + \frac{p(\xi)}{s} - \frac{p(\xi)}{s + \lambda} \nonumber \\
+  (\text{inverse Laplace}) \quad
+  p(\xi, t) &= \delta(\xi - \xi_0) e^{-\lambda t} + p(\xi) \left( 1 - e^{-\lambda t} \right) \nonumber
+\end{align}
+which is what we wanted to show.
