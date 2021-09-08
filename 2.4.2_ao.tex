@@ -1,0 +1,24 @@
+\levelstay{Problem 2.4.2}
+
+Find an expression for the PDF in terms of the particles kinetic energy $\varepsilon = m u ^2 / 2$. 
+
+The integral of the velocity PDF in spherical coordinates is given by
+\begin{equation}
+1 = \frac{4}{\sqrt{\pi}} \bigg(\frac{m}{2 k T}\bigg)^{3/2} \int_{0}^{\infty} u^2 \exp\bigg(-\frac{m u^2}{2 k T}\bigg).
+\end{equation}
+Making the change of variables 
+\begin{eqnarray*}
+\varepsilon &=& \frac{1}{2} m u ^2 \\
+u &=& \sqrt{\frac{2}{m}} \varepsilon \\
+du &=& \sqrt{\frac{2}{m}}~\frac{1}{2}~\frac{d \varepsilon}{\sqrt{\varepsilon}},
+\end{eqnarray*}
+gives
+\begin{eqnarray*}
+1 &=& \frac{4}{\sqrt{\pi}} \bigg(\frac{m}{2 k T}\bigg)^{3/2} \int_{0}^{\infty} \frac{2}{m}~ \varepsilon~\exp\bigg(\frac{-\varepsilon}{k T}\bigg) ~ \sqrt{\frac{2}{m}}~\frac{1}{2}~\frac{d \varepsilon}{\sqrt{\varepsilon}} \\
+&=& \frac{2}{\sqrt{\pi}} \bigg(\frac{2}{m}\bigg)^{3/2} \bigg(\frac{m}{2 k T}\bigg)^{3/2} \int_{0}^{\infty} \sqrt{\varepsilon} ~ \exp\bigg(\frac{-\varepsilon}{k T}\bigg)~d \varepsilon\\
+&=& \frac{2}{\sqrt{\pi}} \bigg(\frac{1}{k T}\bigg)^{3/2} \int_{0}^{\infty} \sqrt{\varepsilon}~ \exp\bigg(\frac{-\varepsilon}{k T}\bigg)~d \varepsilon.
+\end{eqnarray*}
+Identifying the integrand of this expression as the desired PDF yields
+\begin{equation}
+\boxed{\phi^{\text{eq}}(\varepsilon) = \frac{2}{\sqrt{\pi}} \bigg(\frac{1}{k T}\bigg)^{3/2} \sqrt{\varepsilon} \exp\bigg(\frac{-\varepsilon}{k T}\bigg)}~.
+\end{equation}
