@@ -1,0 +1,27 @@
+\levelstay{Problem 3.3.1 (AO)}
+
+Suppose that the internal force $F_\text{int}$ due to molecular collisions has no systematic part $F_\text{sys}$ (i.e., there is no damping term $\propto v(t)$). Then $F_\text{int}=\eta(t)$. \textbf{Goal:} Work through the steps of this chapter once again in this case, to show we then get
+\begin{equation}
+\overline{v(t)} = v_0,~\overline{v^2(t)} = v_0^2 + \frac{\Gamma t}{m^2}.
+\end{equation}
+
+Consider the differential equation
+\begin{equation}
+m \dot{v}(t) = \underbrace{-m \gamma v(t) + \eta(t)}_{=F_\text{int}} + F_\text{ext}(t)
+\end{equation}
+when $\gamma=0$, $F_\text{ext}(t)=0$. The formal solution to this differential equation is
+\begin{equation}
+v(t) = v_0 + \frac{1}{m} \int_{0}^{t} \eta(t') dt'
+\end{equation}
+Performing a conditional average over different realizations of the noise (assuming the tagged particles initial velocity is $v_0$) yields
+\begin{eqnarray}
+\overline{v(t)}&=& \underbrace{\overline{v_0}}_{=v_0} + \frac{1}{m} \int_{0}^{t} \underbrace{\overline{\eta(t')}}_{=0} dt' \\
+&=& v_0.
+\end{eqnarray}
+Performing the same average over $v^2(t)$ gives
+\begin{eqnarray}
+\overline{v^2(t)}&=& \overline{v_0^2} + \frac{2 v_0 }{m} \int_{0}^{t} \overline{\eta(t')} dt' + \frac{1}{m^2} \int_{0}^{t} dt_1 \int_{0}^{t} dt_2 \overline{\eta(t_1) \eta(t_2)}  \\
+&=& v_0^2 + \frac{\Gamma}{m^2} \int_{0}^{t} dt_1 \int_{0}^{t} dt_2 \delta(t_1-t_2) \\
+&=& \boxed{v_0^2 + \frac{\Gamma}{m^2} \int_{0}^{t} dt_1 = v_0^2 + \frac{\Gamma t}{m^2}},
+\end{eqnarray}
+where the last line follows from the assumption that $\overline{\eta(t_1) \eta(t_2)}=\Gamma \delta(t_1-t_2)$ (the noise has a correlation time of zero).
