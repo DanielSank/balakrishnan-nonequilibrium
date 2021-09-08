@@ -1,0 +1,49 @@
+\levelstay{Problem 5.6.2 (AO)}
+
+
+\textbf{(a):} 
+Consider a transition rate of the form 
+\begin{equation}
+w(\xi|\xi') = \lambda u(\xi) \label{eq:kubo_anderson_rate}
+\end{equation} 
+in the master equation
+\begin{equation}
+\pt p(\xi, t | \xi_0) = \int d\xi' \bigg\{ p(\xi', t | \xi_0) w(\xi|\xi') -  p(\xi, t, |\xi_0) w(\xi'|\xi) \bigg\}. \nonumber
+\end{equation}
+This implies that
+\begin{equation}
+\pt p(\xi, t | \xi_0) = \lambda \times \bigg\{ \int d \xi' [~p(\xi', t | \xi_0) u(\xi) - p(\xi, t, |\xi_0) u(\xi') ]\bigg\}. \label{eq:kubo_anderson_master}
+\end{equation}
+Taking the limit as $t\rightarrow\infty$ implies that\footnote{We assume that $\lim_{t\rightarrow\infty} p(\xi, t | \xi_0) = p(\xi)$ and $\lim_{t\rightarrow\infty} \pt p(\xi, t | \xi_0) = 0$.}
+\begin{equation}
+u(\xi) p(\xi') = p(\xi) u(\xi')
+\end{equation}  
+in other words 
+\begin{equation}
+u(\xi) = p(\xi).
+\end{equation}
+Plugging this result back into the master equation yields
+\begin{eqnarray}
+\pt p(\xi, t | \xi_0) &=& \lambda \times \bigg\{ p(\xi) \int d \xi' ~p(\xi', t | \xi_0) - p(\xi, t, |\xi_0) \int d \xi' p(\xi')  \bigg\} \\
+&=&  \lambda p(\xi) - \lambda p(\xi, t, |\xi_0).
+\end{eqnarray}
+This equation can be solved using the method of integrating factors which leads to a solution of the form
+\begin{eqnarray}
+p(\xi, t | \xi_0) &=& g(\xi) e^{-\lambda t} \lambda p(\xi) \int_{0}^{t} e^{\lambda(t'-t)} dt'  \nonumber \\
+&=& g(\xi) e^{-\lambda t} + p(\xi) e^{\lambda(t'-t)} \bigg|^{t}_{0} \nonumber \\
+&=& g(\xi) e^{-\lambda t} + p(\xi) (1-e^{-\lambda t}),
+\end{eqnarray}
+where $g(\xi)$ is some unknown function of $\xi$ determined by the initial condition at $t=0$. Using the fact that $p(\xi,t=0|\xi_0) = \delta(\xi-\xi_0)$, one finds that $g(\xi) = \delta(\xi-\xi_0)$, therefore
+\begin{equation}
+\boxed{p(\xi, t | \xi_0)  = \delta(\xi-\xi_0) e^{-\lambda t} + p(\xi) (1-e^{-\lambda t})}~.
+\end{equation}
+
+\textbf{(b):} 
+From the correlation function (Eq. (5.31) in the textbook) one has that
+\begin{eqnarray}
+\avg{\delta \xi(0) \delta \xi(t)} &=& \int d \xi_1\int d\xi_2~\xi_1~\xi_2 ~p(\xi_2, t|\xi_1)~p(\xi_1) - \avg{\xi}^2 \nonumber \\
+&=& e^{-\lambda t} \int d \xi_1\int d\xi_2~\xi_1~\xi_2 ~p(\xi_1)~\delta(\xi_2-\xi_1)  \nonumber \\
+&+&(1-e^{-\lambda t}) \times \int d \xi_1~\xi_1~p(\xi_1) \int d\xi_2~\xi_2 ~p(\xi_2) - \avg{\xi}^2 \nonumber \\
+&=& e^{-\lambda t} \times \int d \xi~\xi^2 ~p(\xi) + (1-e^{-\lambda t}) \avg{\xi}^2 - \avg{\xi}^2 \nonumber \\
+&=& \boxed{e^{-\lambda t} \underbrace{(\avg{\xi^2} - \avg{\xi}^2)}_{\equiv \avg{(\delta \xi)^2}}}~. \nonumber \\
+\end{eqnarray}

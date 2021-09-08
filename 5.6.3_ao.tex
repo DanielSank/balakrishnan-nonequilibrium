@@ -1,0 +1,199 @@
+\levelstay{Problem 5.6.3 (AO)}
+
+
+Consider a transition rate of the form 
+\begin{equation}
+w(\xi|\xi') = u(\xi) \lambda(\xi') \label{eq:kangaroo_rate}
+\end{equation} 
+in the master equation
+\begin{equation}
+\pt p(\xi, t | \xi_0) = \int d\xi' \bigg\{ p(\xi', t | \xi_0) w(\xi|\xi') -  p(\xi, t, |\xi_0) w(\xi'|\xi) \bigg\}. \nonumber
+\end{equation}
+By Eq (\ref{eq:kangaroo_rate}), we have that
+\begin{equation}
+\pt p(\xi, t | \xi_0) = u(\xi) \int d \xi'~p(\xi', t | \xi_0) ~\lambda(\xi') - p(\xi, t, |\xi_0)~\lambda(\xi) \int d \xi' u(\xi'). \label{eq:kangaroo_master}
+\end{equation}
+Taking the limit of this equation as $t\rightarrow \infty$ yields\footnote{This assumes that $\lim_{t\rightarrow \infty} p(\xi, t| \xi_0) = p(\xi)$, in other words, the conditional probability $p(\xi, t | \xi_0)$ tends to the stationary PDF $p(\xi)$ at very long times.}
+\begin{eqnarray}
+\lim_{t\rightarrow \infty} \pt p(\xi, t| \xi_0) &=& 0 \nonumber \\
+&=& u(\xi) \underbrace{\int d \xi'~p(\xi') \lambda(\xi')}_{\equiv~\avg{\lambda}} -  p(\xi) \lambda(\xi) \underbrace{\int d \xi' u(\xi')}_{\equiv ~c} \nonumber \\
+&=&  u(\xi)\avg{\lambda} -  p(\xi) \lambda(\xi) c. \nonumber
+\end{eqnarray}
+This implies that
+\begin{equation}
+u(\xi) = \frac{p(\xi) \lambda(\xi)c}{\avg{\lambda}}. \nonumber \label{eq:kangaroo_u_of_xi}
+\end{equation}
+Using Eq. (\ref{eq:kangaroo_u_of_xi}), we can rewrite Eq. (\ref{eq:kangaroo_master}) as
+\begin{equation}
+\pt p(\xi, t | \xi_0) = \bigg( \frac{p(\xi)\lambda(\xi)c}{\avg{\lambda}} \int d \xi'~p(\xi', t | \xi_0)~\lambda(\xi') \bigg) - p(\xi, t | \xi_0) \lambda(\xi) c. \label{eq:kangaroo_simplified_master}
+\end{equation}
+In what follows, we take $c=1$.
+
+The Laplace transform\footnote{The Laplace transform of $f(t)$ is given by $\tilde{f}(s) \equiv \laplace{f(t)}$.} of Eq. (\ref{eq:kangaroo_simplified_master}) is given by\footnote{We assume that $p(\xi,t=0|\xi_0) = \delta(\xi-\xi_0)$.}
+\begin{eqnarray}
+\laplace{\bigg(\pt p(\xi, t|\xi_0) \bigg)} &=& p(\xi, t | \xi_0) e^{-s t} \bigg|^{\infty}_{0^-} + s\laplace{p(\xi, t|\xi_0)} \nonumber \\
+&=& - \delta(\xi-\xi_0) + s \tilde{p}(\xi, s) \nonumber \\
+&=&  \frac{p(\xi)\lambda(\xi)}{\avg{\lambda}} \int d \xi'~\tilde{p}(\xi', s)~\lambda(\xi') - \tilde{p}(\xi, s) \lambda(\xi)  \nonumber.
+\end{eqnarray}
+Rearranging this equation, one has that
+\begin{equation}
+- \delta(\xi-\xi_0) + (\lambda(\xi)+s) \tilde{p}(\xi, s) =  \frac{p(\xi)\lambda(\xi)}{\avg{\lambda}}  \int d \xi'~\tilde{p}(\xi', s)~\lambda(\xi'), \nonumber
+\end{equation}
+in other words
+\begin{equation}
+\tilde{p}(\xi, s) = \frac{\delta(\xi-\xi_0)}{(\lambda(\xi)+s)} + \frac{1}{\avg{\lambda}} \times \frac{p(\xi)\lambda(\xi)}{(\lambda(\xi)+s))}  \int d \xi'~\lambda(\xi')~\tilde{p}(\xi', s). \label{eq:kangaroo_integral_equation}
+\end{equation}
+
+\textbf{(a):} To solve Eq. (\ref{eq:kangaroo_integral_equation}), we note that it is of the form
+\begin{equation}
+f(\xi) - \lambda \int_{a}^{b} d \xi'~K(\xi, \xi')~f(\xi') = g(\xi), \label{eq:fredholm}
+\end{equation}
+which is an inhomogenous Fredholm integral equation of the equation of the second kind.
+As noted by Balakrishnan, the kernel of this integral equation is separable and of rank one, meaning that
+\begin{eqnarray}
+K(\xi, \xi') &=& \sum_{j=1}^{\infty} \phi_j(\xi) \psi_j^*(\xi') \nonumber \\
+&=& \bigg(\frac{p(\xi)\lambda(\xi)}{(\lambda(\xi)+s))} \bigg) \times \bigg(  \lambda(\xi') \bigg), \nonumber
+\end{eqnarray}
+where the sum terminates after $j=1$. To be explicit, we have made the following identifications:
+\begin{eqnarray}
+f(\xi) &=& \tilde{p}(\xi, s), \\
+\lambda &=& 1/\avg{\lambda}, \\
+g(\xi) &=& \frac{\delta(\xi-\xi_0)}{(\lambda(\xi)+s)} \\
+\phi_1(\xi) &=& \frac{\lambda(\xi) p(\xi)c}{(\lambda(\xi)+s)} , \\
+\psi_1^*(\xi') &=& \lambda(\xi').
+\end{eqnarray}
+
+Converting Eq. (\ref{eq:fredholm}) into bra-ket notation, we have that
+\begin{equation}
+\ket{f} - \lambda \textbf{K} \ket{f} = (\textbf{I} - \lambda \textbf{K}) \ket{f} = \ket{g}, \label{eq:braket_conversion}
+\end{equation}
+where 
+\begin{equation}
+\textbf{I} = \int_{a}^{b} d \xi'~\ket{\xi'} \bra{\xi'}, \nonumber
+\end{equation}
+\begin{equation}
+\textbf{K} = \sum_{j=1}^{r} \ket{\phi_j} \bra{\psi_j}, \label{eq:kernel_operator}
+\end{equation}
+$K(\xi, \xi') = \bra{\xi} \textbf{K} \ket{\xi'}$, $f(\xi) = \braket{\xi}{f}$, and $g(\xi) = \braket{\xi}{g}$. Substituting Eq. (\ref{eq:kernel_operator}) into Eq. (\ref{eq:braket_conversion}) yields
+\begin{equation}
+\ket{f} - \lambda \sum_{j=1}^{r} C_j \ket{\phi_j} = \ket{g}, \nonumber
+\end{equation}
+where $C_j = \braket{\psi_j}{f}$. To determine $C_1$, we take the inner product of this equation with $\bra{\psi_1}$, which gives us
+\begin{equation}
+C_1 - \lambda \braket{\psi_1}{\phi_1} C_1 = \braket{\psi_1}{g}. \nonumber
+\end{equation}
+Converting back into the $\xi$-basis, one has that
+\begin{equation}
+C_1\times \bigg( 1 - \lambda \int d \xi' \psi^*_1(\xi')\phi_1(\xi') \bigg) = \int d \xi' \psi^*_1(\xi') g(\xi'), \nonumber
+\end{equation}
+or equivalently that
+\begin{eqnarray}
+C_1\times \bigg( 1 - \frac{1}{\avg{\lambda}} \int d \xi' \frac{\lambda^2(\xi') p(\xi')}{(\lambda(\xi')+s))} \bigg) &=& \int d \xi' \lambda(\xi') \frac{\delta(\xi'-\xi_0)}{(\lambda(\xi')+s)} \nonumber \\
+&=& \frac{\lambda(\xi_0) }{(\lambda(\xi_0)+s)}. \nonumber
+\end{eqnarray}
+Rearranging for $C_1$ gives
+\begin{eqnarray}
+C_1 &=& \bigg(\frac{\lambda(\xi_0) }{(\lambda(\xi_0)+s)}\bigg) \times \bigg( \frac{1}{ 1 - \frac{1}{\avg{\lambda}} \int d \xi' \frac{\lambda^2(\xi') p(\xi')}{(\lambda(\xi')+s))}} \bigg) \\
+&=& \bigg(\frac{\lambda(\xi_0) }{(\lambda(\xi_0)+s)}\bigg) \times \frac{1}{\phi(s)}~.
+\end{eqnarray}
+The solution for $\tilde{p}(\xi, s)$ is
+%\begin{equation}
+%\underbrace{\tilde{p}(\xi, s)}_{f(\xi)} = \underbrace{\frac{\delta(\xi-\xi_0)}{s + \lambda(\xi)}}_{g(\xi)} + \underbrace{\frac{1}{\avg{\lambda}}}_{\lambda} \underbrace{ \Bigg[ \bigg( \frac{\lambda(\xi_0) }{s+\lambda(\xi_0)} \bigg)\times \frac{1}{\phi(s)} \Bigg]}_{C_1} \underbrace{\bigg(\frac{\lambda(\xi) p(\xi)}{s+\lambda(\xi)} \bigg)}_{\phi_1(\xi)} \label{eq:kangaroo_final_part_a}
+%\end{equation}
+\begin{equation}
+\boxed{\tilde{p}(\xi, s) = \frac{\delta(\xi-\xi_0)}{(\lambda(\xi)+s)}+ \frac{1}{\avg{\lambda}} \Bigg[ \bigg( \frac{\lambda(\xi_0) }{(\lambda(\xi_0)+s)} \bigg)\times \frac{1}{\phi(s)} \Bigg] \times \frac{\lambda(\xi) p(\xi)}{(\lambda(\xi)+s)} }. \label{eq:kangaroo_final_part_a}
+\end{equation}
+
+\textbf{(b):} Letting $\lambda(\xi) = \lambda$ in Eq. (\ref{eq:kangaroo_final_part_a}) yields\footnote{For a Kubo-Anderson process, one can prove that $u(\xi)=p(\xi)$, which implies that $c=\int u(\xi) d\xi =1$.} 
+\begin{eqnarray}
+\tilde{p}(\xi, s) &=& \frac{\delta(\xi-\xi_0)}{\lambda+s} + \frac{1}{\lambda} \times \bigg(\frac{\lambda}{\lambda+s}\bigg)^2 \times \bigg(\frac{p(\xi)}{1-\frac{\lambda}{(\lambda+s)}} \bigg) \\
+&=& \frac{\delta(\xi-\xi_0)}{\lambda+s} + \frac{\lambda}{(\lambda+s)} \times \frac{p(\xi)}{s} \\
+&=& \frac{\delta(\xi-\xi_0)}{\lambda+s} + p(\xi) \times \bigg(\frac{1}{s} - \frac{1}{(\lambda+s)} \bigg).
+\end{eqnarray}
+Recall the following inverse Laplace transforms:
+\begin{eqnarray}
+\mathcal{L}^{-1}\bigg( \frac{1}{\lambda+s} \bigg) &=& e^{-\lambda t} \nonumber \\
+\mathcal{L}^{-1}\bigg( \frac{1}{s} \bigg) &=& 1 \nonumber.
+\end{eqnarray}
+From these it follows that
+\begin{equation}
+\boxed{\mathcal{L}^{-1}( \tilde{p}(\xi, s) ) = p(\xi, t|\xi_0) = \delta(\xi-\xi_0) e^{-\lambda t} + p(\xi) \times(1-e^{-\lambda t})}~.
+\end{equation}
+
+\textbf{(c):} Using the definition of the autocorrelation function
+\begin{equation}
+C(t) = \frac{\avg{\xi(0) \xi(t)}}{\avg{\xi^2}} = \frac{\int d \xi_0 \int d \xi~\xi_0~\xi~p(\xi, t|\xi_0)~p(\xi_0)}{ \int d\xi~\xi^2~p(\xi)},
+\end{equation}
+and taking the Laplace transform yields
+\begin{equation}
+\tilde{C}(s) = \frac{1}{\avg{\xi^2}} \int d \xi_0 \int d \xi ~\xi_0~\xi~ \tilde{p}(\xi, s)~p(\xi_0). \label{eq:kangaroo_laplace_corr}
+\end{equation}
+Now assume $\xi \in (-\infty, \infty)$, and that $p(\xi)$ and $\lambda(\xi)$ are even functions. Substituting Eq. (\ref{eq:kangaroo_final_part_a}) into Eq. (\ref{eq:kangaroo_laplace_corr}) gives us
+\begin{eqnarray}
+\tilde{C}(s) &=& \frac{1}{\avg{\xi^2}} \Bigg\{\int d \xi_0 \int d \xi ~\xi_0~\xi~ \frac{\delta(\xi-\xi_0)}{(\lambda(\xi)+s)} ~p(\xi_0) \\
+&+&\frac{1}{\phi(s) \avg{\lambda}}  \underbrace{\int d \xi_0~\xi_0 \bigg( \frac{\lambda(\xi_0) }{(1\lambda(\xi_0)+s)} \bigg) p(\xi_0)}_{=0~(\text{odd integrand})} \underbrace{\int d \xi ~\xi~ \bigg(\frac{\lambda(\xi)}{(1\lambda(\xi)+s)} \bigg) p(\xi)}_{=0~(\text{odd integrand})} \Bigg\} \\
+&=& \frac{1}{\avg{\xi^2}} \int d \xi ~\xi^2~ \frac{1}{(1\lambda(\xi)+s)} ~p(\xi).
+\end{eqnarray}
+Upon taking the inverse Laplace transform, one has that
+\begin{equation}
+\boxed{C(t) = \frac{1}{\avg{\xi^2}} \int d \xi ~\xi^2~ e^{-\lambda(\xi) t } ~p(\xi)}~. \label{eq:kangaroo_final_part_c}
+\end{equation}
+
+\textbf{(d):} Assume $\lambda(\xi) = \alpha |\xi|^\beta$, where $\alpha, \beta>0$. Then
+\begin{equation}
+C(t) = \frac{1}{\avg{\xi^2}} \int_{-\infty}^{\infty} d \xi ~\xi^2~ e^{-\alpha |\xi|^\beta t}  ~p(\xi) = \frac{2}{\avg{\xi^2}} \int_{0}^{\infty} d \xi ~\xi^2~ e^{-\alpha \xi^\beta t}  ~p(\xi).
+\end{equation}
+Making the change of variables $z= \alpha \xi^\beta t$, one has that $dz = \alpha \beta \xi^{\beta-1} t d \xi$. Solving for $\xi$ and $d \xi$ in terms of $z$ and $dz$ yields:
+\begin{equation}
+\xi = \bigg( \frac{z}{\alpha t}\bigg)^\frac{1}{\beta}
+\end{equation}
+and
+\begin{equation}
+d\xi = dz \times \frac{1}{\alpha \beta t}\bigg( \frac{z}{\alpha t}\bigg)^\frac{1-\beta}{\beta}.
+\end{equation}
+Substituting these expressions into the integral above yields
+
+\begin{eqnarray}
+C(t) &=& \frac{2}{\avg{\xi^2}} \int_{0}^{\infty} dz \frac{1}{\alpha \beta t}\bigg( \frac{z}{\alpha t}\bigg)^\frac{1-\beta}{\beta} ~\bigg( \frac{z}{\alpha t}\bigg)^\frac{2}{\beta}~ e^{-z}  ~p((z/\alpha t)^\frac{1}{\beta}) \\
+&=& \frac{2}{\avg{\xi^2}} \bigg(\frac{1}{\beta} \bigg) \bigg(\frac{1}{\alpha t}  \bigg)^{\frac{3}{\beta}}  \int_{0}^{\infty} z^\frac{3-\beta}{\beta} e^{-z}  ~p((z/\alpha t)^\frac{1}{\beta}) \\
+&\propto& t^{-3/\beta}.
+\end{eqnarray}
+Since $(3-\beta)/\beta > -1$, the integral of $z^{(3-\beta)/ \beta} e^{-z}$ poses no difficulties as $z\rightarrow0$. Similarly, as $z\rightarrow \infty$ this term rapidly decays.
+
+\textbf{(e):} Let us define
+\begin{equation}
+f(\xi, t) = \xi^2 \exp(-t\lambda(\xi)) 
+\end{equation}
+such that Eq. (\ref{eq:kangaroo_final_part_c}) can be written as
+\begin{equation}
+C(t) = \frac{1}{\avg{\xi^2}} \int d \xi~f(\xi, t) ~p(\xi).  \label{eq:kangaroo_correlation_fxn_in_f}
+\end{equation}
+The maximum of $f(\xi, t)$ is given by
+\begin{equation}
+\frac{\partial}{\partial \xi} f(\xi, t) = 2 \xi \exp(-t \lambda(\xi)) -  t \lambda'(\xi) \exp(-t \lambda(\xi)) \xi^2 = 0, \nonumber
+\end{equation}
+which implies
+\begin{equation}
+2 = \xi  t \lambda'(\xi). \nonumber
+\end{equation}
+Let us denote the solution of this equation by $\bar{\xi}_t$, i.e., $\bar{\xi}_t t \lambda'(\bar{\xi}_t) = 2$. 
+
+The curvature of $f(\xi, t)$ is given by
+\begin{equation}
+\frac{\partial^2}{\partial \xi^2} f(\xi, t) = \exp(-t \lambda(\xi)) \times \bigg( 2 - 4 \xi  t \lambda'(\xi)  - t  \lambda''(\xi) \xi^2  + (\xi  t \lambda')^2 \bigg). \nonumber
+\end{equation}
+Evaluating this function at $\bar{\xi}_t$ yields
+\begin{equation}
+\frac{\partial^2}{\partial \xi^2} f(\xi, t) \bigg|_{\bar{\xi}_t} =  \exp(- t \lambda(\bar{\xi}_t)) \times \bigg(-2 -  t \lambda''(\bar{\xi}_t) \bar{\xi}_t^2\bigg). \nonumber
+\end{equation}
+Approximating $f(\xi, t)$ as a Taylor expansion about $\bar{\xi}_t$ shows that
+\begin{eqnarray}
+f(\xi, t)  &\approx &  \bar{\xi}_t^2 \exp(- t \lambda(\bar{\xi}_t)) \times \bigg\{1 -\bigg[2/\bar{\xi}_t^2 +  t \lambda''(\bar{\xi}_t)\bigg] \times (\xi - \bar{\xi}_t)^2  \bigg\} + \mathcal{O}((\xi - \bar{\xi}_t)^3) \nonumber \\
+&\approx & \bar{\xi}_t^2 \exp(- t \lambda(\bar{\xi}_t)) \times \exp\bigg(-\bigg[2/\bar{\xi}_t^2 +  t \lambda''(\bar{\xi}_t)\bigg] \times (\xi - \bar{\xi}_t)^2\bigg). \label{eq:kangaroo_gaussian_approx}
+\end{eqnarray}
+Approximating $f(\xi, t)$ by Eq. (\ref{eq:kangaroo_gaussian_approx}) and substituting it into Eq. (\ref{eq:kangaroo_correlation_fxn_in_f}) shows that
+\begin{eqnarray}
+C(t) &\approx& \frac{\bar{\xi}_t^2 \exp(-t \lambda(\bar{\xi}_t))}{\avg{\xi^2}} \int d \xi~  \exp\bigg(-\bigg[2/\bar{\xi}_t^2 +  t \lambda''(\bar{\xi}_t)\bigg] \times (\xi - \bar{\xi}_t)^2\bigg) ~p(\xi) \nonumber  \\
+&\approx&  \frac{\bar{\xi}_t^2 \exp(- t \lambda(\bar{\xi}_t))}{\avg{\xi^2}} \frac{\sqrt{\pi}}{\bigg[2/\bar{\xi}_t^2+  t \lambda''(\bar{\xi}_t) \bigg]^{1/2}} \times p(\bar{\xi}_t) \nonumber \\
+&\propto& \boxed{ \frac{\bar{\xi}_t^3 \exp(- t \lambda(\bar{\xi}_t))}{\bigg[\bar{\xi}_t^2  \lambda''(\bar{\xi}_t)  t + 2 \bigg]^{1/2}} }~.
+\end{eqnarray}

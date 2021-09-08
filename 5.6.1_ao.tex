@@ -1,0 +1,64 @@
+\levelstay{Problem 5.6.1 (AO)}
+
+\textbf{(a):} Define the transition rate from state $\xi_1 \rightarrow \xi_2$ as $\lambda_1=1/\tau_1$, and the transition rate from state $\xi_2 \rightarrow \xi_1$ as $\lambda_2=1/\tau_2$. Then
+\begin{eqnarray}
+\pt p(\xi_1, t|\xi_0) &=& \lambda_2 p(\xi_2, t|\xi_0) - \lambda_1 p(\xi_1, t|\xi_0) \nonumber \\
+\pt p(\xi_2, t|\xi_0) &=& \lambda_1 p(\xi_1, t|\xi_0) - \lambda_2 p(\xi_2, t|\xi_0), \nonumber
+\end{eqnarray}
+where $\xi_0$ is the initial state. Noting that $p(\xi_1, t| \xi_0) + p(\xi_2, t| \xi_0) = 1$ and taking the limit as $t\rightarrow \infty$ yields \footnote{We assume that $\lim_{t\rightarrow \infty} p(\xi_i, t|\xi_0) = p(\xi_i)$.}
+\begin{eqnarray}
+p(\xi_1) &=& \frac{\lambda_2}{(\lambda_2 + \lambda_1)} = \frac{\tau_1}{\tau_1 + \tau_2} \nonumber \\
+p(\xi_2) &=& \frac{\lambda_1}{(\lambda_2 + \lambda_1)} = \frac{\tau_2}{\tau_1 + \tau_2}. \nonumber
+\end{eqnarray}
+The expectation value of $\xi$ is then
+\begin{eqnarray}
+\avg{\xi} &=& \sum_{i=1}^{2} \xi_i p(\xi_i) \nonumber \\
+&=& \xi_1 \times \frac{\tau_1}{\tau_1 + \tau_2} + \xi_2 \times \frac{\tau_2}{\tau_1 + \tau_2} \nonumber \\
+&=& \boxed{\frac{\tau_1 \xi_1 + \tau_2 \xi_2}{\tau_1 + \tau_2}}~. \nonumber
+\end{eqnarray}
+The standard deviation of $\xi$ is
+\begin{eqnarray}
+\avg{(\xi-\avg{\xi})^2} &=& \sum_{i=1}^{2} (\xi_i - \avg{\xi})^2 p(\xi_i) \nonumber \\ 
+&=& \bigg(\xi_1 - \frac{\tau_1 \xi_1 + \tau_2 \xi_2}{\tau_1 + \tau_2}\bigg)^2 \times \frac{\tau_1}{\tau_1 + \tau_2} + \bigg(\xi_2 - \frac{\tau_1 \xi_1 + \tau_2 \xi_2}{\tau_1 + \tau_2}\bigg)^2 \times \frac{\tau_2}{\tau_1 + \tau_2} \nonumber \\
+&=& \bigg(\frac{\tau_2 \xi_1 - \tau_2 \xi_2}{\tau_1 + \tau_2}\bigg)^2 \times \frac{\tau_1}{\tau_1 + \tau_2} + \bigg(\frac{\tau_1 \xi_2 - \tau_1 \xi_1}{\tau_1 + \tau_2}\bigg)^2 \times \frac{\tau_2}{\tau_1 + \tau_2} \nonumber \\
+&=& \frac{(\xi_1-\xi_2)^2}{(\tau_1 + \tau_2)^3} \times ( \tau_1^2 \tau_2 + \tau_1 \tau_2^2)~. \nonumber \\
+&=& \boxed{\frac{\tau_1 \tau_2 (\xi_1-\xi_2)^2}{(\tau_1 + \tau_2)^2}} ~. \nonumber \\
+\end{eqnarray}
+
+\textbf{(b):} Using the equations
+\begin{equation}
+\textbf{W} = \left[\begin{array}{cc} -\lambda_1 & \lambda_2 \\ \lambda_1 & -\lambda_2 \end{array}\right]
+\end{equation}
+and
+\begin{equation}
+\textbf{W}^2 = -(\lambda_1 + \lambda_2) \textbf{W}
+\end{equation}
+we find that
+\begin{eqnarray}
+e^{\textbf{W}t} &=& \textbf{1} + (\textbf{W}t) + \frac{(\textbf{W}t)^2}{2!} + \frac{(\textbf{W}t)^3}{3!} + \frac{(\textbf{W}t)^4}{4!} + \cdots \nonumber \\
+&=& \textbf{1} + \textbf{W} \times \bigg( t - \frac{(\lambda_1 + \lambda_2)t^2}{2!} + \frac{(\lambda_1 + \lambda_2)^2 t^3}{3!} - \frac{(\lambda_1 + \lambda_2)^3 t^4}{4!} + \cdots \bigg) \nonumber \\
+&=& \textbf{1} + \frac{\textbf{W}}{(\lambda_1 + \lambda_2)} \times \bigg(1-\exp(-t(\lambda_1 + \lambda_2))\bigg) \nonumber \\
+&=& \frac{1}{2\lambda} \left[\begin{array}{cc} \lambda_2 + \lambda_1 e^{-2 \lambda t} & \lambda_2 (1-e^{-2 \lambda t}) \\ \lambda_1 (1-e^{-2 \lambda t}) & \lambda_1 + \lambda_2 e^{-2 \lambda t} \end{array}\right].
+\end{eqnarray}
+From the relation $\text{P}(t) = e^{\textbf{W}t} \text{P}(0)$, the conditional probabilities are
+\begin{eqnarray}
+P(\xi_1, t|\xi_1) &=& \left[\begin{array}{cc} 1 & 0  \end{array}\right] e^{\textbf{W}t} \left[\begin{array}{c} 1 \\ 0  \end{array}\right] = (\lambda_2 + \lambda_1 e^{-2 \lambda t}) / (\lambda_1 + \lambda_2) \\
+P(\xi_2, t|\xi_1) &=& \left[\begin{array}{cc} 0 & 1  \end{array}\right] e^{\textbf{W}t} \left[\begin{array}{c} 1 \\ 0  \end{array}\right] = \lambda_1 (1-e^{-2 \lambda t}) / (\lambda_1 + \lambda_2) \\
+P(\xi_1, t|\xi_2) &=& \left[\begin{array}{cc} 1 & 0  \end{array}\right] e^{\textbf{W}t} \left[\begin{array}{c} 0 \\ 1  \end{array}\right] = \lambda_2 (1-e^{-2 \lambda t}) / (\lambda_1 + \lambda_2) \\
+P(\xi_2, t|\xi_2) &=& \left[\begin{array}{cc} 0 & 1  \end{array}\right] e^{\textbf{W}t} \left[\begin{array}{c} 0 \\ 1  \end{array}\right] = (\lambda_1 + \lambda_2 e^{-2 \lambda t}) / (\lambda_1 + \lambda_2).
+\end{eqnarray}
+Taking the limit as $t \rightarrow \infty$ once again shows that  $p(\xi_1) = \lambda_2/(\lambda_1 + \lambda_2)$ and $p(\xi_2) = \lambda_1/(\lambda_1 + \lambda_2)$.
+
+\textbf{(c):}
+\begin{eqnarray}
+\avg{\delta \xi(0) \delta \xi(t)} + \avg{\xi}^2 &=& \sum_{i=1}^{2} \xi_1 p(\xi_1) \sum_{j=1}^{2}  \xi_j p(\xi_j, t| \xi_i) \nonumber \\
+&=& \frac{1}{(\lambda_1 + \lambda_2)}\sum_{j=1}^{2} \bigg\{  \xi_1 \lambda_2 \xi_j p(\xi_j, t| \xi_1) + \xi_2 \lambda_1 \xi_j p(\xi_j, t| \xi_2) \bigg\} \nonumber \\
+&=& \frac{1}{(\lambda_1 + \lambda_2)^2} \bigg\{  \xi_1^2 \lambda_2 (\lambda_2 + \lambda_1 e^{-2 \lambda t}) + \xi_2 \lambda_1 \xi_1 \lambda_2 (1-e^{-2 \lambda t}) \nonumber \\
+&+& \xi_1 \lambda_2 \xi_2 \lambda_1 (1-e^{-2 \lambda t}) + \xi_2^2 \lambda_1 (\lambda_1 + \lambda_2 e^{-2 \lambda t}) \bigg\} \nonumber \\
+&=& \frac{1}{(\lambda_1 + \lambda_2)^2} \bigg\{ (\lambda_2 \xi_1 + \lambda_1 \xi_2)^2  + \lambda_1 \lambda_2 (\xi_1-\xi_2)^2 e^{- 2 \lambda t} \bigg\} \nonumber  \\
+&=& \frac{\lambda_1 \lambda_2 (\xi_1-\xi_2)^2}{(\lambda_1 + \lambda_2)^2} \times e^{- 2 \lambda t} + \avg{\xi}^2
+\end{eqnarray}
+Therefore
+\begin{equation}
+\boxed{\avg{\delta \xi(0) \delta \xi(t)} = \frac{\lambda_1 \lambda_2 (\xi_1-\xi_2)^2}{(\lambda_1 + \lambda_2)^2} \times e^{- 2 \lambda t}}~.
+\end{equation}
