@@ -1,0 +1,51 @@
+\levelstay{Problem 4.5.2 (AO)}
+
+\textbf{(a):} From the definition $M_{kj} = \epsilon_{kjl} n_l$, one has that
+\begin{equation}
+\textbf{M}= \begin{bmatrix}
+0 & n_3 & -n_2\\
+-n_3 & 0 & n_1 \\
+n_2 & -n_1 & 0 
+\end{bmatrix}.
+\end{equation}
+The eigenvalues of this matrix are given by the expression
+\begin{equation}
+\det(\textbf{M}-\lambda \textbf{1})= 0,
+\end{equation}
+which implies that
+\begin{eqnarray} \begin{vmatrix}
+-\lambda & n_3 & -n_2\\
+-n_3 & -\lambda & n_1 \\
+n_2 & -n_1 & -\lambda 
+\end{vmatrix} &=& -\lambda \times \begin{vmatrix}
+-\lambda & n_1 \\
+-n_1 & -\lambda \end{vmatrix} - n_3 \begin{vmatrix}
+-n_3 & n_1 \\
+n_2 & -\lambda 
+\end{vmatrix} - n_2 \begin{vmatrix}
+-n_3 & -\lambda \\
+n_2 & -n_1 
+\end{vmatrix} \\
+&=& -\lambda^3 -\lambda\underbrace{(n_1^2 + n_2 ^ 2 + n_3^2)}_{=1} \\&=&  -\lambda^3 - \lambda = -\lambda(\lambda^2+1) =  0.
+\end{eqnarray}
+This shows that $\lambda = 0, \pm i$ are the eigenvalues of this matrix. By the Cayley-Hamilton theorem one has that $\textbf{M}^3=-\textbf{M}$ as stated in the book.
+
+We compute $\exp(\pm i \textbf{M} \omega_c t)$ as follows\footnote{Notice that $\textbf{M}^3 = -\textbf{M}$, $\textbf{M}^4 = -\textbf{M}^2$, $\textbf{M}^5 = +\textbf{M}$, $\textbf{M}^6 = +\textbf{M}^2$, and so on.}
+\begin{eqnarray}
+\exp(\pm i \textbf{M} \omega_c t) &=& \textbf{1} + (\pm \textbf{M} \omega_c t) + \frac{(\pm \textbf{M} \omega_c t)^2}{2!} + \underbrace{\frac{(\pm \textbf{M} \omega_c t)^3}{3!}}_{-\textbf{M} (\pm \omega_c t)^3/3!} +  \underbrace{\frac{(\pm \textbf{M} \omega_c t)^4}{4!}}_{-\textbf{M}^2 (\pm \omega_c t)^4/4!} + \cdots \nonumber \\
+&=& \textbf{1} + \textbf{M} \times \bigg((\pm \omega_c t) - \frac{(\pm \omega_c t)^3}{3!} + \frac{(\pm \omega_c t)^5}{5!} + \cdots \bigg) \nonumber \\
+&+& \textbf{M}^2\times  \bigg( \frac{(\pm \omega_c t)^2}{2!} -  \frac{(\pm \omega_c t)^4}{4!} +  \frac{(\pm \omega_c t)^6}{6!} + \ldots \bigg) \nonumber \\
+&=& \boxed{1 \pm \textbf{M} \sin(\omega_c t) + \textbf{M}^2 (1-\cos(\omega_c t))}.
+\end{eqnarray}
+
+\textbf{(b):} The $kj^{\text{th}}$ element of $\textbf{M}^2$ is given by
+\begin{eqnarray}
+(\textbf{M}^2)_{kj} = M_{kr} M_{rj} &=& \epsilon_{krl} n_l \times \epsilon_{rjs} n_s \nonumber \\
+&=& -\epsilon_{rkl} n_l \epsilon_{rjs}  n_s \nonumber \\
+&=& -(\delta_{kj} \delta_{ls} - \delta_{ks} \delta_{lj}) n_l n_s \nonumber \\
+&=& (\delta_{ks} \delta_{lj}-\delta_{kj} \delta_{ls}) n_l n_s.
+\end{eqnarray}
+which has implied sums over $l$ and $s$. This term is nonzero only when $(k=s,~l=j)$ or when $(k=j,~l=s)$, meaning that 
+\begin{equation}
+\boxed{M_{kr} M_{rj} = n_k n_j - \delta_{k,j} (n_1^2 + n_2^2 + n_3^2) = n_k n_j - \delta_{j, k}}~.
+\end{equation}
