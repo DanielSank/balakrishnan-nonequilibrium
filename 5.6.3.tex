@@ -4,7 +4,8 @@
 
 \levelstay{Solution}
 
-For part a) we need to formally solve the integral equation
+\leveldown{Part a}
+We need to formally solve the integral equation
 \begin{equation}
   \tilde{p}(\xi, s)
   = \frac{\delta(\xi - \xi_0)}{s + \lambda(\xi)}
@@ -44,7 +45,8 @@ where
 \end{equation}
 which is what we wanted to show.
 
-For part b), we assume $\lambda(\xi) = \text{const.}$ and see if we can recover the result from the previous problem.
+\levelstay{Part b}
+We assume $\lambda(\xi) = \text{const.}$ and see if we can recover the result from the previous problem.
 If $\lambda(\xi)$ is constant, then
 \begin{align}
   \phi(s)
@@ -65,3 +67,63 @@ Sticking that into our solution for $\tilde{p}(\xi, s)$ we get
   p(\xi, t) &= \delta(\xi - \xi_0) e^{-\lambda t} + p(\xi) \left( 1 - e^{-\lambda t} \right) \nonumber
 \end{align}
 which is what we wanted to show.
+
+\levelstay{Part c}
+Now we find the autocorrelation function.
+\begin{align}
+  \tilde{C}(s)
+  &= \frac{1}{\angavg{\xi^2}}
+    \left( \int d\xi_0 \int d\xi \right)
+    \xi_0 \, \xi \, \tilde{p}(\xi, s) p(\xi_0)
+    \nonumber \\
+  &= \frac{1}{\angavg{\xi^2}}
+    \left( \int d\xi_0 \int d\xi \right)
+      \xi_0 \, \xi \, p(\xi_0)
+    \left[
+      \frac{\delta(\xi - \xi_0)}{s + \lambda(\xi)} + \frac{p(\xi)\lambda(\xi)\lambda(\xi_0)}{\angavg{\lambda}(s + \lambda(\xi))(s + \lambda(\xi_0))\phi(s)}
+    \right] \nonumber \\
+  &= \frac{1}{\angavg{\xi^2}}
+    \left( \int d\xi_0 \int d\xi \right)
+    \frac{\xi_0 \, \xi \, p(\xi_0) \, \delta(\xi - \xi_0)}{s + \lambda(\xi)}
+    + \frac{\xi_0 \, \xi \, p(\xi_0) p(\xi) \lambda(\xi) \lambda(\xi_0)}{\angavg{\lambda}(s + \lambda(\xi))(s + \lambda(\xi_0))\phi(s)}
+    \nonumber \\
+  &= \int d\xi_0 \frac{\xi_0^2 p(\xi_0)}{s + \lambda(\xi_0)}
+    + \frac{1}{\angavg{\lambda}\phi(s)}
+    \underbrace{\left[
+      \int d\xi \frac{\xi p(\xi)\lambda(\xi)}{s + \lambda(\xi)}
+    \right]^2}_{0\text{ by symmetry}}
+  \nonumber \\
+  \text{(inverse Laplace)} \quad C(t)
+  &= \frac{1}{\angavg{\xi}^2} \int d\xi \, \xi^2 p(\xi) e^{-\lambda(\xi)t} \nonumber
+\end{align}
+
+\levelstay{Part d}
+
+Now we suppose that $\lambda(\xi) = a \abs{\xi}^\beta$ where $\beta > 0$ and $a$ is a constant.
+We want to show that in the limit $t \rightarrow \infty$ the correlation function goes as $t^{-3/\beta}$.
+This is actually quite easy through a simple change of variables.
+\begin{align*}
+  C(t)
+  &= \frac{1}{\angavg{\xi^2}} \int dx \, x^2 p(x) e^{-\lambda(x) t} \nonumber \\
+  &\propto \int dx \, x^2 p(x) e^{-a \abs{x}^\beta t} \nonumber \\
+  (\text{Assume }p\text{ is even}) \quad
+  &\propto \int_0^\infty dx \, x^2 p(x) e^{-a x^\beta t} \, . \nonumber
+\end{align*}
+Define $y = t \, x^\beta$ so that
+\begin{equation*}
+  dx = dy \beta^{-1} y^{(1 - \beta )/ \beta} t^{-1/\beta} \, .
+\end{equation*}
+Then the correlation function is
+\begin{align*}
+  C(t)
+  &\propto t^{-3/\beta} \int_0^\infty dy \, y^{(3 - \beta) / \beta}
+    p\left( (y/t)^{1/\beta} \right) e^{-a y}
+\end{align*}
+which is what we wanted to show if the dependence of the integral vanishes as $t \rightarrow \infty$.
+Indeed, as $t$ becomes large, the argument of the $p$ function becomes significantly different from zero only when $y$ is also large.
+However, contributions to the integral from large $y$ are suppressed by the exponential factor.
+Therefore, as $t \rightarrow \infty$, we can approximate
+\begin{equation*}
+  C(t) \propto t^{-3 / \beta} \int_0^\infty dy \, y^{(3 - \beta) / \beta} p(0) e^{-a y} \propto t^{-3 / \beta}
+\end{equation*}
+as we wanted to show.
