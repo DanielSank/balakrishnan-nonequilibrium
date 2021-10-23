@@ -1,0 +1,72 @@
+\levelstay{Problem 7.5.1}
+
+\leveldown{Problem}
+
+Solve the diffusion equation
+\begin{equation*}
+  \left( \frac{\partial}{\partial t} - D \frac{\partial^2}{\partial x^2} \right) p(x, t) = 0 \, .
+\end{equation*}
+
+\levelstay{Solution}
+
+We solve this problem using Fourier transforms only, no Laplace, and we do it in a way that
+\begin{itemize}
+    \item Illuminates the meaning of the Laplace transform, and
+    \item sets us up nicely for the next exercise by solving for the Green's function of the diffusion equation.
+\end{itemize}
+In the next exercise, we'll introduce a notation that makes thinking about this type of problem much, much easier.
+
+Balki sure likes the Laplace transform, but I find it somewhat mysterious, especially because I don't understand its formal inverse.
+Furthermore, I find it confusing that Balki's solution to the Diffusion equation, Eq.~(7.11) in the text, isn't just zero for all $x$ and $t$, because he didn't include any source terms or boundary conditions in the original statement of the problem (Eq.~(7.1)).
+I'm going to address these confusions head on.
+
+Start with the diffusion equation \emph{including a source term}
+\begin{equation*}
+  \left( \frac{\partial}{\partial t} - D \frac{\partial^2}{\partial x^2} \right) p(x, t) = J(x, t) \, .
+\end{equation*}
+The function $J(x,t)$ indicates addition of probability density at various times and places.
+Of course, $p(x, t)$ can only be interpreted as a probability if the integral over all $x$ of $J(x, t)$ is zero for every $t$, as otherwise we'd be creating or destroying probability.
+In the case that $J$ is not restricted in this way, we can just think of $p$ as an un-normalized population distribution instead of a probability.
+On the other hand, allowing for the destruction of probability is completely reasonable if we want to consider e.g. a case where the diffusing particle can be lost.
+
+Anyway, for this problem let's consider the case where $J(x, t) = \delta(x - x_0) \delta(t - t_0)$, because that's what Balki is doing implicitly when he uses the Laplace transform solution.
+This choice of $J$ means that we're creating 1 unit of probability at position $x_0$ at time $t_0$.
+
+The probability $p(x, t)$ can be expressed as a Fourier transform
+\begin{equation*}
+  p(x, t) = \int \frac{dk}{2\pi} \int \frac{d \omega}{2\pi} \tilde{p}(k, \omega)
+  e^{i k x} e^{i \omega t}
+\end{equation*}
+Plugging this Fourier transform into the diffusion equation, we get
+\begin{equation*}
+  (i \omega + D k^2)\tilde{p}(k, \omega) = \tilde{J}(k, \omega)
+\end{equation*}
+and noting that
+\begin{equation*}
+  \tilde{J}(k, \omega) = \exp \left(-i (k x_0 + \omega t_0) \right)
+\end{equation*}
+we have
+\begin{equation*}
+  \tilde{p}(k, \omega) = \frac{e^{-i(kx_0 + \omega t_0)}}{i \omega + D k^2} \, .
+\end{equation*}
+Then
+\begin{align*}
+  p(x, t)
+  &= \int \frac{dk}{2\pi}\int \frac{d\omega}{2\pi}
+    \frac{e^{i k (x - x_0)} e^{i \omega (t - t_0)}}{i \omega + D k^2} \\
+  &= -i \int \frac{dk}{2\pi} \, e^{i k (x - x_0)}
+    \int \frac{d \omega}{2\pi} \frac{e^{i \omega (t - t_0)}}{\omega - i D k^2}
+  \, .
+\end{align*}
+The integral over $\omega$ can be done using contour integration.
+There's a pole at $\omega = i D k^2$ which we pick up if we close the contour in the upper half plane, which is appropriate when $t > t_0$.
+On the other hand, when $t < t_0$ we close the contour in the lower half plane, there's no pole, and so $p(x, t < t_0) = 0$, which makes sense because for $t < t_0$ the source term hasn't injected any probability.
+Doing the contour integral for the $t > t_0$ case we get
+\begin{align*}
+  p(x, t)
+  &= \int \frac{dk}{2 \pi} e^{i k (x - x_0) - D k^2 (t - t_0)} \\
+  &= \frac{1}{\sqrt{4 \pi D (t - t_0)}} \exp \left( - \frac{(x - x_0)^2}{4 D (t - t_0)} \right)
+  \, .
+\end{align*}
+If we choose $x_0 = 0$ and $t_0 = 0$ then we get what Balki wants us to show.
+Note, of course, that by solving this problem with a more general source, we've derived exactly Balki's Green's function from Eq.~(7.26).
