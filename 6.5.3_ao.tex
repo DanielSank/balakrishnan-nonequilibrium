@@ -1,0 +1,116 @@
+\levelstay{Problem 6.5.3 (AO)}
+\textbf{(a)} Calculate the two-time joint probability density
+\begin{equation}
+p_2(v_2,t_2;v_1,t_1) \equiv p_2(v_2, t_2 | v_1, t_1)~p_1(v_1, t_1),
+\end{equation}
+where $t_2>t_1$.
+
+By Eqs. (5.4)-(5.5) from the textbook, one has that $p_1(v_1, t_1)=p_1(v_1)$ and $p_2(v_2, t_2 | v_1, t_1) = p_2(v_2, t_2-t_1 | v_1)$ as $v$ is a stationary process. From here it follows that
+\begin{eqnarray}
+p_2(v_2,t_2;v_1,t_1) &=& p_2(v_2, \underbrace{t_2-t_1}_{\equiv\tau_{2,1}} | v_1) p_1(v_1) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma \tau_{2,1}})}\bigg]^{1/2} \exp\bigg(\frac{-m(v_2-v_1 e^{-\gamma \tau_{2,1}})^2}{2 k T (1-e^{-2\gamma \tau_{2,1}})}\bigg) \nonumber \\
+&\times& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \exp\bigg(\frac{-mv_1^2}{2 k T}\bigg) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma \tau_{2,1}})^{1/2}}\bigg] \times \exp\bigg(\frac{-m(v_2-v_1 e^{-\gamma \tau_{2,1}})^2 -m v_1^2 (1-e^{-2\gamma \tau_{2,1}})}{2 k T (1-e^{-2\gamma \tau_{2,1}})} \bigg) \nonumber \\
+&=& \boxed{\bigg[\frac{m}{2\pi k T (1-e^{-2\gamma \tau_{2,1}})^{1/2}}\bigg] \times \exp\bigg(\frac{-m(v_1^2-2 v_1 v_2 e^{-\gamma \tau_{2,1}} + m v_2^2)}{2 k T (1-e^{-2\gamma \tau_{2,1}})} \bigg)}~.  \label{eq:2_time_joint_probability}
+\end{eqnarray}
+
+\textbf{(b)} Using the Markov property of the velocity process, write down the $n$-time joint probability density $p_n(v_n,t_n;v_{n-1},t_{n-1};\ldots ; v_1, t_1)$ in the form of a generalized Gaussian in the variables $v_1,~v_2, \ldots,~ v_n$.
+
+From Eq. (5.6) in the main text, we have that
+\begin{equation}
+p_n(v_n,t_n;v_{n-1},t_{n-1};\ldots ; v_1, t_1) = \bigg( \prod_{j=2}^{n} p_2(v_j, \tau_{j,j-1}|v_{j-1}) \bigg) \times p_1(v_1),
+\end{equation}
+where $\tau_{j,j-1} \equiv t_{j}-t_{j-1}$. Plugging in the equations for $p_1$ and $p_2$ yields
+\begin{eqnarray}
+p_n(v_n,t_n;v_{n-1},t_{n-1};\ldots ; v_1, t_1) &=& \bigg(\frac{m}{2 \pi k T}\bigg)^{1/2} \frac{1}{[\prod_{j=2}^{n} (1-e^{-2\gamma \tau_{j,j-1}})]^{1/2}} \nonumber \\
+&\times& \exp\bigg\{ \frac{-m v_1^2}{2kT}+\sum_{j=2}^{n} \frac{-m(v_j-v_{j-1} e^{-\gamma \tau_{j,j-1}})^2}{2 k T (1-e^{-2 \gamma \tau_{j,j-1}})}\bigg\}. \label{eq:n_time_joint_probability}
+\end{eqnarray}
+
+Now consider the normalized correlation matrix matrix
+\begin{eqnarray}
+\boldsymbol{\sigma} &\equiv& \avg{(\boldsymbol{\xi} - \boldsymbol{\mu})^{T} (\boldsymbol{\xi} - \boldsymbol{\mu})} \\
+&=& \frac{m}{(kT)} \begin{pmatrix}
+ \avg{v_1(t) v_1(t)} & \avg{v_1(t) v_2(t)} & \cdots & \avg{v_1(t) v_n(t)}  \\
+ \avg{v_2(t) v_1(t)} & \avg{v_2(t) v_2(t)}  & \cdots & \avg{v_2(t) v_n(t)}\\
+ \vdots & \vdots  & \ddots & \vdots \\
+ \avg{v_n(t) v_1(t)} & \avg{v_n(t) v_2(t)}  & \cdots & \avg{v_n(t) v_n(t)}\\
+\end{pmatrix} \\
+&=& \begin{pmatrix}
+ 1 & e^{-\gamma	\tau_{21}} & \cdots & e^{-\gamma \tau_{n1}}  \\
+e^{-\gamma	\tau_{21}} & 1  & \cdots & e^{-\gamma \tau_{n2}}\\
+ \vdots & \vdots  & \ddots & \vdots \\
+ e^{-\gamma \tau_{n1}} & e^{-\gamma \tau_{n2}}  & \cdots & 1\\
+\end{pmatrix}, \\
+\end{eqnarray}
+where $\xi_i = v_i /\sqrt{kT/m}$ and $\tau_{n,m} = \tau_{m,n} = |t_n - t_m|$. To show that $p(\boldsymbol{\xi})$ is of the form\footnote{See Eq. (D.13) in Appendix D of the textbook for further detail.}
+\begin{equation}
+p(\boldsymbol{\xi}) = \frac{1}{\sqrt{(2\pi)^n \text{det} \boldsymbol{\sigma}}} \exp\bigg[-\frac{1}{2} (\boldsymbol{\xi} - \boldsymbol{\mu})^{T} \boldsymbol{\sigma}^{-1} (\boldsymbol{\xi} - \boldsymbol{\mu})\bigg],
+\end{equation}
+let us first compute $\text{det}\boldsymbol{\sigma}$. Using elementary row operations, the matrix $\boldsymbol{\sigma}$ can be cast into the triangular matrix $\boldsymbol{\sigma}'$ given by
+\begin{eqnarray}
+\boldsymbol{\sigma}' = \begin{pmatrix}
+ 1 & e^{-\gamma	\tau_{2,1}} & e^{-\gamma	\tau_{3,1}}& \cdots & e^{-\gamma \tau_{n,1}}  \\
+0 & (1 - e^{-2\gamma \tau_{2,1}})  & e^{-2\gamma \tau_{3,2}} -e^{-\gamma (\tau_{3,1}+\tau_{2,1})}  & \cdots & e^{-\gamma \tau_{n,2}} - e^{-\gamma (\tau_{n,1}+\tau_{2,1})} \\
+0 & 0  & (1-e^{-2\gamma \tau_{3,2}}) & \cdots & e^{-\gamma \tau_{n,3}} - e^{-\gamma(\tau_{n,2}+ \tau_{3,2})} \\
+ \vdots & \vdots  & \vdots & \ddots \\
+ 0 & 0  & 0 & \cdots & (1-e^{-2\gamma \tau_{n,n-1}})\\
+\end{pmatrix}. \\
+\end{eqnarray}
+As $\boldsymbol{\sigma}'$ is triangular, we have that
+\begin{equation}
+\text{det} \boldsymbol{\sigma} = \text{det} \boldsymbol{\sigma}' =   \prod_{j=1}^{n} \sigma'_{j,j} = \prod_{j=2}^{n} (e^{-2\gamma	\tau_{j,j-1}}).
+\end{equation}
+This matches the product inside of $1/[\cdots]^{1/2}$ from Eq. (\ref{eq:n_time_joint_probability}). 
+
+I do not yet have a proof that the argument of the $\exp(\cdots)$ term in Eq. (\ref{eq:n_time_joint_probability}) is equal to $- \avg{(\boldsymbol{\xi} - \boldsymbol{\mu})^{T} \boldsymbol{\sigma}^{-1} (\boldsymbol{\xi} - \boldsymbol{\mu})}/2$ for arbitrary $n$; however, for $n\leq 3$ it is straighforward to see that this formula holds. For example, when $n=2$ we have
+\begin{equation}
+\boldsymbol{\sigma}_{n=2} = \begin{pmatrix}
+ 1 & e^{-\gamma	\tau_{2,1}} \\
+e^{-\gamma	\tau_{2,1}} & 1 \\
+\end{pmatrix} \\
+\end{equation}
+which implies that
+\begin{equation}
+\boldsymbol{\sigma}_{n=2}^{-1} = \frac{1}{1-e^{-2\gamma	\tau_{2,1}}} \begin{pmatrix}
+ 1 & -e^{-\gamma	\tau_{2,1}} \\
+-e^{-\gamma	\tau_{2,1}} & 1 \\
+\end{pmatrix}. \\
+\end{equation}
+Recalling that $\boldsymbol{\mu} = \boldsymbol{0}$, one has that
+\begin{eqnarray}
+-\frac{1}{2}\avg{\boldsymbol{(\xi-\boldsymbol{\mu})}^{T} \boldsymbol{\sigma}^{-1} (\boldsymbol{\xi}-\boldsymbol{\mu})} &=&  -\bigg\{\frac{m}{2kT(1-e^{-2\gamma	\tau_{2,1}})}\bigg\} \begin{pmatrix}
+ v_1 & v_2 \\
+\end{pmatrix}\begin{pmatrix}
+ 1 & -e^{-\gamma	\tau_{2,1}} \\
+-e^{-\gamma	\tau_{2,1}} & 1 \\
+\end{pmatrix} \begin{pmatrix}
+ v_1 \\
+ v_2 \\
+\end{pmatrix} \nonumber \\
+&=& \frac{-m(v_1 ^ 2 -2v_1 v_2 e^{-\gamma	\tau_{2,1}} + v_2 ^2)}{2 kT(1-e^{-2\gamma	\tau_{2,1}})}
+\end{eqnarray}
+which matches the argument of the exponent in Eq. (\ref{eq:2_time_joint_probability}). Similarly, for $n=3$ one finds that\footnote{Gaussian elimination was used to arrive at this expression.}
+\begin{equation}
+\boldsymbol{\sigma}_{3D}^{-1} = \begin{pmatrix}
+ \frac{1}{(1-e^{-2 \gamma \tau_{2,1}})} & \frac{-e^{-\gamma	\tau_{2,1}}}{(1-e^{-2 \gamma \tau_{2,1}})} & 0 \\
+ \frac{-e^{-\gamma	\tau_{2,1}}}{(1-e^{-2 \gamma \tau_{2,1}})} & \bigg[ 1 - \frac{-e^{-2\gamma	\tau_{2,1}}}{(1-e^{-2 \gamma \tau_{2,1}})} - \frac{-e^{-2\gamma	\tau_{3,2}}}{(1-e^{-2 \gamma \tau_{3,2}})} \bigg] & \frac{-e^{-\gamma	\tau_{3,2}}}{(1-e^{-2 \gamma \tau_{3,2}})} \\
+ 0 & \frac{-e^{-\gamma	\tau_{3,2}}}{(1-e^{-2 \gamma \tau_{3,2}})} & \frac{1}{(1-e^{-2 \gamma \tau_{3,2}})}, \\
+\end{pmatrix}
+\end{equation}
+which matches the expression from Eq. (\ref{eq:n_time_joint_probability}) after simplifying the expression
+\begin{eqnarray}
+-\frac{1}{2}\avg{\boldsymbol{(\xi-\boldsymbol{\mu})}^{T} \boldsymbol{\sigma}^{-1} (\boldsymbol{\xi}-\boldsymbol{\mu})} &=& -\frac{1}{2} \bigg( \frac{m}{kT} \bigg) \begin{pmatrix}
+ v_1 & v_2 & v_3 \\
+\end{pmatrix} \nonumber \\
+&\cdot&
+ \begin{pmatrix}
+ \frac{1}{(1-e^{-2 \gamma \tau_{2,1}})} & \frac{-e^{-\gamma	\tau_{2,1}}}{(1-e^{-2 \gamma \tau_{2,1}})} & 0 \\
+ \frac{-e^{-\gamma	\tau_{2,1}}}{(1-e^{-2 \gamma \tau_{2,1}})} & \bigg[ 1 - \frac{-e^{-2\gamma	\tau_{2,1}}}{(1-e^{-2 \gamma \tau_{2,1}})} - \frac{-e^{-2\gamma	\tau_{3,2}}}{(1-e^{-2 \gamma \tau_{3,2}})} \bigg] & \frac{-e^{-\gamma	\tau_{3,2}}}{(1-e^{-2 \gamma \tau_{3,2}})} \nonumber \\
+ 0 & \frac{-e^{-\gamma	\tau_{3,2}}}{(1-e^{-2 \gamma \tau_{3,2}})} & \frac{1}{(1-e^{-2 \gamma \tau_{3,2}})} \\
+\end{pmatrix} \nonumber \\
+&\cdot& \begin{pmatrix}
+ v_1 \\
+ v_2 \\
+ v_3 \\
+\end{pmatrix}~.
+\end{eqnarray}

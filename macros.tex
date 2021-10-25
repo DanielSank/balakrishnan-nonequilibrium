@@ -8,7 +8,9 @@
 \newcommand{\tavg}[1]{{\langle\!~#1~\!\rangle_\text{eq}}}     
 \newcommand{\avg}[1]{{\langle\!~#1~\!\rangle}}  
 \newcommand{\pt}[1]{{\frac{\partial}{\partial t}~#1}}
-\newcommand{\laplace}[1]{{\int_{0^{-}}^{\infty}~#1 e^{-s t} dt}}    
+\newcommand{\pv}[1]{{\frac{\partial #1}{\partial v}}}
+\newcommand{\laplace}[1]{{\int_{0}^{\infty}dt~#1 e^{-s t}}}  
+\newcommand{\ft}[2]{{\int_{-\infty}^{\infty} d #1~ #2 e^{-i k #1}}} 
 \newcommand{\braket}[2]{{\langle #1|#2 \rangle}}
 
 

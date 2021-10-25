@@ -1,0 +1,33 @@
+\levelstay{Problem 7.5.4 (AO)}
+\textbf{(a)}
+\begin{eqnarray}
+\text{p}_\text{cm}(x_\text{cm}, t) &=& \int_{-\infty}^{\infty} dx_1  \int_{-\infty}^{\infty} dx_2 ~ \text{p}(x_1, t)~\text{p}(x_2, t)~\delta(x_\text{cm} - (x_1 + x_2)/2) \nonumber \\
+&=& 2 \times \int_{-\infty}^{\infty} dx_2 ~ \text{p}(2 x_\text{cm} - x_2, t)~\text{p}(x_2, t) \nonumber \\
+&=& 2 \times \bigg(\frac{1}{4 \pi D t}\bigg) \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(2 x_2^2 - 4 x_\text{cm} x_2 + 4 x_\text{cm}^2)}{4 D t}
+\bigg) \nonumber \\
+&=& \bigg(\frac{2}{4 \pi D t}\bigg) \cdot \exp\bigg( \frac{-x_\text{cm}^2}{2 D t}\bigg) \cdot \sqrt{2 D t} \cdot \underbrace{\int_{-\infty}^{\infty} dx' ~ \exp(-x'^2)}_{=\sqrt{\pi}} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{2 \pi D t}} \exp\bigg( \frac{-x_\text{cm}^2}{2 D t}\bigg)}~.
+\end{eqnarray}
+
+\textbf{(b)}
+\begin{eqnarray}
+\text{p}_\text{sep}(\xi, t) &=& \int_{-\infty}^{\infty} dx_1  \int_{-\infty}^{\infty} dx_2 ~ \text{p}(x_1, t)~\text{p}(x_2, t)~\delta(\xi - (x_1 - x_2)) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_2 ~ \text{p}(\xi + x_2, t)~\text{p}(x_2, t) \nonumber \\
+&=& \bigg(\frac{1}{4 \pi D t}\bigg) \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(\xi^2 + 2 \xi x_2 + 2 x_2^2)}{4 D t}
+\bigg) \nonumber \\
+&=& \bigg(\frac{1}{4 \pi D t}\bigg) \cdot \exp\bigg( \frac{-\xi^2}{8 D t}\bigg) \cdot \sqrt{2 D t} \cdot \underbrace{\int_{-\infty}^{\infty} dx' ~ \exp(-x'^2)}_{=\sqrt{\pi}} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{8 \pi D t}} \exp\bigg( \frac{-\xi^2}{8 D t}\bigg)}~.
+\end{eqnarray}
+
+\textbf{(c)} 
+\begin{eqnarray}
+\text{p}_\text{comb}(y, t) &=& \int_{-\infty}^{\infty} dx_1  \int_{-\infty}^{\infty} dx_2 ~ \text{p}(x_1, t)~\text{p}(x_2, t)~\delta(y - (a x_1 + b x_2)) \nonumber \\
+&=& \frac{1}{|a|}\int_{-\infty}^{\infty} dx_2 ~ \text{p}\bigg(\frac{y-b x_2}{4 D t a^2}, t\bigg)~\text{p}(x_2, t) \nonumber \\
+&=&  \frac{1}{|a|} \cdot \bigg(\frac{1}{4 \pi D t}\bigg) \nonumber \\
+&\times& \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(y^2 - 2 y b x_2 + b^2 x_2^2)}{4 D t a^2} - \frac{x_2^2 a^2}{4 D t a^2}
+\bigg) \nonumber \\
+&=& \frac{1}{|a|} \cdot \bigg(\frac{1}{4 \pi D t}\bigg) \cdot \exp\bigg( \frac{-y^2}{4 D t (a^2 + b^2)}\bigg) \nonumber \\
+&\times& \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(a^2 + b^2) [x_2 - y b /(a^2 +b^2)]^2}{4 D t a^2} \bigg) \nonumber \\
+&=& \frac{1}{|a|} \cdot \bigg(\frac{1}{4 \pi D t}\bigg)  \cdot \exp\bigg( \frac{-y^2}{4 D t (a^2 + b^2)}\bigg) \cdot \sqrt{4 D t} \cdot |a| \cdot \frac{1}{\sqrt{a^2 + b^2}} \sqrt{\pi} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{4 \pi D t (a^2 + b^2)}} \cdot \exp\bigg( \frac{-y^2}{4 D t (a^2 + b^2)}\bigg)}~.
+\end{eqnarray}

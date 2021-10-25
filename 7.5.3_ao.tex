@@ -1,0 +1,31 @@
+\levelstay{Problem 7.5.3 (AO)}
+Suppose that
+\begin{equation*}
+p_\text{init}(x_0) =  \left\{
+        \begin{array}{ll}
+            1/(2a) & -a \leq x_0 \leq a \\
+            0 & \quad |x_0|>a
+        \end{array}
+    \right.
+\end{equation*}
+where $a>0$.
+
+\textbf{(a):} ***ADD ME***
+
+\textbf{(b):} The error function is defined as
+\begin{equation}
+\text{erf}(z) = \frac{2}{\sqrt{\pi}} \int_{0}^{z} e^{-t^2} dt.
+\end{equation}
+Expanding our equation for $p(x, t)$ about the point $x/\sqrt{4Dt}$ yields\footnote{It is worth noting that the term $(1/4a) \cdot (2/\sqrt{\pi}) \cdot 2 \cdot (a/\sqrt{4 D t}) \cdot \exp(-x^2/4Dt) = \exp(-x^2/4Dt)/\sqrt{4 \pi D t} $ can be factored out of each nonzero term in the expansion of $p(x,t)$.}
+\begin{eqnarray}
+p(x, t) &=& \frac{1}{4a} \Bigg[ \text{erf}\bigg(\frac{x+a}{\sqrt{4 D t}}\bigg) - \text{erf}\bigg(\frac{x-a}{\sqrt{4 D t}}\bigg)\Bigg]  \nonumber \\
+&=& \frac{1}{4a} \Bigg[ \cancelto{0}{\bigg\{ \text{erf}\bigg(\frac{x}{\sqrt{4 D t}}\bigg) - \text{erf}\bigg(\frac{x}{\sqrt{4 D t}}\bigg) \bigg\}}  \nonumber \\ 
+&+& \frac{2}{\sqrt{\pi}} \bigg\{ \exp(-x^2/4Dt) -\exp(-x^2/4Dt)  \times -1 \bigg\} \cdot \frac{(a/\sqrt{4 D t})}{1!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \cancelto{0}{\bigg\{ (\cdots) - (\cdots) \bigg\}} \cdot \exp(-x^2/4Dt) \cdot \frac{(a/\sqrt{4 D t})^2}{2!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \bigg\{ (4 \frac{x^2}{4Dt}-2) - (4 \frac{x^2}{4Dt}-2) \times -1 \bigg\} \exp(-x^2/4Dt) \cdot \frac{(a/\sqrt{4 D t})^3}{3!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \cancelto{0}{\bigg\{ (\cdots) - (\cdots) \bigg\}} \exp(-x^2/4Dt) \frac{(a/\sqrt{4 D t})^4}{4!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \bigg\{ \bigg( 16 \frac{x^4}{16 D t} - 48 \frac{x^2}{4 D t} + 12\bigg) - \bigg( 16 \frac{x^4}{16 D t} - 48 \frac{x^2}{4 D t} + 12\bigg) \times -1 \bigg\} \nonumber \\
+&\times& \exp(-x^2/4Dt) \frac{(a/\sqrt{4 D t})^5}{5!} + \mathcal{O}(a^7) \Bigg] \nonumber \\
+&=& \boxed{\frac{\exp(-x^2/4Dt)}{\sqrt{4 \pi D t}} \Bigg[ 1 + \bigg(\frac{x^2}{2 D t} -1 \bigg) \cdot \frac{a^2}{12 D t} 
++ \bigg(\frac{x^4}{12 D t} -\frac{x^2}{D t} + 1 \bigg) \cdot \frac{a^4}{160 D t} + \mathcal{O}(a^6) \Bigg]}~. \nonumber
+\end{eqnarray}

@@ -1,0 +1,16 @@
+\levelstay{Problem 6.5.2 (AO)}
+Evaluate the expression
+\begin{equation}
+p(v, t) = \int_{-\infty}^{\infty} d v_0 \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \exp\bigg(\frac{-m(v-v_0 e^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg)~p_\text{init}(v_0),
+\end{equation}
+where $p_\text{init}(v_0)$ is the equilibrium distribution. 
+
+Plugging in the equilibrium distribution for $p_\text{init}(v_0)$ yields
+\begin{eqnarray}
+p(v, t) &=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2}  \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-m(v-v_0 e^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg)~\exp\bigg(\frac{-mv_0^2}{2 k T} \bigg) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-m(v-v_0 e^{-\gamma t})-m v_0^2 (1-e^{-2\gamma t})}{2 k T (1-e^{-2\gamma t})}\bigg) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-mv^2 (1-e^{-2\gamma t})-m (v_0+ve^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \exp\bigg(\frac{-mv^2}{2 k T}\bigg) \times  \underbrace{\bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-m (v_0+ve^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg)}_{=1} \nonumber \\
+&=& \boxed{\bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \exp\bigg(\frac{-mv^2}{2 k T}\bigg)  = p_\text{init}(v)}~.
+\end{eqnarray}
+$\implies$ A system that starts in equilibrium stays in equilibrium, as expected.

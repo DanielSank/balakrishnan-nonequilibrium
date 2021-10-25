@@ -1,0 +1,41 @@
+\levelstay{Problem 7.5.2 (AO)}
+\textbf{(a):} Show that, if $p(x,0)=p_\text{init}(x)$, then
+\begin{equation}
+p(x,t) = \int_{-\infty}^{\infty} dx_0~G(x, t; x_0, 0)~p_\text{init}(x_0).
+\end{equation}
+
+Repeating the calculation from problem 7.1 with $p(x,~t=0) = p_\text{init}(x)$ yields
+\begin{equation}
+\tilde{p}(k, s)  = \frac{\tilde{p}(k, 0)}{s + D k^2}
+\end{equation}
+which implies that 
+\begin{equation}
+\mathcal{L}^{-1} [\tilde{p}(k, s)] = \tilde{p}(k, t) = \exp(-D k^2 t) \cdot \tilde{p}(k, 0).
+\end{equation}
+Taking the inverse Fourier transform of this equation gives us
+\begin{eqnarray}
+\mathcal{F}^{-1} [\tilde{p}(k, t)] &=& p(x,t) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0~ G(x-x_0,~t;~0,~0)~p(x_0,0) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0~ G(x,~t;~x_0,~0)~p(x_0,0) \nonumber \\
+&=& \boxed{\int_{-\infty}^{\infty} dx_0~G(x,~t;~x_0,~0)~p_\text{init}(x_0)}~.
+\end{eqnarray}
+
+\textbf{(b):} Assuming $p_\text{init}(x)$ is an even function of $x$, show that $p(x,t)$ is also an even function of $x$.
+
+Starting with the equation 
+\begin{equation}
+p(x,t) = \int_{-\infty}^{\infty} dx_0~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(x-x_0)^2}{4 D t}\bigg)~p_\text{init}(x_0),
+\end{equation}
+let's evaluate this expression under the subsitution $x \rightarrow -x$, which gives us
+\begin{equation}
+p(-x,t) = \int_{-\infty}^{\infty} dx_0~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(-x-x_0)^2}{4 D t}\bigg)~p_\text{init}(x_0).
+\end{equation}
+Making the change of variables $x_0' = -x_0$, we have that
+\begin{eqnarray}
+p(-x,t) &=& \int_{\infty}^{-\infty} -dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(-x+x_0')^2}{4 D t}\bigg)~p_\text{init}(-x_0') \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(-x+x_0')^2}{4 D t}\bigg)~p_\text{init}(-x_0') \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(x-x_0')^2}{4 D t}\bigg)~p_\text{init}(-x_0') \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(x-x_0')^2}{4 D t}\bigg)~p_\text{init}(x_0') \nonumber \\
+&=& p(x,t),
+\end{eqnarray}
+where the second to last line follows from the fact that $p_\text{init}(x_0)$ is even.

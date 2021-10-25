@@ -1,0 +1,56 @@
+\levelstay{Problem 7.5.6 (AO)}
+\textbf{(i):} Find the normalized PDF of the dimensionless quantity $\xi \equiv (2Dt)/x^2$. 
+
+Recall the following property of the $\delta$-function of a function $f(x)$:
+\begin{equation}
+\boxed{\delta(f(x)) = \sum_{i} \frac{\delta(x-x_i)}{|f'(x_i)|}~\text{where the}~x_i\text{'s denote the roots of}~f(x)}~. \label{eq:delta_fxn_of_fxn}
+\end{equation}
+The normalized PDF of $\xi$ is given by
+\begin{equation}
+p(\xi, t) = \int_{0}^{\infty} 2 p(x, t) \delta(\xi-(2Dt)/x^2). \nonumber
+\end{equation}
+By Eq. (\ref{eq:delta_fxn_of_fxn}), the $\delta$-function in this integral can be cast into the following form
+\begin{equation}
+\delta(\xi-(2Dt)/x^2) = \frac{\delta(x-\sqrt{2Dt/\xi})}{|2 \xi^{3/2}/\sqrt{2Dt}|} + \frac{\delta(x+\sqrt{2Dt/\xi})}{|-2 \xi^{3/2}/\sqrt{2Dt}|}. \nonumber
+\end{equation}
+Notice that the second term in this expression is zero for all $x\in(0, \infty)$. Substituting this expression back into our equation for $p(\xi, t)$ gives us
+\begin{eqnarray}
+p(\xi, t) &=& \frac{2}{\sqrt{4 \pi D t}} \int_{0}^{\infty} dx~\exp(-x^2/4Dt)\times \bigg(\frac{\delta(x-\sqrt{2Dt/\xi})}{|2 \xi^{3/2}/\sqrt{2Dt}|} + \cancelto{0}{\frac{\delta(x+\sqrt{2Dt/\xi})}{|-2 \xi^{3/2}/\sqrt{2Dt}|}}\bigg)%\frac{\delta(x-\sqrt{2Dt/\xi})}{|2 \xi^{3/2}/\sqrt{2Dt}|} \nonumber \\ \\
+\nonumber \\
+&=& \frac{2\sqrt{2 D t}}{ 2 \xi^{3/2} \sqrt{4 \pi D t}} \times \exp(-1/2\xi) \nonumber \\
+&=& \boxed{ \frac{1}{\sqrt{2 \pi \xi^3}} \exp(-1/2\xi)}~.
+\end{eqnarray}
+
+\textbf{(ii):} Find the normalized PDF of the dimensionless quantity $\xi \equiv x_1/x_2$, where the particle with position $x_1$ ($x_2$) has a diffusion constant $D_1$ ($D_2$).
+
+The normalized PDF of $\xi$ is given by
+\begin{eqnarray}
+p(\xi, t) &=&  \int_{-\infty}^{\infty} dx_1 \int_{-\infty}^{\infty} dx_2~p(x_1, t;D_1)~p(x_2, t; D_2) ~\delta(\xi-x_1/x_2) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_2~|x_2|~p(\xi x_2, t;D_1)~p(x_2, t;D_2) \nonumber \\
+&=& 2 \int_{0}^{\infty} dx_2~x_2~p(\xi x_2, t;D_1)~p(x_2, t;D_2) \nonumber \\
+&=& \frac{2}{4 \pi t \sqrt{D_1 D_2}~}\int_{0}^{\infty} dx_2~x_2 \exp \bigg( -x_2^2\frac{(\xi^2 D_2 + D_1)}{(4 D_1 D_2 t)} \bigg) \nonumber \\
+&=& \frac{2}{4 \pi t \sqrt{D_1 D_2}~} \times \frac{(4 D_1 D_2 t)}{(\xi^2 D_2 + D_1) } \underbrace{\int_{0}^{\infty} dz ~z \exp(-z^2)}_{=1/2} \nonumber \\
+&=& \boxed{\frac{\sqrt{D_1 D_2}}{ \pi(D_1 + \xi^2 D_2)}} = \frac{1}{\pi(1+\xi^2)}\bigg|_{D_1=D_2}.
+\end{eqnarray}
+
+\textbf{(iii):} Define $\xi_i = x_{i+1}/x_1~\text{for all}~i\geq 1$. Find the joint PDF $p(\xi_1, \xi_2, \ldots, \xi_{n_1})$.
+
+The formal expression is given by the equation
+\begin{eqnarray}
+p(\xi_1, \xi_2, \ldots, \xi_{n_1}) &=& \int_{-\infty}^{\infty} dx_1 \int_{-\infty}^{\infty} dx_2 \cdots \int_{-\infty}^{\infty} dx_n~p(x_1, t)~p(x_2, t) \cdots ~ p(x_n, t) \nonumber \\
+&\times&  \delta(\xi_1 - x_2/x_1)~\delta(\xi_2 - x_3/x_1)\cdots ~\delta(\xi_{n-1} - x_n/x_1).
+\end{eqnarray}
+In what follows, we eliminate each integral over $x_i$ with $i\geq 2$ using Eq. (\ref{eq:delta_fxn_of_fxn}). Note that for collapsed integral, a factor of $|x_1|$ emerges. From here it follows that
+\begin{eqnarray}
+p(\xi_1, \xi_2, \ldots, \xi_{n_1}) &=& \int_{-\infty}^{\infty} dx_1 |x_1|^{n-1} p(x_1, t)~p(\xi_1 x_1, t) \cdots ~ p(\xi_{n-1} x_1, t) \nonumber \\
+&=& 2 \bigg(\frac{1}{(4 \pi D t)^{n/2}}\bigg) \int_{0}^{\infty} dx_1 x_1^{n-1} \exp\bigg( -x_1^2 \frac{(1+\xi_1^2 + \xi_2^2 + \cdots + \xi_{n-1}^2)}{4Dt}\bigg) \nonumber
+\end{eqnarray}
+At this point, we make the change of variables
+\begin{equation}
+z = x_1^2 \times \bigg(\frac{(1+\xi_1^2 + \xi_2^2 + \cdots + \xi_{n-1}^2)}{4Dt}\bigg).
+\end{equation}
+After $u$-substitution, one finds that
+\begin{eqnarray}
+p(\xi_1, \xi_2, \ldots, \xi_{n_1}) &=& 2 \bigg(\frac{1}{(4 \pi D t)^{n/2}} \bigg) \bigg( \frac{(4 D t)^{n/2}}{2\times(1+\xi_1^2 +\cdots + \xi_{n-1}^2)^{n/2}} \bigg) \underbrace{\int_{0}^{\infty} dz~z^{n/2-1}~\exp(-z)}_{=\Gamma(n/2)} \nonumber \\
+&=&  \boxed{\frac{1}{\pi^{n/2}} \frac{\Gamma(n/2)}{(1+\xi_1^2 +\cdots + \xi_{n-1}^2)^{n/2}}}~.  \nonumber
+\end{eqnarray}

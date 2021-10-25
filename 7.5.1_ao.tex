@@ -1,0 +1,51 @@
+\levelstay{Problem 7.5.1 (AO)}
+Show that the fundamental solution of the diffusion equation
+\begin{equation}
+\pt{p(x,t)} = D \frac{\partial^2 p(x,t)}{\partial x^2} \label{eq:1d_diffusion}
+\end{equation}
+is
+\begin{equation}
+p(x,t) = \frac{1}{\sqrt{4 \pi D t}} \exp\bigg( \frac{- x^2}{4 D t}\bigg)
+\end{equation}
+by following the steps outlined in the textbook.
+
+Let us define the following transform conventions and notation:
+\begin{equation}
+\mathcal{F} [p(x ,t)] \equiv   \tilde{p}(k, t) = \ft{x}{p(x,t)}
+\end{equation}
+\begin{equation}
+\mathcal{L} [ \tilde{p}(k, t)] \equiv  \tilde{p}(k, s) = \laplace{\tilde{p}(k, t)}.
+\end{equation}
+Taking the Fourier transform of Eq. (\ref{eq:1d_diffusion}) yields
+\begin{equation}
+\pt{\tilde{p}(k, t)} = -D k^2 \tilde{p}(k, t).
+\end{equation}
+Next, let us take the Laplace transform of the equation above, leaving us with
+\begin{equation}
+\laplace{\pt{\tilde{p}(k, t)}} = -D k^2 \tilde{p}(k, s).
+\end{equation}
+Integrating the left hand side of this equation by parts gives us
+\begin{equation}
+\tilde{p}(k, t) e^{-s t}~\bigg|_{0^{-}}^{\infty} + s \laplace{\tilde{p}(k, t)} = -\tilde{p}(k, 0) + s \tilde{p}(k, s).
+\end{equation}
+At $t=0$, $p(x,t=0) = \delta(x)$ which implies that $\tilde{p}(k, 0) = 1$. Using this result in the equation above shows that
+\begin{equation}
+-1 + s \tilde{p}(k, s) = -D k^2 \tilde{p}(k, s),
+\end{equation}
+in other words
+\begin{equation}
+\boxed{\tilde{p}(k, s)  = \frac{1}{s + D k^2}}~.
+\end{equation}
+Taking the inverse Laplace transform of this equation yields
+\begin{equation}
+\mathcal{L}^{-1} [\tilde{p}(k, s)] = \tilde{p}(k, t) = \exp(-D k^2 t).
+\end{equation}
+Next, taking the inverse Fourier transform of $\tilde{p}(k, t)$ yields
+\begin{eqnarray}
+\mathcal{F}^{-1} [\tilde{p}(k, t)] &=& p(x,t)  = \frac{1}{2 \pi } \int_{-\infty}^{\infty} dk~e^{i k x}~\tilde{p}(k, t)  \nonumber \\
+&=& \frac{1}{2 \pi } \int_{-\infty}^{\infty} dk~\exp(i k x)~ \exp(-D k^2 t) \nonumber  \\
+&=& \frac{1}{2 \pi } \exp\bigg(- \frac{x^2}{4 D t} \bigg) \int_{-\infty}^{\infty} dk~\exp \Bigg(-D t \bigg(k-\frac{i x}{2 D t}\bigg) ^2\Bigg) \nonumber \\
+&=& \frac{1}{2 \pi \sqrt{D t} } \exp\bigg(- \frac{x^2}{4 D t} \bigg) \times \int_{-\infty}^{\infty} dk' \exp (-k'^2 ) \nonumber \\
+&=& \frac{1}{2 \pi \sqrt{D t} } \exp\bigg(- \frac{x^2}{4 D t} \bigg) \times \sqrt{\pi} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{x^2}{4 D t}\bigg)}~.
+\end{eqnarray}
