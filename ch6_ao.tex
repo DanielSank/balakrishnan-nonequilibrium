@@ -1,4 +1,60 @@
-\levelstay{Problem 6.5.3 (AO)}
+\section{Ch. 6 (AO)}
+\subsection{Problem 6.5.1}
+
+Verify that
+\begin{equation}
+p(v, t|v_0) = \bigg[\underbrace{\frac{m}{2\pi k T (1-e^{-2\gamma t})}}_{\equiv~\cdots}\bigg]^{1/2} \times \exp\bigg(\underbrace{\frac{-m(v-v_0 e^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}}_{\equiv~ \ddots}\bigg)
+\end{equation}
+satisfies the Fokker-Planck equation
+\begin{equation}
+\pt{p} = \gamma \pv{(vp)} + \frac{\gamma k T}{m} \frac{\partial^2 p}{\partial v^2}.
+\end{equation}
+
+Starting with the L.H.S, one finds that\footnote{Our calculus teachers would be proud of us for this one.}
+\begin{eqnarray}
+\pt{p} &=& \frac{1}{2} \bigg[\cdots\bigg]^{-1/2} \cdot \frac{m}{2\pi k T} \cdot \frac{-1}{(1-e^{-2\gamma t})^2} \cdot -e^{-2\gamma t} \cdot -2\gamma \times \exp(\ddots) \nonumber \\
+&+& \bigg[\cdots\bigg]^{1/2} \times \exp(\ddots) \cdot \Bigg\{ \frac{-2 m (v-v_0 e^{-\gamma t}) \cdot -v_0 e^{-\gamma t} \cdot -\gamma }{2 k T (1-e^{-2\gamma t})} \nonumber \\
+&+& \frac{-m(v-v_0 e^{-\gamma t})^2}{2 k T} \cdot \frac{-1}{(1-e^{-2\gamma t})^2} \cdot -e^{-2\gamma t} \cdot -2 \gamma  \Bigg\} \nonumber \\
+&=& \frac{-\gamma p e^{-2 \gamma t}}{(1-e^{-2 \gamma t})} 
++ \frac{m \gamma p}{kT(1-e^{-2\gamma t})^2} \times \Bigg\{ e^{-2 \gamma t} (v-v_0 e^{-\gamma t})^2 \nonumber \\
+&-& v_0 e^{-\gamma t} (v-v_0 e^{-\gamma t}) (1-e^{-2 \gamma t})\Bigg\} \nonumber \\
+&=& \boxed{ \frac{-\gamma p e^{-2 \gamma t}}{(1-e^{-2 \gamma t})} 
++ \frac{m \gamma p}{kT(1-e^{-2\gamma t})^2} \cdot  \Bigg\{  v^2 e^{-2\gamma t} - v v_0  e^{-3\gamma t} + v_0 ^2 e^{-2\gamma t} - v v_0 e^{-\gamma t} \Bigg\} }~. \nonumber
+\end{eqnarray}
+
+Next, one finds that the R.H.S is given by
+\begin{eqnarray}
+\gamma \pv{(vp)} + \frac{\gamma k T}{m} \frac{\partial^2 p}{\partial v^2} &=& \gamma p + \gamma v p \times \bigg( \frac{-2 m (v-v_0 e^{-\gamma t})}{2 k T (1-e^{-2\gamma t})} \bigg) 
++  \frac{\gamma k T}{m} \pv{} \bigg( p \times  \frac{-2 m (v-v_0 e^{-\gamma t})}{2 k T (1-e^{-2\gamma t})}  \bigg) \nonumber \\
+&=& \gamma p + \gamma v p \times \bigg( \frac{-2 m (v-v_0 e^{-\gamma t})}{2 k T (1-e^{-2\gamma t})} \bigg) 
++ \frac{\gamma k T}{m}  p \times  \frac{-2 m}{2 k T (1-e^{-2\gamma t})} \nonumber \\
+&+& \frac{\gamma k T}{m} p \times \bigg( \frac{-2 m (v-v_0 e^{-\gamma t})}{2 k T (1-e^{-2\gamma t})} \bigg)^2 \nonumber \\
+&=& \frac{-\gamma p e^{-2 \gamma t}}{(1-e^{-2 \gamma t})} + \frac{m\gamma p}{k T (1-e^{-2 \gamma t})^2} \Bigg\{ -v (v-v_0 e^{-\gamma t}) (1- e^{-2\gamma t}) +  (v-v_0 e^{-\gamma t})^2\Bigg\} \nonumber \\
+&=& \frac{-\gamma p e^{-2 \gamma t}}{(1-e^{-2 \gamma t})} + + \frac{m\gamma p}{k T (1-e^{-2 \gamma t})^2} \Bigg\{ -v^2 + v^2 e^{-2 \gamma t} + v v_0 e^{-\gamma t} - v v_0 e^{-3 \gamma t} \nonumber \\\
+&+& v^2 -2 v v_0 e^{-\gamma t} + v_0 ^2 e^{-2 \gamma t} \Bigg\} \nonumber \\
+&=& \boxed{\frac{-\gamma p e^{-2 \gamma t}}{(1-e^{-2 \gamma t})} + \frac{m\gamma p}{k T (1-e^{-2 \gamma t})^2} \Bigg\{ v^2 e^{-2 \gamma t} - v v_0 e^{-3 \gamma t} + v_0 ^2 e^{-2 \gamma t} - v v_0 e^{-\gamma t} \Bigg\} }~. \nonumber
+\end{eqnarray}
+Comparing terms in the boxed expressions shows that R.H.S = L.H.S.
+
+
+\subsection{Problem 6.5.2}
+Evaluate the expression
+\begin{equation}
+p(v, t) = \int_{-\infty}^{\infty} d v_0 \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \exp\bigg(\frac{-m(v-v_0 e^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg)~p_\text{init}(v_0),
+\end{equation}
+where $p_\text{init}(v_0)$ is the equilibrium distribution. 
+
+Plugging in the equilibrium distribution for $p_\text{init}(v_0)$ yields
+\begin{eqnarray}
+p(v, t) &=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2}  \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-m(v-v_0 e^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg)~\exp\bigg(\frac{-mv_0^2}{2 k T} \bigg) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-m(v-v_0 e^{-\gamma t})-m v_0^2 (1-e^{-2\gamma t})}{2 k T (1-e^{-2\gamma t})}\bigg) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-mv^2 (1-e^{-2\gamma t})-m (v_0+ve^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg) \nonumber \\
+&=& \bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \exp\bigg(\frac{-mv^2}{2 k T}\bigg) \times  \underbrace{\bigg[\frac{m}{2\pi k T (1-e^{-2\gamma t})}\bigg]^{1/2} \int_{-\infty}^{\infty} d v_0 \exp\bigg(\frac{-m (v_0+ve^{-\gamma t})^2}{2 k T (1-e^{-2\gamma t})}\bigg)}_{=1} \nonumber \\
+&=& \boxed{\bigg[\frac{m}{2\pi k T}\bigg]^{1/2} \exp\bigg(\frac{-mv^2}{2 k T}\bigg)  = p_\text{init}(v)}~.
+\end{eqnarray}
+$\implies$ A system that starts in equilibrium stays in equilibrium, as expected.
+
+\subsection{Problem 6.5.3}
 \textbf{(a)} Calculate the two-time joint probability density
 \begin{equation}
 p_2(v_2,t_2;v_1,t_1) \equiv p_2(v_2, t_2 | v_1, t_1)~p_1(v_1, t_1),
@@ -114,3 +170,7 @@ which matches the expression from Eq. (\ref{eq:n_time_joint_probability}) after 
  v_3 \\
 \end{pmatrix}~.
 \end{eqnarray}
+
+
+
+
