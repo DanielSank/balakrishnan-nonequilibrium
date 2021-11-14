@@ -1,0 +1,259 @@
+\section{Ch. 7 (AO)}
+\subsection{Problem 7.5.1}
+Show that the fundamental solution of the diffusion equation
+\begin{equation}
+\pt{p(x,t)} = D \frac{\partial^2 p(x,t)}{\partial x^2} \label{eq:1d_diffusion}
+\end{equation}
+is
+\begin{equation}
+p(x,t) = \frac{1}{\sqrt{4 \pi D t}} \exp\bigg( \frac{- x^2}{4 D t}\bigg)
+\end{equation}
+by following the steps outlined in the textbook.
+
+Let us define the following transform conventions and notation:
+\begin{equation}
+\mathcal{F} [p(x ,t)] \equiv   \tilde{p}(k, t) = \ft{x}{p(x,t)}
+\end{equation}
+\begin{equation}
+\mathcal{L} [ \tilde{p}(k, t)] \equiv  \tilde{p}(k, s) = \laplace{\tilde{p}(k, t)}.
+\end{equation}
+Taking the Fourier transform of Eq. (\ref{eq:1d_diffusion}) yields
+\begin{equation}
+\pt{\tilde{p}(k, t)} = -D k^2 \tilde{p}(k, t).
+\end{equation}
+Next, let us take the Laplace transform of the equation above, leaving us with
+\begin{equation}
+\laplace{\pt{\tilde{p}(k, t)}} = -D k^2 \tilde{p}(k, s).
+\end{equation}
+Integrating the left hand side of this equation by parts gives us
+\begin{equation}
+\tilde{p}(k, t) e^{-s t}~\bigg|_{0^{-}}^{\infty} + s \laplace{\tilde{p}(k, t)} = -\tilde{p}(k, 0) + s \tilde{p}(k, s).
+\end{equation}
+At $t=0$, $p(x,t=0) = \delta(x)$ which implies that $\tilde{p}(k, 0) = 1$. Using this result in the equation above shows that
+\begin{equation}
+-1 + s \tilde{p}(k, s) = -D k^2 \tilde{p}(k, s),
+\end{equation}
+in other words
+\begin{equation}
+\boxed{\tilde{p}(k, s)  = \frac{1}{s + D k^2}}~.
+\end{equation}
+Taking the inverse Laplace transform of this equation yields
+\begin{equation}
+\mathcal{L}^{-1} [\tilde{p}(k, s)] = \tilde{p}(k, t) = \exp(-D k^2 t).
+\end{equation}
+Next, taking the inverse Fourier transform of $\tilde{p}(k, t)$ yields
+\begin{eqnarray}
+\mathcal{F}^{-1} [\tilde{p}(k, t)] &=& p(x,t)  = \frac{1}{2 \pi } \int_{-\infty}^{\infty} dk~e^{i k x}~\tilde{p}(k, t)  \nonumber \\
+&=& \frac{1}{2 \pi } \int_{-\infty}^{\infty} dk~\exp(i k x)~ \exp(-D k^2 t) \nonumber  \\
+&=& \frac{1}{2 \pi } \exp\bigg(- \frac{x^2}{4 D t} \bigg) \int_{-\infty}^{\infty} dk~\exp \Bigg(-D t \bigg(k-\frac{i x}{2 D t}\bigg) ^2\Bigg) \nonumber \\
+&=& \frac{1}{2 \pi \sqrt{D t} } \exp\bigg(- \frac{x^2}{4 D t} \bigg) \times \int_{-\infty}^{\infty} dk' \exp (-k'^2 ) \nonumber \\
+&=& \frac{1}{2 \pi \sqrt{D t} } \exp\bigg(- \frac{x^2}{4 D t} \bigg) \times \sqrt{\pi} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{x^2}{4 D t}\bigg)}~.
+\end{eqnarray}
+
+\subsection{Problem 7.5.2}
+\textbf{(a):} Show that, if $p(x,0)=p_\text{init}(x)$, then
+\begin{equation}
+p(x,t) = \int_{-\infty}^{\infty} dx_0~G(x, t; x_0, 0)~p_\text{init}(x_0).
+\end{equation}
+
+Repeating the calculation from problem 7.1 with $p(x,~t=0) = p_\text{init}(x)$ yields
+\begin{equation}
+\tilde{p}(k, s)  = \frac{\tilde{p}(k, 0)}{s + D k^2}
+\end{equation}
+which implies that 
+\begin{equation}
+\mathcal{L}^{-1} [\tilde{p}(k, s)] = \tilde{p}(k, t) = \exp(-D k^2 t) \cdot \tilde{p}(k, 0).
+\end{equation}
+Taking the inverse Fourier transform of this equation gives us
+\begin{eqnarray}
+\mathcal{F}^{-1} [\tilde{p}(k, t)] &=& p(x,t) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0~ G(x-x_0,~t;~0,~0)~p(x_0,0) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0~ G(x,~t;~x_0,~0)~p(x_0,0) \nonumber \\
+&=& \boxed{\int_{-\infty}^{\infty} dx_0~G(x,~t;~x_0,~0)~p_\text{init}(x_0)}~.
+\end{eqnarray}
+
+\textbf{(b):} Assuming $p_\text{init}(x)$ is an even function of $x$, show that $p(x,t)$ is also an even function of $x$.
+
+Starting with the equation 
+\begin{equation}
+p(x,t) = \int_{-\infty}^{\infty} dx_0~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(x-x_0)^2}{4 D t}\bigg)~p_\text{init}(x_0),
+\end{equation}
+let's evaluate this expression under the subsitution $x \rightarrow -x$, which gives us
+\begin{equation}
+p(-x,t) = \int_{-\infty}^{\infty} dx_0~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(-x-x_0)^2}{4 D t}\bigg)~p_\text{init}(x_0).
+\end{equation}
+Making the change of variables $x_0' = -x_0$, we have that
+\begin{eqnarray}
+p(-x,t) &=& \int_{\infty}^{-\infty} -dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(-x+x_0')^2}{4 D t}\bigg)~p_\text{init}(-x_0') \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(-x+x_0')^2}{4 D t}\bigg)~p_\text{init}(-x_0') \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(x-x_0')^2}{4 D t}\bigg)~p_\text{init}(-x_0') \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_0'~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(x-x_0')^2}{4 D t}\bigg)~p_\text{init}(x_0') \nonumber \\
+&=& p(x,t),
+\end{eqnarray}
+where the second to last line follows from the fact that $p_\text{init}(x_0)$ is even.
+
+\subsection{Problem 7.5.3}
+Suppose that
+\begin{equation*}
+p_\text{init}(x_0) =  \left\{
+        \begin{array}{ll}
+            1/(2a) & ~~~|x_0| \leq a \\
+            0 & \quad |x_0|>a
+        \end{array}
+    \right.
+\end{equation*}
+where $a>0$.
+
+\textbf{(a):} 
+\begin{eqnarray}
+p(x,t) &=& \int_{-a}^{a} dx_0~\frac{1}{\sqrt{4 \pi D t} } \exp\bigg(- \frac{(x-x_0)^2}{4 D t}\bigg)~\frac{1}{2a} \nonumber \\
+&=& -\int_{(x+a)/\sqrt{4Dt}}^{(x-a)/\sqrt{4Dt}} dz~\frac{\sqrt{4Dt}}{\sqrt{4 \pi D t} } \exp(- z^2)~\frac{1}{2a} \nonumber \\
+&=& \frac{1}{4a} \frac{2}{\sqrt{\pi}} \int_{(x-a)/\sqrt{4Dt}}^{(x+a)/\sqrt{4Dt}} dz \exp(-z^2) \nonumber \\
+&=& \frac{1}{4a} \frac{2}{\sqrt{\pi}} \bigg[ \int_{0}^{(x+a)/\sqrt{4Dt}} dz \exp(-z^2) - \int_{0}^{(x-a)/\sqrt{4Dt}} dz \exp(-z^2) \bigg] \\
+&=&  \frac{1}{4a} \Bigg[ \text{erf}\bigg(\frac{x+a}{\sqrt{4 D t}}\bigg) - \text{erf}\bigg(\frac{x-a}{\sqrt{4 D t}}\bigg)\Bigg].
+\end{eqnarray}
+
+\textbf{(b):} The error function is defined as
+\begin{equation}
+\text{erf}(z) = \frac{2}{\sqrt{\pi}} \int_{0}^{z} e^{-t^2} dt.
+\end{equation}
+Expanding our equation for $p(x, t)$ about the point $x/\sqrt{4Dt}$ yields\footnote{It is worth noting that the term $(1/4a) \cdot (2/\sqrt{\pi}) \cdot 2 \cdot (a/\sqrt{4 D t}) \cdot \exp(-x^2/4Dt) = \exp(-x^2/4Dt)/\sqrt{4 \pi D t} $ can be factored out of each nonzero term in the expansion of $p(x,t)$.}
+\begin{eqnarray}
+p(x, t) &=& \frac{1}{4a} \Bigg[ \text{erf}\bigg(\frac{x+a}{\sqrt{4 D t}}\bigg) - \text{erf}\bigg(\frac{x-a}{\sqrt{4 D t}}\bigg)\Bigg]  \nonumber \\
+&=& \frac{1}{4a} \Bigg[ \cancelto{0}{\bigg\{ \text{erf}\bigg(\frac{x}{\sqrt{4 D t}}\bigg) - \text{erf}\bigg(\frac{x}{\sqrt{4 D t}}\bigg) \bigg\}}  \nonumber \\ 
+&+& \frac{2}{\sqrt{\pi}} \bigg\{ \exp(-x^2/4Dt) -\exp(-x^2/4Dt)  \times -1 \bigg\} \cdot \frac{(a/\sqrt{4 D t})}{1!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \cancelto{0}{\bigg\{ (\cdots) - (\cdots) \bigg\}} \cdot \exp(-x^2/4Dt) \cdot \frac{(a/\sqrt{4 D t})^2}{2!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \bigg\{ (4 \frac{x^2}{4Dt}-2) - (4 \frac{x^2}{4Dt}-2) \times -1 \bigg\} \exp(-x^2/4Dt) \cdot \frac{(a/\sqrt{4 D t})^3}{3!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \cancelto{0}{\bigg\{ (\cdots) - (\cdots) \bigg\}} \exp(-x^2/4Dt) \frac{(a/\sqrt{4 D t})^4}{4!}  \nonumber \\
+&+& \frac{2}{\sqrt{\pi}} \bigg\{ \bigg( 16 \frac{x^4}{16 D t} - 48 \frac{x^2}{4 D t} + 12\bigg) - \bigg( 16 \frac{x^4}{16 D t} - 48 \frac{x^2}{4 D t} + 12\bigg) \times -1 \bigg\} \nonumber \\
+&\times& \exp(-x^2/4Dt) \frac{(a/\sqrt{4 D t})^5}{5!} + \mathcal{O}(a^7) \Bigg] \nonumber \\
+&=& \boxed{\frac{\exp(-x^2/4Dt)}{\sqrt{4 \pi D t}} \Bigg[ 1 + \bigg(\frac{x^2}{2 D t} -1 \bigg) \cdot \frac{a^2}{12 D t} 
++ \bigg(\frac{x^4}{12 D t} -\frac{x^2}{D t} + 1 \bigg) \cdot \frac{a^4}{160 D t} + \mathcal{O}(a^6) \Bigg]}~. \nonumber
+\end{eqnarray}
+
+\subsection{Problem 7.5.4}
+\textbf{(a)}
+\begin{eqnarray}
+\text{p}_\text{cm}(x_\text{cm}, t) &=& \int_{-\infty}^{\infty} dx_1  \int_{-\infty}^{\infty} dx_2 ~ \text{p}(x_1, t)~\text{p}(x_2, t)~\delta(x_\text{cm} - (x_1 + x_2)/2) \nonumber \\
+&=& 2 \times \int_{-\infty}^{\infty} dx_2 ~ \text{p}(2 x_\text{cm} - x_2, t)~\text{p}(x_2, t) \nonumber \\
+&=& 2 \times \bigg(\frac{1}{4 \pi D t}\bigg) \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(2 x_2^2 - 4 x_\text{cm} x_2 + 4 x_\text{cm}^2)}{4 D t}
+\bigg) \nonumber \\
+&=& \bigg(\frac{2}{4 \pi D t}\bigg) \cdot \exp\bigg( \frac{-x_\text{cm}^2}{2 D t}\bigg) \cdot \sqrt{2 D t} \cdot \underbrace{\int_{-\infty}^{\infty} dx' ~ \exp(-x'^2)}_{=\sqrt{\pi}} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{2 \pi D t}} \exp\bigg( \frac{-x_\text{cm}^2}{2 D t}\bigg)}~.
+\end{eqnarray}
+
+\textbf{(b)}
+\begin{eqnarray}
+\text{p}_\text{sep}(\xi, t) &=& \int_{-\infty}^{\infty} dx_1  \int_{-\infty}^{\infty} dx_2 ~ \text{p}(x_1, t)~\text{p}(x_2, t)~\delta(\xi - (x_1 - x_2)) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_2 ~ \text{p}(\xi + x_2, t)~\text{p}(x_2, t) \nonumber \\
+&=& \bigg(\frac{1}{4 \pi D t}\bigg) \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(\xi^2 + 2 \xi x_2 + 2 x_2^2)}{4 D t}
+\bigg) \nonumber \\
+&=& \bigg(\frac{1}{4 \pi D t}\bigg) \cdot \exp\bigg( \frac{-\xi^2}{8 D t}\bigg) \cdot \sqrt{2 D t} \cdot \underbrace{\int_{-\infty}^{\infty} dx' ~ \exp(-x'^2)}_{=\sqrt{\pi}} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{8 \pi D t}} \exp\bigg( \frac{-\xi^2}{8 D t}\bigg)}~.
+\end{eqnarray}
+
+\textbf{(c)} 
+\begin{eqnarray}
+\text{p}_\text{comb}(y, t) &=& \int_{-\infty}^{\infty} dx_1  \int_{-\infty}^{\infty} dx_2 ~ \text{p}(x_1, t)~\text{p}(x_2, t)~\delta(y - (a x_1 + b x_2)) \nonumber \\
+&=& \frac{1}{|a|}\int_{-\infty}^{\infty} dx_2 ~ \text{p}\bigg(\frac{y-b x_2}{4 D t a^2}, t\bigg)~\text{p}(x_2, t) \nonumber \\
+&=&  \frac{1}{|a|} \cdot \bigg(\frac{1}{4 \pi D t}\bigg) \nonumber \\
+&\times& \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(y^2 - 2 y b x_2 + b^2 x_2^2)}{4 D t a^2} - \frac{x_2^2 a^2}{4 D t a^2}
+\bigg) \nonumber \\
+&=& \frac{1}{|a|} \cdot \bigg(\frac{1}{4 \pi D t}\bigg) \cdot \exp\bigg( \frac{-y^2}{4 D t (a^2 + b^2)}\bigg) \nonumber \\
+&\times& \int_{-\infty}^{\infty} dx_2 ~ \exp\bigg( \frac{-(a^2 + b^2) [x_2 - y b /(a^2 +b^2)]^2}{4 D t a^2} \bigg) \nonumber \\
+&=& \frac{1}{|a|} \cdot \bigg(\frac{1}{4 \pi D t}\bigg)  \cdot \exp\bigg( \frac{-y^2}{4 D t (a^2 + b^2)}\bigg) \cdot \sqrt{4 D t} \cdot |a| \cdot \frac{1}{\sqrt{a^2 + b^2}} \sqrt{\pi} \nonumber \\
+&=& \boxed{\frac{1}{\sqrt{4 \pi D t (a^2 + b^2)}} \cdot \exp\bigg( \frac{-y^2}{4 D t (a^2 + b^2)}\bigg)}~.
+\end{eqnarray}
+
+\subsection{Problem 7.5.5}
+\textbf{(a):} The $l^{th}$ moment of the radial distance is given by
+\begin{eqnarray}
+\overline{r^l(t)} &=& \int_{0}^{\infty} \text{p}_\text{rad}(r, t) r^l dr \nonumber \\
+&=&  \int_{0}^{\infty} \frac{1}{(4 \pi D t)^{3/2}} 4 \pi r^2 \exp(-r^2/4Dt) r^l dr \nonumber \\
+&=&  \int_{0}^{\infty} \frac{1}{(4 \pi D t)^{3/2}} 4 \pi (4 D t z) \exp(-z) (4 D t z)^{l/2} \frac{(4 D t)^{1/2} ~dz}{2 (z)^{1/2}} \nonumber \\
+&=&  \frac{2}{\sqrt{\pi}} \int_{0}^{\infty} \frac{(4 D t)^{1+l/2+1/2}}{(4 D t)^{3/2}}~ z^{1+l/2-1/2} \exp(-z) dz \nonumber \\
+&=& \frac{2^{l+1}}{\sqrt{\pi}} (D t)^{l/2} \int_{0}^{\infty}~ z^{(l+1)/2} \exp(-z) dz \nonumber \\
+&=& \boxed{\frac{2^{l+1}}{\sqrt{\pi}} (D t)^{l/2}~\Gamma\bigg(\frac{1}{2}(l+3)\bigg)}~.
+\end{eqnarray}
+Note that when $l$ is odd, the argument of the $\Gamma$-function is an integer. As $\Gamma(n+1) = n!$ for all $n \geq 0 $, it follows that 
+\begin{equation}
+\boxed{ \overline{r^l(t)} = \frac{2^{l+1}}{\sqrt{\pi}} (D t)^{l/2} ([l+1]/2)!~~\text{when}~l~\text{is odd.}} \label{eq:odd_radial_moments}
+\end{equation}
+
+When $l$ is even, the argument of the $\Gamma$-function is equal to an integer plus a half. Using the equation (see Appendix B of the textbook)
+\begin{equation}
+\Gamma(n+1/2) = \frac{\sqrt{\pi} (2n-1)!}{2^{2n-1}(n-1)!}~\text{for}~n = 1, 2, \ldots \nonumber
+\end{equation}
+and equating $(l+3)/2 = n + 1/2$ leaves us with
+\begin{eqnarray}
+\overline{r^l(t)} &=& \frac{2^{l+1}}{\sqrt{\pi}} (D t)^{l/2} \frac{\sqrt{\pi} (l+2-1)!}{2^{l+2-1}((l+2)/2-1)!} \nonumber \\
+&=& \boxed{(D t)^{l/2} \frac{(l+1)!}{(l/2)!} ~~\text{when}~l~\text{is even.}} \label{eq:even_radial_moments}
+\end{eqnarray}
+
+\textbf{(b):} The $l=-1$ can be deduced from Eq. (\ref{eq:odd_radial_moments}) as $\Gamma(1) = 0! = 1$ is defined. From here it follows that $\overline{r^{-1}(t)} = 1/\sqrt{\pi Dt}$. The $l=-2$ moment cannot be derived from equation Eq. (\ref{eq:even_radial_moments}); however, the problem boils down to a simple Gaussian integral as shown below:
+\begin{eqnarray}
+\overline{r^{-2}(t)} &=& \int_{0}^{\infty} \frac{1}{(4 \pi D t)^{3/2}} 4 \pi r^2 \exp(-r^2/4Dt) r^{-2} dr \nonumber \\
+&=& \frac{4 \pi \sqrt{4Dt}}{\pi^{3/2} (4Dt)^{3/2}} \times \int_{0}^{\infty} \underbrace{\exp(-z^2) dz}_{=\sqrt{\pi}/2} \nonumber \\
+&=& \boxed{\frac{1}{2Dt}}~.
+\end{eqnarray}
+
+
+\subsection{Problem 7.5.6}
+\textbf{(i):} Find the normalized PDF of the dimensionless quantity $\xi \equiv (2Dt)/x^2$. 
+
+Recall the following property of the $\delta$-function of a function $f(x)$:
+\begin{equation}
+\boxed{\delta(f(x)) = \sum_{i} \frac{\delta(x-x_i)}{|f'(x_i)|}~\text{where the}~x_i\text{'s denote the roots of}~f(x)}~. \label{eq:delta_fxn_of_fxn}
+\end{equation}
+The normalized PDF of $\xi$ is given by
+\begin{equation}
+p(\xi, t) = \int_{0}^{\infty} 2 p(x, t) \delta(\xi-(2Dt)/x^2). \nonumber
+\end{equation}
+By Eq. (\ref{eq:delta_fxn_of_fxn}), the $\delta$-function in this integral can be cast into the following form
+\begin{equation}
+\delta(\xi-(2Dt)/x^2) = \frac{\delta(x-\sqrt{2Dt/\xi})}{|2 \xi^{3/2}/\sqrt{2Dt}|} + \frac{\delta(x+\sqrt{2Dt/\xi})}{|-2 \xi^{3/2}/\sqrt{2Dt}|}. \nonumber
+\end{equation}
+Notice that the second term in this expression is zero for all $x\in(0, \infty)$. Substituting this expression back into our equation for $p(\xi, t)$ gives us
+\begin{eqnarray}
+p(\xi, t) &=& \frac{2}{\sqrt{4 \pi D t}} \int_{0}^{\infty} dx~\exp(-x^2/4Dt)\times \bigg(\frac{\delta(x-\sqrt{2Dt/\xi})}{|2 \xi^{3/2}/\sqrt{2Dt}|} + \cancelto{0}{\frac{\delta(x+\sqrt{2Dt/\xi})}{|-2 \xi^{3/2}/\sqrt{2Dt}|}}\bigg)%\frac{\delta(x-\sqrt{2Dt/\xi})}{|2 \xi^{3/2}/\sqrt{2Dt}|} \nonumber \\ \\
+\nonumber \\
+&=& \frac{2\sqrt{2 D t}}{ 2 \xi^{3/2} \sqrt{4 \pi D t}} \times \exp(-1/2\xi) \nonumber \\
+&=& \boxed{ \frac{1}{\sqrt{2 \pi \xi^3}} \exp(-1/2\xi)}~.
+\end{eqnarray}
+
+\textbf{(ii):} Find the normalized PDF of the dimensionless quantity $\xi \equiv x_1/x_2$, where the particle with position $x_1$ ($x_2$) has a diffusion constant $D_1$ ($D_2$).
+
+The normalized PDF of $\xi$ is given by
+\begin{eqnarray}
+p(\xi, t) &=&  \int_{-\infty}^{\infty} dx_1 \int_{-\infty}^{\infty} dx_2~p(x_1, t;D_1)~p(x_2, t; D_2) ~\delta(\xi-x_1/x_2) \nonumber \\
+&=& \int_{-\infty}^{\infty} dx_2~|x_2|~p(\xi x_2, t;D_1)~p(x_2, t;D_2) \nonumber \\
+&=& 2 \int_{0}^{\infty} dx_2~x_2~p(\xi x_2, t;D_1)~p(x_2, t;D_2) \nonumber \\
+&=& \frac{2}{4 \pi t \sqrt{D_1 D_2}~}\int_{0}^{\infty} dx_2~x_2 \exp \bigg( -x_2^2\frac{(\xi^2 D_2 + D_1)}{(4 D_1 D_2 t)} \bigg) \nonumber \\
+&=& \frac{2}{4 \pi t \sqrt{D_1 D_2}~} \times \frac{(4 D_1 D_2 t)}{(\xi^2 D_2 + D_1) } \underbrace{\int_{0}^{\infty} dz ~z \exp(-z^2)}_{=1/2} \nonumber \\
+&=& \boxed{\frac{\sqrt{D_1 D_2}}{ \pi(D_1 + \xi^2 D_2)}} = \frac{1}{\pi(1+\xi^2)}\bigg|_{D_1=D_2}.
+\end{eqnarray}
+
+\textbf{(iii):} Define $\xi_i = x_{i+1}/x_1~\text{for all}~i\geq 1$. Find the joint PDF $p(\xi_1, \xi_2, \ldots, \xi_{n_1})$.
+
+The formal expression is given by the equation
+\begin{eqnarray}
+p(\xi_1, \xi_2, \ldots, \xi_{n_1}) &=& \int_{-\infty}^{\infty} dx_1 \int_{-\infty}^{\infty} dx_2 \cdots \int_{-\infty}^{\infty} dx_n~p(x_1, t)~p(x_2, t) \cdots ~ p(x_n, t) \nonumber \\
+&\times&  \delta(\xi_1 - x_2/x_1)~\delta(\xi_2 - x_3/x_1)\cdots ~\delta(\xi_{n-1} - x_n/x_1).
+\end{eqnarray}
+In what follows, we eliminate each integral over $x_i$ with $i\geq 2$ using Eq. (\ref{eq:delta_fxn_of_fxn}). Note that for collapsed integral, a factor of $|x_1|$ emerges. From here it follows that
+\begin{eqnarray}
+p(\xi_1, \xi_2, \ldots, \xi_{n_1}) &=& \int_{-\infty}^{\infty} dx_1 |x_1|^{n-1} p(x_1, t)~p(\xi_1 x_1, t) \cdots ~ p(\xi_{n-1} x_1, t) \nonumber \\
+&=& 2 \bigg(\frac{1}{(4 \pi D t)^{n/2}}\bigg) \int_{0}^{\infty} dx_1 x_1^{n-1} \exp\bigg( -x_1^2 \frac{(1+\xi_1^2 + \xi_2^2 + \cdots + \xi_{n-1}^2)}{4Dt}\bigg) \nonumber
+\end{eqnarray}
+At this point, we make the change of variables
+\begin{equation}
+z = x_1^2 \times \bigg(\frac{(1+\xi_1^2 + \xi_2^2 + \cdots + \xi_{n-1}^2)}{4Dt}\bigg).
+\end{equation}
+After $u$-substitution, one finds that
+\begin{eqnarray}
+p(\xi_1, \xi_2, \ldots, \xi_{n_1}) &=& 2 \bigg(\frac{1}{(4 \pi D t)^{n/2}} \bigg) \bigg( \frac{(4 D t)^{n/2}}{2\times(1+\xi_1^2 +\cdots + \xi_{n-1}^2)^{n/2}} \bigg) \underbrace{\int_{0}^{\infty} dz~z^{n/2-1}~\exp(-z)}_{=\Gamma(n/2)} \nonumber \\
+&=&  \boxed{\frac{1}{\pi^{n/2}} \frac{\Gamma(n/2)}{(1+\xi_1^2 +\cdots + \xi_{n-1}^2)^{n/2}}}~.  \nonumber
+\end{eqnarray}
+
+
