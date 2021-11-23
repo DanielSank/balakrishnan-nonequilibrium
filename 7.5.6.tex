@@ -1,0 +1,58 @@
+\levelstay{7.5.6}
+
+\leveldown{Solution}
+
+\textbf{part a.} As usual, the first step is to improve the notation.
+Define $2 \sigma^2 = 4 D t$ (again) so that $\xi = \sigma^2 / x^2$.
+Now, for the fun of it, let's solve this problem using the change of variables formula directly rather than by messing with the delta function.
+I actually really like Balki's approach with delta functions, but since this solutions book is meant for self-study, it's good to show different approaches.
+
+\quickfig{0.5\columnwidth}{change_of_variables}{Caption}{fig:change_of_variables}
+
+The probability of $X$ lying in a region $S$ is
+\begin{equation*}
+  \int_{x \in S} p_X(x) dx
+  \, .
+\end{equation*}
+Let $f:\mathbb{R} \rightarrow \mathbb{R}$ be defined by the equation $f(x) = \sigma^2 / x^2$.
+This situation is illustrated in Figure~\ref{fig:change_of_variables}
+The change of variables formula says that
+\begin{equation*}
+  \int_{x\in S}p_X(x) dx
+  = \int_{\xi \in f(S)} p_X(f^{-1}(\xi)) \abs{\text{det} D f^{-1}(\xi)} d\xi
+\end{equation*}
+where $D$ means the derivative.
+As $f^{-1}(\xi) = \sigma \xi^{-1/2}$, $Df^{-1}(\xi) = (1/2) \sigma \xi^{-3/2}$.
+Therefore
+\begin{align*}
+  \int_{x\in S}p_X(x) dx
+  &= \frac{\sigma}{2} \int_{\xi \in f(S)} p_X(\sigma \xi^{-1/2}) \xi^{-3/2} d\xi \\
+  &= \frac{\sigma}{2} \frac{1}{\sqrt{2 \pi \sigma^2}} \int_{\xi \in f(S)}
+    e^{-1/2 \xi} \xi^{-3/2} d\xi
+    \, .
+\end{align*}
+Now notice that for any small interval $S$ defined by $[x, x + dx]$, there are two corresponding intervals of $\xi$ in $f(S)$, so the probability density for $\xi$ is
+\begin{equation*}
+  p_f(\xi) = \frac{1}{\left( 2 \pi \xi^3 \right)^{1/2}} e^{-1 / 2 \xi}
+\end{equation*}
+as we wanted to show.
+
+\textbf{Part b.} Now we consider the distribution of the ratio of the positionso f two diffusing particles.
+We'll use Balki's method:
+\begin{align*}
+  p_\Xi(\xi)
+  &= \int dx_1 \int dx_2 p_{X_1}(x_1) p_{X_2}(x_2) \delta ( \xi - x_1 / x_2) \\
+  &= \int dx_2 p_{X_2}(x_2) \int dx_1 p_{X_1}(x_1) \delta ( \xi - x_1 / x_2) \\
+  \text{(Let $y = x_1/x_2$)} \quad
+  &= \int dx_2 x_2 p_{X_2}(x_2) \int dy p_{X_1}(y x_2) \delta ( \xi - y) \\
+  &= \int dx_2 x_2 p_{X_2}(x_2) p_{X_1}(\xi x_2) \\
+  &= \frac{1}{2\pi \sigma_1 \sigma_2}
+    \int dx_2 x_2
+      \exp \left( - \frac{x_2^2}{2 \sigma_2^2}\right)
+      \exp \left( - \frac{(\xi x_2)^2)}{2 \sigma_1^2} \right) \\
+  &= \frac{1}{2\pi \sigma_1 \sigma_2}
+    \int dx_2 x_2 \exp \left( - x_2^2 \frac{\sigma_1^2 + \xi^2 \sigma_2^2}{2 \sigma_1^2 \sigma_2^2}\right) \\
+  &= \frac{1}{2\pi \sigma_1 \sigma_2} \left( \frac{2 \sigma_1^2 \sigma_2^2}{\sigma_1^2 + \xi^2 \sigma_2^2}\right)
+    \int dz z \exp \left( -z^2 \right)
+  \, .
+\end{align*}
