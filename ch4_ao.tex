@@ -1,4 +1,5 @@
-\levelstay{Problem 4.5.2 (AO)}
+\section{Ch. 4 (AO)}
+\subsection{Problem 4.5.2}
 
 \textbf{(a):} From the definition $M_{kj} = \epsilon_{kjl} n_l$, one has that
 \begin{equation}
@@ -49,3 +50,31 @@ which has implied sums over $l$ and $s$. This term is nonzero only when $(k=s,~l
 \begin{equation}
 \boxed{M_{kr} M_{rj} = n_k n_j - \delta_{k,j} (n_1^2 + n_2^2 + n_3^2) = n_k n_j - \delta_{j, k}}~.
 \end{equation}
+
+\subsection{Problem 4.5.3}
+
+Eq. (4.34) from the textbook states that
+\begin{equation}
+C_{ij}(t)= \frac{\tavg{v_i(0) v_j(t)}}{(k_B T/m)} = e^{-\gamma |t|} [ n_i n_j + (\delta_{ij} - n_i n_j) \cos(\omega_c t) - \epsilon_{ijk} n_k \sin(\omega_c t)].
+\end{equation}
+Computing $\tavg{\vec{v}(0) \vec{v}(t)}$ is equivalent to $\sum_{i}(k_B T/m) \times C_{ii}(t)$, which shows that
+\begin{eqnarray}
+\tavg{\vec{v}(0) \vec{v}(t)} &=& \frac{k_B T}{m} e^{-\gamma |t|} \bigg\{ (n_1^2 + n_2^2 + n_3^2) + (3 -(n_1^2 + n_2^2 + n_3^2)) \cos(\omega_c t) \bigg\} \\
+&=& \boxed{\frac{k_B T}{m} e^{-\gamma |t|} ( 1 + 2 \cos(\omega_c t))}~.
+\end{eqnarray}
+
+In a similar manner, the cross product is given by
+\begin{eqnarray}
+\tavg{\vec{v}(0) \times \vec{v}(t)} &=& \frac{k_B T}{m} \sum_{i} \epsilon_{ijk} C_{jk}(t) \hat{n}_i \nonumber \\
+&=& \frac{k_B T}{m} \sum_{i} \sum_{j, k} \epsilon_{ijk} \bigg\{ e^{-\gamma |t|} [ n_j n_k + (\delta_{jk} - n_j n_k) \cos(\omega_c t) - \epsilon_{jks} n_s \sin(\omega_c t)]\bigg\} \hat{n}_i \nonumber \\
+&=& \frac{k_B T}{m} \sum_{i} \sum_{j, k} \bigg\{ e^{-\gamma |t|} [ \epsilon_{ijk} n_j n_k + (\underbrace{\epsilon_{ijk} \delta_{jk}}_{=0} -\epsilon_{ijk} n_j n_k) \cos(\omega_c t) - \epsilon_{ijk} \epsilon_{jks} n_s \sin(\omega_c t)]\bigg\}\hat{n}_i \nonumber.
+\end{eqnarray}
+The term $\sum_{i} \sum_{j, k} = \epsilon_{ijk} n_j n_k = 0$, therefore\footnote{The term $\sum_{i} \sum_{j, k} \epsilon_{jki} \epsilon_{jks}$ equals +1 for two combinations of $(j, k)$ for any fixed value of $i=s$. For example, if $i=s=1$, the combinations $(j=2, k=3)$ and $(j=3, k=2)$ both contribute at +1 in these sums, hence the factor of of 2. }
+\begin{eqnarray}
+\tavg{\vec{v}(0) \times \vec{v}(t)} &=& \frac{k_B T}{m} \sum_{i} \sum_{j, k} \bigg\{ e^{-\gamma |t|} [-\epsilon_{ijk} \epsilon_{jks} n_s \sin(\omega_c t)]\bigg\}\hat{n}_i \nonumber \\
+&=& \frac{k_B T}{m} \sum_{i} \sum_{j, k} \bigg\{ e^{-\gamma |t|} [-\epsilon_{ijk} \epsilon_{jks} n_s \sin(\omega_c t)]\bigg\}\hat{n}_i \\
+&=& \frac{k_B T}{m} \sum_{i} \sum_{j, k} \bigg\{ e^{-\gamma |t|} [-\epsilon_{jki} \epsilon_{jks} n_s \sin(\omega_c t)]\bigg\}\hat{n}_i \nonumber \\
+&=& \frac{k_B T}{m} \sum_{i}\bigg\{ e^{-\gamma |t|} [-2 \delta_{is} n_s \sin(\omega_c t)]\bigg\}\hat{n}_i \nonumber \\
+&=& -\frac{2k_B T}{m} e^{-\gamma |t|} \sin(\omega_c t) \sum_{i} n_i \hat{n}_i \nonumber \\
+&=& \boxed{-\frac{2k_B T}{m} e^{-\gamma |t|}\sin(\omega_c t) \vec{n}}~.
+\end{eqnarray}
