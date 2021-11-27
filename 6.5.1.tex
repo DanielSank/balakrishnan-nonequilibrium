@@ -1,0 +1,144 @@
+\levelstay{6.5.1}
+
+\leveldown{Problem}
+
+Verify that the time dependent probability distribution
+\begin{equation*}
+  p(v, t | v_0) = \left[
+  \frac{m}{2 \pi k_b T (1 - \exp(-2 \gamma t))}
+  \right]^{1/2}
+  \exp \left[
+    \frac{-m(v - v_0 e^{-\gamma t})^2}{2 k_b T (1 - \exp(-2 \gamma t))}
+  \right]
+\end{equation*}
+is a solution to the Fokker-Plank equation
+\begin{equation*}
+  \frac{\partial p}{\partial t} = \gamma \frac{\partial}{\partial v} (v p) + \frac{\gamma k_b T}{m} \frac{\partial^2 p}{\partial v^2} \, .
+\end{equation*}
+
+\levelstay{Solution}
+
+First of all, we have to seriously clean up ol' Balki's notation.
+All these $k_b$'s and $m$'s just get in the way.
+The variance of the velocity, in equillibrium, is
+\begin{equation*}
+  \angavg{\sigma^2} = k_b T / m \, .
+\end{equation*}
+Define also
+\begin{align*}
+  \sigma^2(t) &= \angavg{\sigma^2} (1 - \exp(-2 \gamma t)) \\
+  \delta v(t) &= v - v_0 \exp(-\gamma t)
+  \, .
+\end{align*}
+
+Stuffing that into the proposed solution and the Fokker-Plank equation, we have
+\begin{align*}
+  p(v, t | v_0) &= \left[
+    2 \pi \sigma^2(t)
+  \right]^{-1/2}
+  \exp \left[
+    \frac{-\delta v(t)^2}{2 \sigma^2(t)}
+  \right] \\
+\text{and} \qquad \frac{\partial p}{\partial t} &= \gamma \frac{\partial}{\partial v} (v p) + \gamma \angavg{\sigma^2} \frac{\partial^2 p}{\partial v^2} \, .
+\end{align*}
+
+Now we procede in an organized mannar by computing the derivatives we need.
+The strategy behind these computations is to write the derivatives of each quantity in terms of the quantity itself, which is possible because of the exponential function.
+We start with the partial velocity derivatives:
+\begin{align*}
+  \frac{\partial p}{\partial v}
+  &= \left( 2 \pi \sigma^2(t) \right)^{-1/2}
+    \frac{\partial}{\partial v}
+    \exp \left[
+      \frac{-\delta v(t)^2}{2 \sigma^2(t)}
+    \right] \\
+  &= \left( 2 \pi \sigma^2(t) \right)^{-1/2}
+    \exp \left[
+      \frac{-\delta v(t)^2}{2 \sigma^2(t)}
+    \right]
+    \left(- \frac{\delta v(t)}{\sigma^2(t)} \right) \\
+  &= - p \frac{\delta v(t)}{\sigma^2(t)} \\
+  \frac{\partial^2 p}{\partial v^2}
+  &= - \frac{1}{\sigma^2(t)} \frac{\partial}{\partial v}\left( p \delta v(t) \right) \\
+  &= - \frac{1}{\sigma^2(t)} \left( \frac{\partial p}{\partial v} \delta v(t) + p \right) \\
+  &= - \frac{1}{\sigma^2(t)}
+    \left( -p \frac{\delta v(t)^2}{\sigma^2(t)} + p \right) \\
+  &=  \frac{p}{\sigma^2(t)}
+    \left( \frac{\delta v(t)^2}{\sigma^2(t)} - 1 \right)
+  \, .
+\end{align*}
+To compute the partial time derivative of $p$, it's helpful to work out two of the pieces:
+Now we compute some useful time derivatives
+\begin{align*}
+  \frac{\partial \sigma^2(t)}{\partial t}
+  &= 2 \gamma \left( \angavg{\sigma^2} - \sigma^2(t) \right) \\
+  \frac{\partial \delta v(t)^2}{\partial t}
+  &= 2 \gamma \delta v(t) \left( v(t) - \delta v(t) \right)
+\end{align*}
+Now we go for the partial time derivative of $p$:
+\begin{align*}
+  \frac{\partial p}{\partial t}
+  &= \left( 2 \pi \sigma^2(t) \right)^{-1/2} \frac{\partial}{\partial t}
+    \exp \left[ \frac{- \delta v(t)^2}{2 \sigma^2(t)} \right]
+    + \exp \left[ \frac{- \delta v(t)^2}{2 \sigma^2(t)} \right] \frac{\partial}{\partial t}
+    \left( 2 \pi \sigma^2(t) \right)^{-1/2} \\
+  &= -p \left[ 
+    \frac{\sigma^2(t) \gamma \delta v(t) (v(t) - \delta v(t)) - \delta v(t)^2 \gamma \left(
+      \angavg{\sigma^2} - \sigma^2(t) \right)}{\sigma^4(t)}
+  \right]
+  - p \gamma \frac{\left( \angavg{\sigma^2} - \sigma^2(t) \right)}{\sigma^2(t)} \\
+  &= -p \gamma \left[ 
+    \frac{\sigma^2(t) \delta v(t) (v(t) - \delta v(t)) - \delta v(t)^2 \left(
+      \angavg{\sigma^2} - \sigma^2(t) \right)}{\sigma^4(t)}
+    + \frac{\left( \angavg{\sigma^2} - \sigma^2(t) \right)}{\sigma^2(t)}
+    \right]
+\end{align*}
+Now we check that the Fokker-Plank equation is satisfied.
+\begin{align*}
+  \frac{\partial p}{\partial t} &= \gamma \frac{\partial}{\partial v}(vp) + \gamma \angavg{\sigma^2} \frac{\partial^2 p}{\partial v^2} \\
+  &= \gamma \left[
+    v \frac{\partial p}{\partial v} + p + \angavg{\sigma^2} \frac{\partial^2 p}{\partial v^2}
+    \right] \\
+  &= \gamma \left[
+    -v p \frac{\delta v(t)}{\sigma^2(t)} + p + \angavg{\sigma^2} \frac{p}{\sigma^2(t)} \left( \frac{\delta v(t)^2}{\sigma^2(t)} -1 \right)
+  \right] \\
+  -p \gamma \bigg[
+    \frac{\sigma^2(t) \delta v(t) (v(t) - \delta v(t)) - \delta v(t)^2 \left(
+      \angavg{\sigma^2} - \sigma^2(t) \right)}{\sigma^4(t)} \\
+  + \frac{\left( \angavg{\sigma^2} - \sigma^2(t) \right)}{\sigma^2(t)}
+  \bigg]
+  &= \gamma p \left[
+    -v \frac{\delta v(t)}{\sigma^2(t)} + 1 + \frac{\angavg{\sigma^2}}{\sigma^2(t)} \left( \frac{\delta v(t)^2}{\sigma^2(t)} -1 \right)
+  \right] \\
+% Newline
+  -\bigg[
+    \frac{\sigma^2(t) \delta v(t) (v(t) - \delta v(t)) - \delta v(t)^2 \left(
+      \angavg{\sigma^2} - \sigma^2(t) \right)}{\sigma^2(t)} \\
+  + \left( \angavg{\sigma^2} - \sigma^2(t) \right)
+  \bigg]
+  &=
+  -v \delta v(t) + \sigma^2(t) + \angavg{\sigma^2} \left( \frac{\delta v(t)^2}{\sigma^2(t)} -1 \right) \\
+% Newline
+  - \delta v(t) (v(t) - \delta v(t))
+  + \delta v(t)^2 \frac{\angavg{\sigma^2} - \sigma^2(t)}{\sigma^2(t)}
+  - \angavg{\sigma^2} + \sigma^2(t)
+  &=
+  -v \delta v(t) + \sigma^2(t) + \angavg{\sigma^2} \left( \frac{\delta v(t)^2}{\sigma^2(t)} -1 \right) \\
+% Newline
+  \delta v(t)^2
+  + \delta v(t)^2 \frac{\angavg{\sigma^2} - \sigma^2(t)}{\sigma^2(t)}
+  - \angavg{\sigma^2}
+  &=
+  \angavg{\sigma^2} \left( \frac{\delta v(t)^2}{\sigma^2(t)} -1 \right) \\
+% Newline
+  \delta v(t)^2 \left( 1 + \frac{\angavg{\sigma^2} - \sigma^2(t)}{\sigma^2(t)} \right)
+  - \angavg{\sigma^2}
+  &=
+  \angavg{\sigma^2} \left( \frac{\delta v(t)^2}{\sigma^2(t)} -1 \right) \\
+% Newline
+  \delta v(t)^2 \frac{\angavg{\sigma^2}}{\sigma^2(t)} - \angavg{\sigma^2}
+  &=
+  \delta v(t)^2 \frac{\angavg{\sigma^2}}{\sigma^2(t)} - \angavg{\sigma^2}
+\end{align*}
+and bam, we're done.
+Thank goodness we never have to think about this boring exercise again!
