@@ -1,0 +1,213 @@
+\levelstay{6.5.3}
+
+\leveldown{Problem}
+
+The two-time joint probability density of the velocity is, by definition,
+\begin{equation*}
+  p_2(v_2, t_2; v_1, t_1) \equiv p_2(v_2, t_2 ; v_t, t_1) p_1(v_1, t_1),
+\end{equation*}
+where $t_2 > t_1$.
+
+\textbf{(a)} Use the stationary property of the velocity in, thermal equilibrium, to show that the two-time joint probability density of the velocity is given by
+\begin{align*}
+  p_2(v_2, t_2 ; v_1, t_1)
+  =&
+  \left[
+    \frac{m}{2\pi k_b T ( 1 - e^{-2 \gamma (t_2 - t_1)})^{1/2}}
+  \right] \\
+\times & \exp \left\{ \frac{-m \left(v_1^2 - 2 v_1 v_2 e^{-\gamma (t_2 - t_1)} + v_2^2 \right)}{2 k_b T \left( 1 - e^{-2 \gamma (t_2 - t_1)}\right)} \right\}
+\end{align*}
+
+\textbf{(b)} Using the Markov property of the velocity, write down the n-time joint probability density $p_n(v_n, t_n; v_{n-1}, t_{n-1};\ldots; v_1, t_1)$ in the form of a generalized Gaussian in the variables $v_1, v_2,\ldots,v_n$.
+
+
+\levelstay{Solution}
+
+\textbf{(a)} First of all, let's clean up Balki's notation (again).
+Let
+\begin{equation*}
+  \sigma^2 = k_b T / m
+\end{equation*}
+so that we're trying to show
+\begin{align*}
+  p_2(v_2, t_2 ; v_1, t_1)
+  =&
+    \frac{1}{2\pi \sigma^2} \left[ 1 - e^{-2 \gamma (t_2 - t_1)}  \right]^{-1/2} \\
+  \times & \exp \left[
+    - \frac{v_1^2 - 2 v_1 v_2 e^{-\gamma (t_2 - t_1)} + v_2^2}{2 \sigma^2 \left( 1 - e^{-2\gamma (t_2 - t_1)} \right)}
+  \right]
+\end{align*}
+which is considerably easier to read, manipulate, and understand intuitively.
+Equation (6.14) in the book tells us the conditional probability density
+\begin{equation*}
+  p(v, t | v_0)
+  = \left[ \frac{1}{2\pi \sigma^2 (1 - e^{-2\gamma t})} \right]^{1/2}
+  \exp \left[ - \frac{( v - v_0 e^{-\gamma t})^2}{2 \sigma^2 ( 1 - e^{-2 \gamma t})} \right]
+\end{equation*}
+i.e. the conditional probability of the velocity at a time $t$ after the velocity was known to be equal to $v_0$.
+Because of the stationary property,
+\begin{equation*}
+  p_2(v_2, t_2 ; v_1, t_1) = p(v_2, t_2 - t_1 | v_1) p_\text{eq}(v_1)\, .
+\end{equation*}
+So we just have to grind:
+\begin{align*}
+  p_2(v_2, t_2 ; v_1, t_1)
+  &= p(v_2, t_2 - t_1 | v_1) p_\text{eq}(v_1)\\
+  &= \left[ \frac{1}{2\pi \sigma^2 (1 - e^{-2\gamma (t_2 - t_1)})} \right]^{1/2}
+  \exp \left[ - \frac{( v_2 - v_1 e^{-\gamma (t_2 - t_1)})^2}{2 \sigma^2 ( 1 - e^{-2 \gamma (t_2 - t_1)})} \right]
+  \left[ \frac{1}{2\pi \sigma^2} \right]^{1/2} e^{-v_1^2 / 2 \sigma^2} \\
+  &= \frac{1}{2\pi \sigma^2}
+  \left[ 1 - e^{-2 \gamma (t_2 - t_1)} \right] ^{-1/2}
+  \exp \left[
+    - \frac{v_2^2 - 2 v_1 v_2 e^{-\gamma (t_2 - t_1)} + v_1^2 e^{-2 \gamma (t_2 - t_1)}}{2 \sigma^2 (1 - e^{-2 \gamma (t_2 - t_1)})} - \frac{v_1^2}{2 \sigma^2}
+  \right] \\
+  &= \frac{1}{2\pi \sigma^2}
+  \left[ 1 - e^{-2 \gamma (t_2 - t_1)} \right] ^{-1/2}
+  \exp \left[
+    - \frac{v_2^2 - 2 v_1 v_2 e^{-\gamma (t_2 - t_1)} + v_1^2}{2 \sigma^2 (1 - e^{-2 \gamma (t_2 - t_1)})}
+  \right]
+\end{align*}
+which is what we wanted to show.
+Yay.
+
+\textbf{(b)} Now we do the fun part.
+Using the Markov property, the n-point joint distribution is
+\begin{equation*}
+  p_n(v_n, t_n;\ldots;v_1, t_1) = p_\text{eq}(v_1) \prod_{i=2}^n p_2(v_i, t_i|v_{i-1}, t_{i-1})
+\end{equation*}
+which is more or less Balki's equation (5.6).
+Of course,
+\begin{align*}
+  p_2(v_i, t_i | v_{i-1}, t_{i-1})
+  &= \left[ \frac{1}{2 \pi \sigma^2 ( 1 - e^{-2 \gamma (t_i - t_{i-1})})}\right]^{1/2}
+    \exp \left[
+      - \frac{ \left( v_i - v_{i-1} e^{-\gamma (t_i - t_{i-1})} \right)^2}{2 \sigma^2 (1 - e^{-2 \gamma (t_i - t_{i-1})})}
+    \right]
+\end{align*}
+so
+\begin{equation*}
+  p_2(v_n, t_n ; \ldots ; v_1, t_1)
+  =
+  \left[ \frac{1}{2\pi \sigma^2} \right]^{1/2}
+  \prod_{i=2}^n
+    \left[ \frac{1}{2 \pi \sigma^2 (1 - e^{-2\gamma \tau_i})} \right]^{1/2}
+  \exp \left[ - \left(
+    \frac{v_1^2}{2 \sigma^2}
+    + \sum_{i=2}^n \frac{\left( v_i - v_{i-1} e^{-\gamma \tau_i}\right)^2}{2 \sigma^2 \left( 1 - e^{-2 \gamma \tau_i}\right)}
+  \right) \right]
+\end{equation*}
+where we defined $\tau_i \equiv t_i - t_{i-1}$ for $i\geq2$.
+If we further define $\tau_1 = \infty$ and $v_0=0$, which corresponds physically to the initial event at $t_1$ being an unconditioned probability such that there's no memory of the past, then we can simplify to
+\begin{equation*}
+  p_2(v_n, t_n ; \ldots ; v_1, t_1)
+  =
+  \prod_{i=1}^n
+    \left[ \frac{1}{2 \pi \sigma^2 (1 - e^{-2\gamma \tau_i})} \right]^{1/2}
+  \exp \left[ -
+    \sum_{i=1}^n \frac{\left( v_i - v_{i-1} e^{-\gamma \tau_i}\right)^2}{2 \sigma^2 \left( 1 - e^{-2 \gamma \tau_i}\right)}
+  \right]
+\end{equation*}
+That thing in the sum is a quadratic form in the variables $v_i$.
+We focus on its structure by defining
+\begin{align*}
+  a_i &\equiv \frac{1}{\sigma^2 \left( 1 - e^{2 \gamma \tau_i} \right)} \\
+  \text{and} \qquad
+  b_i & \equiv e^{-\gamma \tau_i}\, ,
+\end{align*}
+by which the sum becomes
+\begin{align*}
+  \frac{1}{2} \sum_{i=i}^n a_i (v_i - b_i v_{i-1})^2
+  &= \frac{1}{2} \sum_{i=i}^n \left( a_i v_i^2 + a_i b_i^2 v_{i-1}^2 - 2 a_i b_i v_i v_{i-1} \right) \\
+  &= \frac{1}{2} \left(
+    \sum_{i=1}^n a_i v_i^2
+  + \sum_{i=0}^{n-1} a_{i+1} b_{i+1}^2 v_i^2
+  + \sum_{i=1}^n -2 a_i b_i v_i v_{i-1}
+  \right) \\
+  \text{(Remember $v_0=0$)} \quad &= \frac{1}{2} \left(
+    \sum_{i=1}^n a_i v_i^2
+  + \sum_{i=1}^{n-1} a_{i+1} b_{i+1}^2 v_i^2
+  + \sum_{i=1}^n -2 a_i b_i v_i v_{i-1}
+  \right)
+  \, .
+\end{align*}
+Thinking of the stuff in parenthesis as a symmetric contraction of a vector $v$ and a matrix $A$, i.e. $(1/2) \mathbf{v}^\intercal A \mathbf{v}$, it's clear that the first two terms corresponds to the diagonal of $A$ while the second sum corresponds to an the first off-diagonal.
+The matrix $A$ is therefore
+\begin{equation*}
+  A = \begin{pmatrix}
+    a_1 + a_2 b_2^2 & 0 & 0 & 0 & 0 \\
+    -2 a_2 b_2 & a_2 + a_3 b_3^2 & 0 & 0 & 0 \\
+    0 & -2 a_3 b_3 & \ddots & 0 & 0 \\
+    0 & 0 & 0 & a_{n-1} + a_n b_n^2 & 0 \\
+    0 & 0 & 0 & -2 a_n b_n & a_n
+  \end{pmatrix}
+  \, .
+\end{equation*}
+Now since we're using this matrix to express our quadratic form as a symmetric contraction, we can redistribute that off-diagonal as follows:
+\begin{equation*}
+  A = \begin{pmatrix}
+    a_1 + a_2 b_2^2 & -a_2 b_2 & 0 & & & \\
+    -a_2 b_2 & a_2 + a_3 b_3^2 & -a_3 b_3 & & & \\
+    0 & -a_3 b_3 & a_3 + a_4 b_4^2 & & & \\
+    & & & \ddots & & \\
+    & & & & a_{n-1} + a_n b_n^2 & -a_n b_n \\
+    & & & & -a_n b_n & a_n
+  \end{pmatrix}
+  \, .
+\end{equation*}
+Putting everything together, we get
+\begin{align*}
+  p_2(v_n, t_n ; \ldots ; v_1, t_1)
+  &=
+  \prod_{i=1}^n
+    \left[ \frac{1}{2 \pi \sigma^2 (1 - e^{-2\gamma \tau_i})} \right]^{1/2}
+  \exp \left[ - \frac{1}{2} \mathbf{v}^\intercal A \mathbf{v} \right] \\
+  &=
+  \left( \frac{1}{2\pi} \right)^{n/2}
+  \prod_{i=1}^n
+    \left[ \frac{1}{\sigma^2 (1 - e^{-2\gamma \tau_i})} \right]^{1/2}
+  \exp \left[ - \frac{1}{2} \mathbf{v}^\intercal A \mathbf{v} \right]
+\end{align*}
+The standard form for a multivariate Gaussian is
+\begin{equation*}
+  \left( \frac{1}{(2\pi)^n \text{det}\Sigma} \right)^{1/2} \exp \left[ - \frac{1}{2} \mathbf{x}^\intercal \Sigma^{-1} \mathbf{x} \right]
+\end{equation*}
+so it remains to show that
+\begin{equation*}
+  \prod_{i=1}^n \left[ \frac{1}{\sigma^2 \left( 1 - e^{-2\gamma \tau_i } \right)} \right]
+  \stackrel{?}{=}
+  \left( \frac{1}{\text{det}A^{-1}} \right)
+  \, .
+\end{equation*}
+Fortunately, it's easy to make that demonstration.
+First, note that $\text{det}A^{-1} = 1 / \text{det}A$.
+Second, note that the factors in the product are just $a_i$.
+Therefore, we need to show that
+\begin{align*}
+  \prod_{i=1}^n a_i &= \text{det} A
+  \, .
+\end{align*}
+Again, this is easy.
+Inspect the first version of the matrix $A$ as shown above.
+If we add $(1/2) b_2$ times the second row to the first row, then the .
+
+There's another, perhaps more elegant way to approach this problem.
+Rather than explicitly showing that the Markov property leads to a certain quadratic form in the exponent for the joint probability distribution, we can check that the proposed probability distribution yields the right moments.
+The distribution
+\begin{equation*}
+  p(v_1,\ldots,v_n) = \left( \frac{1}{(2\pi)^n \text{det}\Sigma}\right)^{1/2}
+  \exp \left[ - \frac{1}{2} \mathbf{v}\Sigma^{-1} \mathbf{v} \right]
+\end{equation*}
+has the important property that it has expectation values
+\begin{equation*}
+  \angavg{x_{s_1} \ldots x_{s_{2k}}} = \frac{1}{2^k k!} \sum_{\text{permutations } \sigma}
+  \Sigma_{s_{\sigma(1)}, s_{\sigma(2)}} \ldots \Sigma_{s_{\sigma(2k-1)}, s_{\sigma(2k)}}
+\end{equation*}
+where here $k$ is an integer and the quantity on the left hand side is a $2k$ point correlation (the odd correlations are zero).
+For example, if $k=1$ and $k_1 = i$ and $k_2 = j$, then
+\begin{align*}
+  \angavg{x_i x_j}
+  &= \frac{1}{2} \left( \Sigma_{ij} + \Sigma_{ji} \right) \\
+  \text{($\Sigma$ is symmetric)} \qquad &= \Sigma_{ij}
+  \, .
+\end{align*}
+Therefore, $\Sigma_{ii} = \sigma^2$ for all $i$.
