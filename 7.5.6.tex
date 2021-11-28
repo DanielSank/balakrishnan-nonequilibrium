@@ -7,7 +7,7 @@ Define $2 \sigma^2 = 4 D t$ (again) so that $\xi = \sigma^2 / x^2$.
 Now, for the fun of it, let's solve this problem using the change of variables formula directly rather than by messing with the delta function.
 I actually really like Balki's approach with delta functions, but since this solutions book is meant for self-study, it's good to show different approaches.
 
-\quickfig{0.5\columnwidth}{change_of_variables}{Caption}{fig:change_of_variables}
+\quickfig{0.5\columnwidth}{change_of_variables}{An illustration of the change of variables formula. The function $f$ maps values of $x$ to values of $y$. The probability distribution $p_Y$ is the composition of $p_X$ and $f^{-1}$.}{fig:change_of_variables}
 
 The probability of $X$ lying in a region $S$ is
 \begin{equation*}
@@ -37,22 +37,100 @@ Now notice that for any small interval $S$ defined by $[x, x + dx]$, there are t
 \end{equation*}
 as we wanted to show.
 
-\textbf{Part b.} Now we consider the distribution of the ratio of the positionso f two diffusing particles.
+\textbf{Part b.} Now we consider the distribution of the ratio of the positions of two diffusing particles.
 We'll use Balki's method:
 \begin{align*}
   p_\Xi(\xi)
   &= \int dx_1 \int dx_2 p_{X_1}(x_1) p_{X_2}(x_2) \delta ( \xi - x_1 / x_2) \\
-  &= \int dx_2 p_{X_2}(x_2) \int dx_1 p_{X_1}(x_1) \delta ( \xi - x_1 / x_2) \\
-  \text{(Let $y = x_1/x_2$)} \quad
-  &= \int dx_2 x_2 p_{X_2}(x_2) \int dy p_{X_1}(y x_2) \delta ( \xi - y) \\
-  &= \int dx_2 x_2 p_{X_2}(x_2) p_{X_1}(\xi x_2) \\
-  &= \frac{1}{2\pi \sigma_1 \sigma_2}
-    \int dx_2 x_2
-      \exp \left( - \frac{x_2^2}{2 \sigma_2^2}\right)
-      \exp \left( - \frac{(\xi x_2)^2)}{2 \sigma_1^2} \right) \\
-  &= \frac{1}{2\pi \sigma_1 \sigma_2}
-    \int dx_2 x_2 \exp \left( - x_2^2 \frac{\sigma_1^2 + \xi^2 \sigma_2^2}{2 \sigma_1^2 \sigma_2^2}\right) \\
-  &= \frac{1}{2\pi \sigma_1 \sigma_2} \left( \frac{2 \sigma_1^2 \sigma_2^2}{\sigma_1^2 + \xi^2 \sigma_2^2}\right)
-    \int dz z \exp \left( -z^2 \right)
+  &= \int dx_2 p_{X_2}(x_2) \underbrace{\int dx_1 p_{X_1}(x_1) \delta ( \xi - x_1 / x_2)}_I
   \, .
 \end{align*}
+Now to compute $I$, we're going to use the change of variables formula instead of using Balki's delta function transformation formula.
+In this way we'll see where Balki's formula comes from.
+We change variables with a function $f:\mathbb{R} \rightarrow \mathbb{R}$ defined by the equation $f(x_1) = x_1/x_2$.
+The inverse is defined by the equation $f^{-1}(y) = x_2 y$, and so $I$ becomes
+\begin{equation*}
+  I
+  =\int_{f(\mathbb{R})} dy \, p_{X_1}(f^{-1}(y)) \delta(\xi - y) \abs{x_2}
+  = \abs{x_2} \int_{f(\mathbb{R})} dy \, p_{X_1}(x_2 \, y) \delta(\xi - y)
+  = \abs{x_2} p_{X_1}(x_2 \xi)
+\end{equation*}
+and so
+\begin{align*}
+  p_\Xi(\xi)
+  &= \int dx \, p_{X_2}(x_2) \abs{x_2} \, p_{X_1}(\xi x_2) \\
+  \text{(drop the subscript)} \qquad
+  &= \int dx \, p_{x_2}(x) \abs{x} \, p_{x_1}(\xi x) \\
+  &= \frac{1}{2 \pi \sigma_1 \sigma_2} \int dx \, \abs{x} \exp \left(
+    - \frac{x^2}{2 \sigma_2^2} - \frac{(x \xi)^2}{2 \sigma_1^2}
+  \right) \\
+  &= \frac{1}{2 \pi \sigma_1 \sigma_2} \int dx \, \abs{x} \exp \left(
+    - x^2 \frac{\sigma_1^2 + \xi^2 \sigma_2^2}{2 \sigma_1^2 \sigma_2^2}
+  \right) \\
+  &= \frac{1}{2 \pi \sigma_1 \sigma_2}
+    \left( \frac{2 \sigma_1^2 \sigma_2^2}{\sigma_1^2 + \xi^2 \sigma_2^2} \right)
+    \underbrace{\int dy \, \abs{y} \exp \left(- y^2 \right)}_1 \\
+  &= \frac{1}{\pi}
+    \left( \frac{\sigma_1 \sigma_2}{\sigma_1^2 + \xi^2 \sigma_2^2} \right) \\
+  &= \frac{1}{\pi}
+    \left( \frac{\sqrt{D_1 D_2}}{D_1 + \xi^2 D_2} \right)
+\end{align*}
+as we wanted to show.
+
+\textbf{part c.} For $n$ variables all scaled by the first one, the joint distribution is
+\begin{equation*}
+  p(\xi_1,\ldots,\xi_n)
+  = \int dx_1 \, p_{X_1}(x_1)
+    \int \prod_{i=1}^{n-1} \left( dx_{i+1} \, p_{X_{i+1}}(x_{i+1}) \delta(\xi_i - x_{i+1} / x_1) \right)
+  \, .
+\end{equation*}
+Each integral in the product can be evaluated separately, using the same change of variables that we used in part b.
+Doing so, we get
+\begin{align*}
+  p(\xi_1,\ldots,\xi_n)
+  &= \int dx_1 \, p_{X_1}(x_1)
+    \prod_{i=1}^{n-1} \abs{x_1} \int dy_{i+1} p_{X_{i+1}}(x_1 y_{i+1}) \delta(\xi_i - y_{i+1}) \\
+  &= \int dx_1 \, p_{X_1}(x_1)
+    \prod_{i=1}^{n-1} \abs{x_1} p_{X_{i+1}}(x_1 \xi_i) \\
+  \text{(same $\sigma$ for all variables)} \qquad
+  &= \int dx_1 \,
+    \abs{x_1}^{n-1}
+    \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( - \frac{x_1^2}{2 \sigma^2} \right)
+    \left( \frac{1}{\sqrt{2\pi \sigma^2}} \right)^{n-1}
+    \exp \left( - \frac{x_1^2}{2 \sigma^2} \sum_{i=1}^{n-1} \xi_i^2 \right)
+    \\
+  \text{(drop the subscript)} \qquad
+  &= \left( 2\pi \sigma^2 \right)^{-n/2} \int dx \,
+    \abs{x}^{n-1}
+    \exp \left( - \frac{x^2}{2 \sigma^2} \underbrace{\left[ 1 + \sum_{i=1}^{n-1} \xi_i^2 \right]}_B \right)
+    \, .
+\end{align*}
+The stuff in square brackets, $B$, is a constant as far as the integral is concerned so we can rescale $x$ to remove it.
+Now we just do a sequence of variable changes, starting with $y^2 = x^2 B$:
+\begin{align*}
+  p(\xi_1,\ldots,\xi_n)
+  &= (2 \pi \sigma^2)^{-n/2} \int \frac{dy}{\sqrt{B}} \abs{\frac{y}{\sqrt{B}}}^{n-1}
+    \exp \left( - \frac{y^2}{2\sigma^2} \right)
+  \\
+  &= (2 \pi \sigma^2)^{-n/2} B^{-n/2} \int dy \, \abs{y}^{n-1}
+    \exp \left( - \frac{y^2}{2\sigma^2} \right)
+    \\
+  \text{(Let $x^2 = y^2 / 2 \sigma^2$)} \qquad
+  &= (2 \pi \sigma^2)^{-n/2} B^{-n/2} \left( 2 \sigma^2 \right)^{n/2}
+    \int dx \, \abs{x}^{n-1} \exp \left( - x^2 \right)
+    \\
+  \text{(note no $t$ dependence)} \qquad
+  &= 2 \left( \pi^{-n/2}\right) B^{-n/2}
+    \int_0^\infty dx \, x^{n-1} \exp \left( - x^2 \right)
+    \\
+  \text{(Let $z = x^2$)} \qquad
+  &= \frac{1}{\pi^{n/2} \left( 1 + \sum_{i=1}^{n-1} \xi_i^2 \right)^{n/2}}
+    \int_0^\infty dz \, z^{n/2 - 1} \exp \left( - z \right)
+    \\
+  &= \frac{\Gamma(n/2)}{\pi^{n/2} \left( 1 + \sum_{i=1}^{n-1} \xi_i^2 \right)^{n/2}}
+\end{align*}
+as we wanted to show.
+Take special note that we recovered the dependence on $\xi_i$ before evaluating the integral.
+In particular, by just a sequence of variable changes, we found the form of the joint probability distribution up to the overall normalization factor $\Gamma(n/2)$.
+That's typical of many simmilar problems.
+In fact, you can prove the equipartition theorem in exactly the same way.\footnote{Do it.}
