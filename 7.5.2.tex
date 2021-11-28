@@ -1,0 +1,216 @@
+\levelstay{Problem 7.5.2}
+
+\leveldown{Problem}
+
+Show that for a given initial distribution
+\begin{equation*}
+  p(x, 0) = p_\text{init}(x)
+\end{equation*}
+the solution to the diffusion equation is
+\begin{equation*}
+  p(x, t)
+  = \int_{-\infty}^\infty dx' G(x, t; x_0, 0) p_\text{init}(x')
+  = \int_{-\infty}^\infty dx' \frac{e^{-(x - x')^2/4Dt}}{\sqrt{4 \pi D t}} p_\text{init}(x')
+\end{equation*}
+
+
+\levelstay{Solution}
+
+We're going to take this opportunity to discuss Green's functions in some depth and introduce a very useful notation for working with them.
+The ideology is to think of linear differential equations the same way we think about linear equations in finite dimensional vector spaces.
+In other words, we're going to use ideas from the usual linear algebra.
+
+\leveldown{Linear algebra}
+
+Suppose we have a linear equation
+\begin{equation*}
+  T \ket{x} = \ket{y}
+\end{equation*}
+where $T$ is a linear transformation and $\ket{v}$ just literally means ``a vector named v''.
+Formally, the solution for $\ket{x}$ is $\ket{x} = T^{-1} \ket{y}$.
+Of course, the whole problem then is to find $T^{-1}$.
+In general, we can't just magically produce the inverse of a linear transformation, but we can break the problem down into a more manageable one by decomposing our vectors into an orthonormal basis.
+Let the basis be the set $\{\ket{e_1}, \ket{e_2},\ldots,\ket{e_n} \}$ where the vector space has dimension $n$. Then denote the components of any vector $\ket{v}$ in this basis by $\{v_i^e\}$, i.e.
+\begin{equation*}
+  \ket{v} = \sum_{i=1}^n v_i^e \ket{e_i}
+  \, .
+\end{equation*}
+Using such decompositions for our linear equation we have
+\begin{equation*}
+  T \ket{x} = \sum_i y_i^e \ket{e_i}
+  \, .
+\end{equation*}
+Now suppose that we could solve the problem
+\begin{equation*}
+  T \ket{G_i^e} = \ket{e_i}
+\end{equation*}
+i.e. suppose we could find the vectors $\ket{G_i^e}$, defined by
+\begin{equation*}
+  \ket{G_i^e} = T^{-1}\ket{e_i}
+\end{equation*}
+In other words, suppose that we could solve a simplified version of the original problem where the vector on the right hand side of the equation has nonzero components only for \emph{one} of the basis vectors.
+That's surely a simplier problem than the original one.
+If we can solve that simpler problem (for all $i$), then using the linearity of the problem we can construct the general solution
+as
+\begin{equation*}
+  \ket{x} = \sum_i y_i^e \ket{G_i^e}
+  \, .
+\end{equation*}
+To see that this is indeed the general solution, just hit the whole thing from the left with $T$,
+\begin{equation*}
+  T \ket{x}
+  = T \sum_i y_i^e \ket{G_i^e}
+  = \sum_i y_i^e T \ket{G_i^e}
+  = \sum_i y_i \ket{e_i}
+  = \ket{y}
+\end{equation*}
+as intended.
+Finally, the components of $\ket{x}$ are
+\begin{equation*}
+  x_j^e
+  = \braket{e_j}{x}
+  = \sum_i y_i^e \braket{e_j}{G_i^e}
+  = \sum_i y_i^e \bbraket{e_j}{T^{-1}}{e_i}
+  \, .
+\end{equation*}
+Take special note of the appearance of the matrix elements of $T^{-1}$ in the expansion for the components of $\ket{x}$.
+In fact, slightly re-arrangling this last equation as
+\begin{equation*}
+  x_j^e = \sum_i \bbraket{e_j}{T^{-1}}{e_i}\braket{e_i}{y}
+\end{equation*}
+we can see that all we've really done is taken the original equaiton $\ket{x} = T^{-1}\ket{y}$, inserted a resolution of identity, and hit the whole thing from the left by $\bra{e_j}$.
+Explicitly:
+\begin{align*}
+  \text{(original problem)} \qquad T \ket{x} &= \ket{y} \\
+  \ket{x} &= T^{-1} \ket{y} \\
+  \text{(resolution of identity)} \qquad \ket{x} &= \sum_i T^{-1}\ket{e_i} \braket{e_i}{y} \\
+  \text{(}j^\text{th} \text{ component)} \qquad \braket{e_j}{x} &= \sum_i \bbraket{e_j}{T^{-1}}{e_i} \braket{e_i}{y} \\
+  \braket{e_j}{x} &= \sum_i \braket{e_j}{G_i^e} \braket{e_i}{y} \\
+  \, .
+\end{align*}
+
+
+I call the set of vectors $\{ \ket{G_i} \}$ the ``Green's vectors''.
+Take note of their meaning: the Green's vectors are the solution to the linear equation for the case when the right hand side is a single basis vector.
+Once we know the Green's vectors, we can express the general solution as a sum over them, weighted by the components on the vector on the right hand side.
+
+\levelstay{Differential equations}
+
+Now let's talk about differential equations:
+\begin{itemize}
+  \item Functions are vectors. You can sum them and multiply them by a scalar.
+  \item In fact, you can (and often should!) think of a function $f(x)$ as the \emph{components} of a vector $\ket{f}$. Just imagine that each value $x$ on the real line corresponds to the basis vector index $i$ in the case of a finite vector space, and the value $f(x)$ is the component of $\ket{f}$ for that basis vector. Denote the basis vectors as $\ket{x}$, it makes sense to write $f(x) = \braket{\delta_x}{f}$ where $\ket{\delta_x}$ means the basis vector corresponding to the position $x$.
+  \item If $\ket{\delta_x}$ is a vector corresponding to a specific point on the real line, then it stands to reason that $\braket{\delta_y}{\delta_x} = \delta(x - y)$.
+  \item The derivative, which I denote $D$, is a linear transformation. Note that $D(f + g) = Df + Dg$.
+  \item In fact, $-iD$ is a \emph{Hermitian} linear transformation, which is the key to understanding the Fourier transform.
+\end{itemize}
+
+What the hell does any of this have to do with differential equations?
+Take a look at the diffusion equation
+\begin{equation*}
+  \underbrace{\left( \frac{\partial}{\partial t} - D \frac{\partial^2}{\partial x^2} \right)}_T p(x, t) = J(x, t)
+  \, .
+\end{equation*}
+Denoting that entire linear transformation in parentheses as $T$, we can rewrite the diffusion equation as
+\begin{equation*}
+  (T p) (x, t) = J(x, t)
+\end{equation*}
+and remembering what we said about functions being components of vectors in a particular basis we can rewrite further as
+\begin{align*}
+  \braket{\delta_x \delta_t}{T p} &= \braket{\delta_x \delta_t}{J} \\
+  T \ket{p} &= \ket{J}
+\end{align*}
+which looks \emph{exactly} like the finite dimensional linear equation we solved up above by using Green's vectors.
+Therefore we can write down the solution to the problem as
+\begin{equation*}
+  \ket{p} = \sum_i J_i^e \ket{G_i^e}
+\end{equation*}
+where here the basis $\{\ket{e_i} \}$ is the set of all vectors $\{\ket{\delta_x \delta_t}\}$ coresponding to points in space-time.
+
+Let's make this all concrete.
+Our source injects probability $p_\text{init}(x)$ at time $t=0$.
+In other words,
+\begin{equation*}
+  \ket{J} = \int dx_0 \, p_\text{init}(x_0) \ket{\delta_{x_0} \delta_0}
+\end{equation*}
+Therefore,
+\begin{align*}
+  T \ket{p} &= \ket{J} \\
+  \ket{p} &= T^{-1} \ket{J} \\
+  &= \int dx' \int dt' \, T^{-1} \ket{\delta_{x'} \delta_{t'}} \braket{\delta_{x'} \delta_{t'}}{J} \\
+  &= \int dx_0 \int dx' \int dt' \, T^{-1} \ket{\delta_{x'} \delta_{t'}} p_\text{init}(x_0) \braket{\delta_{x'} \delta_{t'}}{\delta_{x_0} \delta_0} \\
+  &= \int dx' \, T^{-1} \ket{\delta_{x'} \delta_0} p_\text{init}(x')
+\end{align*}
+we identify $T^{-1} \ket{\delta_{x'} \delta_0}$ as the Green's vector, giving
+\begin{align*}
+  \ket{p} &= \int dx' \ket{G^e_{x' 0}} \, p_\text{init}(x') \\
+  p(x, t) = \braket{\delta_x \delta_t}{p}
+  &= \int dx' \braket{\delta_x\delta_t}{G^e_{x' 0}} \, p_\text{init}(x')
+  \, .
+\end{align*}
+We already found the components of the Green's vector for this problem in the previous exercise, and we know the components to be
+\begin{equation*}
+  \braket{\delta_x \delta_t}{G^e_{x', t'}} = \frac{1}{\sqrt{4 \pi D (t - t')}}\exp \left( - \frac{(x - x')^2}{4 D (t - t')} \right)
+\end{equation*}
+so finally
+\begin{equation*}
+  p(x, t) = \int dx' \frac{1}{\sqrt{4 \pi D t}} \exp \left( - \frac{(x - x')^2}{4 D t} \right)
+  p_\text{init}(x')
+\end{equation*}
+as we wanted to show.
+Of course, in this case where the vector space is continuous, what I've been calling the ``Green's vector'' is typically called a ``Green's function''.
+
+\levelstay{Solving for the Green's function}
+
+It's instructive to solve for the Green's function using our vector notation.
+The Green's function is defined by the equation
+\begin{equation*}
+  T \ket{G^e} = \ket{\delta_x \delta_t}
+\end{equation*}
+where the superscript $^e$ denotes the space-time basis.
+Insert an identity using the momentum-frequency basis (denoted $f$)
+\begin{equation*}
+  T \int \frac{dk}{2\pi}\int \frac{d\omega}{2\pi} \ket{\delta_k \delta_\omega}
+  \braket{\delta_k \delta_\omega}{G^e} = \ket{\delta_x \delta_t}
+\end{equation*}
+Now the absolutely crucial thing here is that $\ket{\delta_k \delta_\omega}$ is an eigenvector of $T$.
+This fact is obvious if we think about what $\ket{\delta_k \delta_\omega}$ is; it is a delta function in momentum and frequency, i.e. its components in the space-time basis are
+\begin{equation*}
+  \braket{\delta_x \delta_t}{\delta_k \delta_\omega}
+  = \braket{\delta_x}{\delta_k} \times \braket{\delta_t}{\delta_\omega}
+  = \exp ( i k x) \times \exp( i \omega t) \, .
+\end{equation*}
+Applying the time derivative to the complex time sinusoid gives $i \omega$ and simularly for applying the space derivative to the complex space sinusoid.
+Therefore,
+\begin{equation*}
+  T \ket{\delta_k \delta_\omega} = (i\omega + D k^2) \ket{\delta_k \delta_\omega}
+\end{equation*}
+and so
+\begin{align*}
+  T \int \frac{dk}{2\pi}\int \frac{d\omega}{2\pi} \ket{\delta_k \delta_\omega}
+  \braket{\delta_k \delta_\omega}{G^e}
+  & = \ket{\delta_x \delta_t} \\
+  \int \frac{dk}{2\pi} \int \frac{d\omega}{2\pi} (i\omega + D k^2) \ket{\delta_k \delta_\omega} \braket{\delta_k \delta_\omega}{G^e}
+  &= \ket{\delta_x \delta_t} \\
+  &= \int \frac{dk}{2\pi} \int \frac{d\omega}{2\pi} \ket{\delta_k \delta_\omega} \braket{\delta_k \delta_\omega}{\delta_x \delta_t} \\
+  &= \int \frac{dk}{2\pi} \int \frac{d\omega}{2\pi} \ket{\delta_k \delta_\omega} \exp (-i(kx + \omega t))
+  \, .
+\end{align*}
+Matching coefficients for each basis vector, we get
+\begin{align*}
+  (i \omega + D k^2) \braket{\delta_k\delta_\omega}{G^e}
+  &= \exp(-i(kx + \omega t)) \\
+  \braket{\delta_k\delta_\omega}{G^e}
+  &= \frac{\exp(-i(kx + \omega t))}{i \omega + D k^2} \\
+\end{align*}
+which is the equation for the Green's vector corresponding to a point source in space-time, but expressed in momentum-frequency components.
+Now we find the components in the space-time basis:
+\begin{align*}
+  \ket{G^e}
+    &= \int \frac{dk}{2\pi} \frac{d\omega}{2\pi} \ket{\delta_k \delta_\omega} \braket{\delta_k \delta_\omega}{G^e} \\
+  \braket{\delta_{x'} \delta_{t'}}{G^e}
+    &= \int \frac{dk}{2\pi} \frac{d\omega}{2\pi} \braket{\delta_{x'} \delta_{t'}}{\delta_k \delta_\omega} \braket{\delta_k \delta_\omega}{G^e} \\
+  \braket{\delta_{x'} \delta_{t'}}{G^e}
+    &= \int \frac{dk}{2\pi} \frac{d\omega}{2\pi} \frac{e^{i k (x' - x)} e^{i \omega (t' - t)}}{i \omega + D k^2} \\
+\end{align*}
+which is exactly the same equation we had in the previous exercise for the Green's function.
