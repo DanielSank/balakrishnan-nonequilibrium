@@ -1,6 +1,6 @@
-\levelstay{7.5.4}
+\levelstaynon{7.5.4}
 
-\leveldown{Problem}
+\leveldownnon{Problem}
 
 Suppose we consider \emph{two} tagged particles, each of which starts at the origin and diffuses independently on the x-axis, without any interaction with the other tagged particloe. (We also assume that they can ``pass through'' each other without any collision.) Let $x_1$ and $x_2$ denote the respective positions of the two particles.
 The positional PDF of the two particles are $p(x_1, t)$ and $p(x_2, t)$, where $p(x, t)$ is the Gaussian solution given in Eq.~(7.11).\footnote{In the book, Eq.~(7.11) reads $p(x, t) = 1/\sqrt{4 \pi D t} \exp \left( -x^2 / 4 D t \right)$.}
@@ -32,7 +32,7 @@ Show that
 \textbf{(b)} More generally, show that the PDF of the linear combination $ax_1 + b x_2$ (where $a$ and $b$ are real constants) is again a Gaussian, with a variance given by $s(a^2 + b^2)Dt$.
 Once again, this result verifies that the PDF of a linear combination of independent Gaussian random variables is also Gaussian.
 
-\levelstay{Solution}
+\levelstaynon{Solution}
 
 We're going to just go straight to part \textbf{(c)}, and we're going to do it like adults.
 First of all, note that the Fourier transform of a probability distribution winds up being a Taylor series with the distribution's moments as the Taylor coefficients:
@@ -127,7 +127,7 @@ Of course if we scale by $b$, then the second cumulant is $b^2$.
 Then, summing the two scaled variables together yields a distribution with second cumulant (variance) equal to $(a^2 + b^2) \sigma^2$.
 But of course as we said above, $\sigma^2 = 2 D t$ so the variance of the linear combination of variables is $(a^2 + b^2) 2 D t$, as we wanted to show.
 
-\levelstay{Bonus: proof of the central limit theorem}
+\levelstaynon{Bonus: proof of the central limit theorem}
 
 Given the random variables $X_i$, consider their scaled sum
 \begin{equation*}
