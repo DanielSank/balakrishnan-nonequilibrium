@@ -1,0 +1,146 @@
+\levelstay{7.5.4}
+
+\leveldown{Problem}
+
+Suppose we consider \emph{two} tagged particles, each of which starts at the origin and diffuses independently on the x-axis, without any interaction with the other tagged particloe. (We also assume that they can ``pass through'' each other without any collision.) Let $x_1$ and $x_2$ denote the respective positions of the two particles.
+The positional PDF of the two particles are $p(x_1, t)$ and $p(x_2, t)$, where $p(x, t)$ is the Gaussian solution given in Eq.~(7.11).\footnote{In the book, Eq.~(7.11) reads $p(x, t) = 1/\sqrt{4 \pi D t} \exp \left( -x^2 / 4 D t \right)$.}
+
+\textbf{(a)} Let $x_\text{cm} = (1/2) (x_1 + x_2)$ denote the centre of mass of the two particles.
+It is clear that the normalized PDF of $x_\text{cm}$ is given by
+\begin{equation*}
+  p_\text{cm}(x_\text{cm}, t) = \int_{-\infty}^\infty dx_1 \int_{-\infty}^\infty dx_2 p(x_1, t) p(x_2, t) \delta \left( x_\text{cm} - \frac{x_1 + x_2}{2} \right)
+  \, .
+\end{equation*}
+Simplify this expression and show that
+\begin{equation*}
+  p_\text{cm}(x_\text{cm}, t) = \frac{1}{\sqrt{2 \pi D t}} \exp \left( = \frac{x_\text{cm}^2}{2 D t} \right)
+  \, .
+\end{equation*}
+
+\textbf{(b)} Similarly, let $\xi \equiv x_1 - x_2$ denote the separation between the particles.
+The normalized PDF of $\xi$ is given by
+\begin{equation*}
+  p_\text{sep}(\xi, t) = \int_{-\infty}^\infty dx_1 \int_{-\infty}^\infty dx_2 p(x_1, t) p(x_2, t) \delta \left( \xi - (x_1 - x_2) \right)
+  \, .
+\end{equation*}
+Show that
+\begin{equation*}
+  p_\text{sep}(\xi, t) = \frac{1}{\sqrt{8 \pi D t}} \exp \left( - \frac{\xi^2}{8 D t} \right)
+  \, .
+\end{equation*}
+
+\textbf{(b)} More generally, show that the PDF of the linear combination $ax_1 + b x_2$ (where $a$ and $b$ are real constants) is again a Gaussian, with a variance given by $s(a^2 + b^2)Dt$.
+Once again, this result verifies that the PDF of a linear combination of independent Gaussian random variables is also Gaussian.
+
+\levelstay{Solution}
+
+We're going to just go straight to part \textbf{(c)}, and we're going to do it like adults.
+First of all, note that the Fourier transform of a probability distribution winds up being a Taylor series with the distribution's moments as the Taylor coefficients:
+\begin{align*}
+  \tilde{X}(k) &= \int dx \, X(x) e^{-i k x} \\
+  \text{(expand the exponent)} \qquad
+  &= \sum_{n=0}^\infty \int dx \, X(x) \frac{(-i k x)^n}{n!} \\
+  &= \sum_{n=0}^\infty \frac{(-i k)^n}{n!} \int dx \, X(x) \, x^n \\
+  &= \sum_{n=0}^\infty \frac{(-i k)^n}{n!} \angavg{x^n}
+  \, .
+\end{align*}
+Keep this in mind for a moment.
+
+Now consider $N$ random variables ${X_i}$ and $Z$ defined as their sum, i.e. $Z = X_1 + X_2 + \cdots + X_N$.
+What's the distribution of $Z$?
+Using Balki's idea of constraining the values of $X_i$ to sum to $Z$, we can write
+\begin{equation*}
+  Z(z) = \int dx_1 \ldots dx_N \left( \prod_{i=1}^N X_i(x_i) \right) \delta(z - (x_1 + \ldots x_N))
+\end{equation*}
+Now using the Fourier representation of the delta function
+\begin{equation*}
+  \delta(x) = \int \frac{dk}{2\pi} e^{i k x}
+  \, ,
+\end{equation*}
+we get
+\begin{align*}
+  Z(z)
+  &= \int dx_1 \ldots dx_N \left( \prod_{i=1}^N X_i(x_i) \right) \int \frac{dk}{2\pi} e^{i k (z - (x_1 + \ldots + x_N))} \\
+  &= \int dk e^{i k z} \left( \prod_{i=1}^N \int dx_i X_i(x_i) e^{-i k x_i} \right) \\
+  &= \int dk e^{i k z} \left( \prod_{i=1}^N \tilde{X}_i(k) \right) \\
+  \Rightarrow \tilde{Z}(k) &= \prod_{i=1}^N \tilde{X}_i(k)
+\end{align*}
+where $\tilde{X}$ means the Fourier transform of $X$.
+This is a very useful result: the Fourier transform of the distribution of a sum of random variables is equal to the product of the Fourier transforms of the distributions of the summands.
+However, the moments of $Z$ are complicated.
+If we express each $\tilde{X}_i(k)$ as a Taylor series and multiply them together, then the resulting coefficients of each power of $k$ are terms in a multinomial expansion.
+To simplify things, suppose we work with the \emph{logarithm} of the Fourier transforms on the hunch that it will be useful to turn that product into a sum, i.e.
+\begin{equation*}
+  \ln \tilde{Z}(k) = \sum_{i=1}^N \ln \tilde{X}_i(k)
+  \, .
+\end{equation*}
+Let's \emph{define} the \textbf{cumulants} $\cumulant{x_i}_j$ as the coefficients of the Taylor series expansion of $\ln \tilde{X}_i(k)$, i.e.
+\begin{equation*}
+  \ln \tilde{X_i}(k) = \sum_{j=1}^\infty \frac{(ik)^j}{j!} \cumulant{X_i}_j
+  \, .
+\end{equation*}
+We start the sum at $j=1$ because the $j=0$ term vanishes; $\tilde{X}(0) = 1$ (probability distributions are normalized) so $\ln \tilde{X}(0) = 0$, i.e. the constant term in the Taylor series is zero.
+It's obvious that the $j^\text{th}$ cumulant of $Z$ is the sum of the $j^\text{th}$ cumulants of the $X$'s, i.e.
+\begin{equation*}
+  \cumulant{Z}_j = \sum_{i=1}^\infty \cumulant{X_i}_j
+\end{equation*}
+
+
+We can find the relationship between the moments and the cumulants as follows:
+\begin{align*}
+  \tilde{X}(k) &= \exp \left( \ln \tilde{X}(k) \right) \\
+  \sum_{n=0}^\infty \frac{(ik)^n}{n!} \angavg{x^n} &= \exp \left( \sum_{n=1}^\infty \frac{(ik)^n}{n!} \cumulant{X}_n \right) \\
+  1 + i k \angavg{x} - \frac{1}{2} k^2 \angavg{x^2} + O(k^3) &= 1
+    + \left( \sum_{n=1}^\infty \frac{(ik)^n}{n!} \cumulant{X}_n \right)
+    + \frac{1}{2} \left( \sum_{n=1}^\infty \frac{(ik)^n}{n!} \cumulant{X}_n \right)^2 + \ldots \\
+  &= 1 + i k \cumulant{X}_1 - \frac{1}{2} k^2 \cumulant{X}_2 - \frac{1}{2} k^2 \cumulant{X}_1^2 + O(k^3)
+  \, .
+\end{align*}
+The constant terms match up trivially.
+The terms linear in $k$ tell us that $\cumulant{x}_1 = \angavg{x}$, i.e. the first cumulant is the mean.
+The terms quadratic in $k$ tell us that $\cumulant{x}_2 = \angavg{x^2} - \angavg{x}^2$, i.e. the second cumulant is the variance.
+
+Let's take a look at the cumulants of the Gaussian distribution $G_{\mu,\sigma}$ with mean $\mu$ and variance $\sigma$.
+The Fourier transform of the distribution is
+\begin{equation*}
+  \int dx \, G_{\mu, \sigma}(x) e^{-i k x}
+  = \int dx \, \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( - \frac{(x - \mu)^2}{2 \sigma^2} \right) e^{-i k x}
+  = \exp \left(-i k \mu - \frac{1}{2} k^2 \sigma^2 \right)
+  \, .
+\end{equation*}
+Therefore, the cumulants are just $\cumulant{G_{\mu,\sigma}}_1 = \mu$, $\cumulant{G_{\mu, \sigma}}_2 = \sigma^2$, and all other cumulants vanish.
+So now it's completely obvious that the distribution of sums of Gaussian random variables are also Gaussian, and that the means and variances just sum (because the cumulants just sum).
+
+To do Balki's exercise, we also need to know what happens to the cumulants of a variable when it's scaled.
+Given a variable $X$ and another one $Y = a X$, how are the cumulants of $Y$ related to the cumulants of $X$?
+It's pretty easy to show that $\cumulant{Y}_j = a^j \cumulant{X}_j$.\footnote{Compute it.}
+So then for part \textbf{(a)} where we want the distrubution of $(X_1 + X_2) / 2$, we know that we should sum the mean, sum the variances, and divide them both by 2.
+Since the means of $X_1$ and $X_2$ are zero, the mean of the center of mass is zero.
+The variance of $X_1$ and $X_2$ are each $\sigma^2 = 2 D t$.
+The second cumulant (variance) of $X_1 + X_2$ is $2 \sigma^2$, but then when we divide by 2 to get the center of mass we reduce the second cumulant by $2^2 = 4$, leaving us with a variance of $\sigma^2 / 2 = D t$, which corresponds to a diffusion constant of $D t / 2$, as we wanted to show.
+For part \textbf{(b)} where we're taking the difference, the only change is that we don't have the division by 2, so the mean is still zero and the variance is $2 \sigma^2 = 4 D t$, which corresponds to a diffusion constant of $2D$, as we wanted to show.
+
+For part \textbf{(c)}, just go back to the rules we found for cumulants.
+Start with a Gaussian distribution $G_{\mu, \sigma}$ where the second cumulant is $\cumulant{G_{\mu, \sigma}} = \sigma^2$.
+If we scale by $a$, then the second cumulant becomes $a^2 \sigma^2$.
+Of course if we scale by $b$, then the second cumulant is $b^2$.
+Then, summing the two scaled variables together yields a distribution with second cumulant (variance) equal to $(a^2 + b^2) \sigma^2$.
+But of course as we said above, $\sigma^2 = 2 D t$ so the variance of the linear combination of variables is $(a^2 + b^2) 2 D t$, as we wanted to show.
+
+\levelstay{Bonus: proof of the central limit theorem}
+
+Given the random variables $X_i$, consider their scaled sum
+\begin{equation*}
+  Z = \frac{1}{\sqrt{N}}\sum_{i=1}^N X_i
+  \, .
+\end{equation*}
+According to the rules above, the $j^\text{th}$ cumulate of $Z$ is
+\begin{align*}
+  \cumulant{Z}_j
+  &= \frac{1}{N^{j/2}} \sum_{i=1}^N \cumulant{X_i}_j \\
+  &= N^{1 - j/2} \underbrace{\left( \frac{1}{N} \sum_{i=1}^N \cumulant{X_i}_j \right)}_\text{average of $j^\text{th}$ cumulants}
+  \, .
+\end{align*}
+Assuming that the cumulants of each $X_i$ behave reasonably, i.e. that their averages exist and that the scale of the averages is independent of $N$, we see that the first cumulant grows as $N^{1/2}$, the second cumulant is independent of $N$ and is in fact equal to the average of the second cumulants of the $X_i$, and all higher cumulants vanish in the limit $N \rightarrow \infty$.
+So, if we center the $X_i$ such that they have zero mean (or equivalently work with the shifted version of $Z$ that removes the mean), then we see that the distribution of $Z$ is just a Gaussian with a variance given by the average of the variances of the $X_i$.
+That's the central limit theorem.
