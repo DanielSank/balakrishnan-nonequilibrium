@@ -1,0 +1,165 @@
+\levelstaynon{Ch. 9 (AO)}
+\leveldownnon{Problem 9.8.1}
+Show that
+\begin{equation}
+R(t) \equiv r^2(t) = x_1^2(t) + \cdots + x_d^2(t) \nonumber
+\end{equation}
+is a diffusion process governed by the SDE
+\begin{equation}
+d R = 2D(d-1)~ dt + 2 \sqrt{2DR}~dw(t). \nonumber
+\end{equation}
+
+From the relation
+\begin{equation}
+p_\text{rad}(r, t) ~ dr = p_\text{sqr}(R, t) ~ dR ,  \nonumber
+\end{equation}
+one has that 
+\begin{equation}
+p_\text{rad}(r, t) = p_\text{sqr}(R, t) \frac{dR}{dr} = 2 \sqrt{R} ~ p_\text{sqr}(R, t). \label{eq:p_s_in_terms_of_pr}
+\end{equation}
+In what follows, we use the shorthand notation $p_\text{r} \equiv p_\text{rad}(r, t)$ and  $p_\text{s} \equiv p_\text{sqr}(R, t)$ to save writing. Substituting Eq. (\ref{eq:p_s_in_terms_of_pr}) into the diffusion equation for $p_\text{r}$ given below
+\begin{equation}
+\pt{} p_\text{r} = -\p{}{r} \bigg[\frac{D(d-1)}{r} p_\text{r} \bigg] + D \ptwo{}{r} p_\text{r}
+\end{equation}
+and noting that
+\begin{equation}
+\p{}{r} \equiv 2 \sqrt{R} \p{}{R}~~\text{and}~~ \ptwo{}{r} \equiv 2 \p{}{R} + 4 R \ptwo{}{R}
+\end{equation}
+leaves us with
+\begin{eqnarray}
+2 \sqrt{R} \pt{p_\text{s}} &=& - 2 \sqrt{R} \p{}{R} \bigg[ \frac{D(d-1)}{\cancel{\sqrt{R}}} 2 \cancel{\sqrt{R}} ~ p_\text{s} \bigg] + D \bigg\{ 2 \p{}{R} + 4 R \ptwo{}{R} \bigg\}(2\sqrt{R} ~ p_\text{s}) \nonumber \\
+&=& - 2 \sqrt{R} \times  2D(d-1) ~ \p{p_\text{s}}{R} + \cancel{2D \frac{1}{\sqrt{R}} ~ p_\text{s}} + 2 \sqrt{R} \times 2 D \p{p_\text{s} }{R} \nonumber \\
+&+& 8 D R \bigg\{ \cancel{-\frac{1}{4} \frac{1}{R^{3/2}} ~ p_\text{s}} + \frac{1}{\sqrt{R}} \p{p_\text{s} }{ R}  + \sqrt{R}  \ptwo{p_\text{s} }{R}\bigg\} \nonumber \\
+&=& - 2 \sqrt{R} \times  2D(d-1) ~ \p{p_\text{s}}{R}  + 2 \sqrt{R} \times 6 D \p{p_\text{s} }{R} + 2 \sqrt{R} \times 4 D R \ptwo{p_\text{s} }{R} \nonumber.
+\end{eqnarray}
+Dividing both sides of this equation by $2 \sqrt{R} $ yields the equation
+\begin{equation}
+\pt{p_\text{s}} 
+= - 2D(d-1) ~ \p{p_\text{s} }{R}  + 6 D \p{p_\text{s} }{ R} +  4 D R \ptwo{p_\text{s}}{R} . \label{eq:intermediate_9p8p1}
+\end{equation}
+Next, we note that
+\begin{equation}
+4 D  \ptwo{}{R} (R p_s) = 4 D \bigg( 2 \p{p_\text{s} }{R} + R \ptwo{p_\text{s}}{R} \bigg) = 8 D \p{p_\text{s}}{R} + 4D R \ptwo{p_\text{s}}{R}.
+\end{equation}
+By adding and subtracting $2D \partial p_\text{s} /\partial{R}$ (that's right - zero) from the right hand side of Eq. (\ref{eq:intermediate_9p8p1}), one finds that
+\begin{eqnarray}
+\pt{p_\text{s}} 
+&=& - 2dD ~ \p{p_\text{s}}{R} + \cancel{2D ~ \p{p_\text{s}}{R}} - \cancel{2 D \p{p_\text{s}}{R}} + \underbrace{8 D \p{p_\text{s}}{R} +  4 D R \ptwo{p_\text{s}}{R}}_{=4 D \ptwo{}{R}(R p_s)} \nonumber \\
+&=& \boxed{- \p{}{R} (2dDp_\text{s}) + \frac{1}{2} \ptwo{}{R} \bigg((2\sqrt{2DR})^2 p_s\bigg)}~.
+\end{eqnarray}
+Comparing this equation with the SDE$\leftrightarrow$FPE correspondence
+\begin{equation}
+\pt{p} = - \p{}{R}(fp) + \frac{1}{2} \ptwo{}{R} (g^2 p) \leftrightarrow d R = f(R, t)~dt + g(R, t)~d w(t)
+\end{equation}
+yields the following SDE for $R(t)$:
+\begin{equation}
+\boxed{dR = 2d D~dt + 2\sqrt{2DR} ~ dw(t)}~.
+\end{equation}
+
+
+\levelstaynon{Problem 9.8.2}
+Define $x_n(t) \equiv (x(t))^{n}$ where $n$ is any positive integer. Show that the SDE governing this process is
+\begin{equation}
+d x_n = D n(n-1) x_n^{(n-2)/n} ~ dt + n \sqrt{2D}  x_n^{(n-1)/n} ~ dw(t).
+\end{equation}
+
+Starting with the relation
+\begin{equation}
+p(x, t) ~ dx = p_n(x_n, t) ~ dx_n ,  \nonumber
+\end{equation}
+one has that 
+\begin{equation}
+p(x, t) = n x_n^{(n-1)/n} ~ p_n(x_n, t). \label{eq:p_in_terms_of_pn}
+\end{equation}
+In what follows, we let $p_n \equiv p_n(x_n, t)$. Substituting Eq. (\ref{eq:p_in_terms_of_pn}) into the 1D diffusion equation for $x(t)$ given below
+\begin{equation}
+\p{p}{t} = D \ptwo{p}{x}
+\end{equation}
+and noting that
+\begin{equation}
+\ptwo{}{x} = n x_n^{(n-1)/n} \cdot (n-1) x^{-1/n} \p{}{x_n} + \bigg(n x_n^{(n-1)/n}\bigg)^2 \ptwo{}{x_n}
+\end{equation}
+yields the equation
+\begin{equation}
+n x_n^{(n-1)/n} \p{p_n}{t} = D \bigg\{ n x_n^{(n-1)/n}\cdot (n-1) x^{-1/n} \p{}{x_n} + \bigg(n x_n^{(n-1)/n}\bigg)^2 \ptwo{}{x_n}\bigg\} \bigg[n x_n^{(n-1)/n} p_n\bigg]. \nonumber 
+\end{equation}
+Dividing both sides of the expression above by $n x_n^{(n-1)/n}$ leaves us with
+\begin{eqnarray}
+ \p{p_n}{t} &=& D \times \bigg\{(n-1) x^{-1/n} \p{}{x_n} + n x_n^{(n-1)/n} \ptwo{}{x_n}\bigg\} \bigg[n x_n^{(n-1)/n} p_n\bigg] \nonumber \\
+ &=& D \times \nonumber \\
+ &\bigg\{& (n-1) x^{-1/n} \bigg( n \frac{(n-1)}{n} x^{-1/n} + n x_n^{(n-1)/n} \p{p_n}{x_n}\bigg) \nonumber \\
+ &+&  n x_n^{(n-1)/n} \bigg( -\frac{(n-1)}{n} x_n^{-(n+1)/n} p_n + 2(n-1)x^{-1/n}\p{p_n}{x_n} +  n x_n^{(n-1)/n} \ptwo{p_n}{x_n} \bigg)\nonumber \\
+ &\bigg\}& \nonumber \\
+ &=& D \times \bigg\{(n-1)(n-2) x^{-2/n} p_n \nonumber \\
+ &+& 3n(n-1) x_n^{(n-2)/n} \p{p_n}{x_n} + \bigg(n x_n^{(n-1)/n}\bigg)^2 \ptwo{p_n}{x_n} \bigg\}~. \label{eq:intermediate_9p8p2}
+\end{eqnarray}
+To see that Eq. (\ref{eq:intermediate_9p8p2}) can be written in the form of a FPE, we first identify $g(x_n, t)\equiv n \sqrt{2D} x_n^{(n-1)/n}$ and $f(x_n, t) \equiv Dn(n-1) x_n^{(n-2)/n}$. Next, we note that
+\begin{eqnarray}
+\frac{1}{2} \ptwo{}{x_n}(g^2 p_n) &=& \frac{1}{2} \bigg[ 2 \bigg(\p{g}{x_n} \bigg)^2 p_n + 2 g \ptwo{g}{x_n} p_n + 4 g \p{g}{x_n} \p{p_n}{x_n} + g^2 \ptwo{p_n}{x_n} \bigg] \nonumber \\ 
+&=& \frac{D}{2} \bigg[ 4(n-1)^2 x_n^{-2/n} p_n - 4 (n-1) x_n^{-2/n} p_n  \nonumber \\
+&+& 8 n(n-1) x_n^{(n-2)/n} \p{p_n}{x_n} + 2 \bigg(n x_n^{(n-1)/n} \bigg)^2 \ptwo{p_n}{x_n} \bigg] \nonumber \\
+&=& D \bigg[ 2(n-1)(n-2)x_n^{-2/n} p_n \nonumber \\
+&+& 4 n(n-1) x_n^{(n-2)/n} \p{p_n}{x_n} + \bigg(n x_n^{(n-1)/n} \bigg)^2 \ptwo{p_n}{x_n} \bigg] \label{eq:partial_g_9p8p2}.
+\end{eqnarray}
+and
+\begin{eqnarray}
+-\p{}{x_n}(f p_n) &=& -D \bigg[ (n-1)(n-2) x_n^{-2/n} + n(n-1) x_n^{(n-2)/n} \p{p_n}{x_n} \bigg] \label{eq:partial_f_9p8p2}.
+\end{eqnarray}
+Then, by Eqs. (\ref{eq:intermediate_9p8p2})-(\ref{eq:partial_f_9p8p2}), it follows that
+\begin{equation}
+\p{p_n}{t} = -\p{}{x_n}(f p_n)  + \frac{1}{2} \ptwo{}{x_n}(g^2 p_n).
+\end{equation}
+Thus, by the SDE$\leftrightarrow$FPE correspondence, the SDE governing $x_n(t)$ is:
+\begin{equation}
+\boxed{d x_n = Dn(n-1) x_n^{(n-2)/n} ~ dt  + n \sqrt{2D} x_n^{(n-1)/n}}~.
+\end{equation}
+
+\levelstaynon{Problem 9.8.3}
+Consider the random process
+\begin{equation}
+\xi(t) \equiv \exp(x(t)/L),
+\end{equation}
+where $x(t)$ is a Brownian motion. Defining the conditional PDF
+\begin{equation}
+p(x,t) dx = p_\text{geom}(\xi, t) d \xi,
+\end{equation}
+show that
+\begin{equation}
+d \xi = \frac{D}{L^2} \xi ~ dt + \frac{\sqrt{2D}}{L} dw(t).
+\end{equation}
+
+We begin with the relation
+\begin{equation}
+p(x, t) = \frac{\xi}{L} ~ p_\text{geom}(\xi, t)
+\end{equation}
+and let $p_\text{g} \equiv p_\text{geom}(\xi, t)$. Next, we note that
+\begin{equation}
+\ptwo{}{x} = \frac{1}{L^2} \bigg\{\xi \p{}{\xi} + \xi^2 \ptwo{}{\xi} \bigg\}.
+\end{equation}
+Substiting these equations into the 1D diffusion equation for $x(t)$ yields
+\begin{eqnarray}
+\frac{\xi}{L} \times \p{p_\text{g}}{t} &=& \frac{D}{L^2}\bigg\{\xi \p{}{\xi} + \xi^2 \ptwo{}{\xi} \bigg\} \bigg[ \frac{\xi}{L} ~ p_\text{g} \bigg] \nonumber \\
+&=& \frac{D}{L^2} \bigg(\frac{\xi}{L} \times p_\text{g} + \frac{\xi}{L} \times \xi~\p{p_\text{g}}{\xi}\bigg)
++ \frac{D}{L^2} \bigg(\frac{\xi}{L} \times 2\xi \p{p_\text{g}}{\xi} + \frac{\xi}{L} \times \xi^2 \ptwo{p_\text{g}}{\xi} \bigg) \nonumber.
+\end{eqnarray}
+Dividing both sides of this equation by $\xi/L$ and combining like terms leaves us with
+\begin{equation}
+\p{p_\text{g}}{t} = \frac{D}{L^2} \bigg(p_\text{g} + 3 \xi~\p{p_\text{g}}{\xi} + \ptwo{p_\text{g}}{\xi} \bigg). \label{eq:intermediate_9p8p3}
+\end{equation}
+Defining $g(\xi, t) = \sqrt{2D} \xi / L$ and $f(\xi, t) = D\xi/L^2$, one has that
+\begin{eqnarray}
+\frac{1}{2} \ptwo{}{\xi}(g^2 p_\text{g}) &=& D \times \bigg\{\frac{2 p_\text{g}}{L^2} + \frac{4 \xi}{L^2} \p{p_\text{g}}{\xi} + \frac{\xi^2}{L^2} \ptwo{p_\text{g}}{\xi}\bigg\} \nonumber \\ 
+&=& \frac{D}{L^2} \times \bigg\{2 p_\text{g} + 4 \xi \p{p_\text{g}}{\xi} + \xi^2 \ptwo{p_\text{g}}{\xi}\bigg\} \label{eq:partial_g_9p8p3}
+\end{eqnarray}
+and
+\begin{equation}
+-\p{}{\xi}(f p_\text{g}) = \frac{D}{L^2} \times \bigg\{p_\text{g} + \xi \p{p_\text{g}}{\xi} \bigg\}. \label{eq:partial_f_9p8p3}
+\end{equation}
+From Eqs. (\ref{eq:intermediate_9p8p3})-(\ref{eq:partial_f_9p8p3}), one has that
+\begin{equation}
+\p{p_\text{g}}{t} = -\p{}{\xi}(f p_\text{g}) + \frac{1}{2} \ptwo{}{\xi}(g^2 p_\text{g}).
+\end{equation}
+Then, by the SDE$\leftrightarrow$FPE correspondence, the SDE for $\xi(t)$ is:
+\begin{equation}
+\boxed{d \xi = \frac{D}{L^2} \xi ~ dt + \frac{\sqrt{2D}}{L} \xi~ dw(t)}~.
+\end{equation}
