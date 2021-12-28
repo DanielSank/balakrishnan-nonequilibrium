@@ -1,0 +1,126 @@
+\levelstaynon{8.4.1 - Solution by separaiton of variables: Special Edition}
+
+\leveldownnon{Problem}
+
+Solve the diffusion equaiton on the interval $[-a a]$ with reflecting boundary conditions.
+For the fun of it, we solve for the case where the initial condition is
+\begin{equation*}
+  p(x, t) = \delta(x - x_0) \delta(t - t_0)
+\end{equation*}
+i.e. we allow the initial delta distribution to be off-center, breaking the symmetry of the problem that Balki gave us.
+We're interested in this case because the solution has a form that may be surprising to those familiar with Fourier series.
+
+\levelstaynon{Solution}
+
+We are solving the equation
+\begin{equation*}
+  \left( \frac{\partial}{\partial t} - D \left( \frac{\partial}{\partial x} \right)^2 \right)
+  p = \delta_{x_0} \delta_{t_0}
+\end{equation*}
+subject to the condition
+\begin{equation*}
+  \left( \frac{\partial}{\partial x} p \right)(x\in \{-a, a\}, t) = 0
+  \, .
+\end{equation*}
+
+Consider a solution of the form
+\begin{equation*}
+  p(x, t) = \sum_n X_n(x) T_n(t)
+\end{equation*}
+where the range of the integers $n$ is not yet determined.
+As the boundary conditions pertain only to $X_n$ we focus on that part first.
+The eigenvalue equation for $X$ is
+\begin{equation*}
+  X''_n + \lambda_n X = 0
+\end{equation*}
+which is solved by
+\begin{equation*}
+  X_n(t) = c_n \cos(k_n x) + s_n \sin(k_n x)
+\end{equation*}
+The boundary conditions are then
+\begin{eqnarray*}
+  - c_n k_n \sin(k_n a) + s_n k_n \cos(k_n a) &= 0 \\
+  \text{and} \qquad
+  - c_n k_n \sin(-k_n a) + s_n k_n \cos(-k_n a) &= 0
+  \, .
+\end{eqnarray*}
+The sum and difference of these equations yield two conditions on $c_n$, $s_n$, and $k_n$:
+\begin{itemize}
+  \item For each $n$ where $c_n \neq 0$, $k_n = (\pi / 2 a) (2 n)$.
+  \item For each $n$ where $s_n \neq 0$, $k_n = (\pi / 2 a) (1 + 2n)$.
+\end{itemize}
+From these conditions, it follows logically that for each $n$ only one of $c_n$ or $s_n$ can be nonzero.
+But that is suspicious because for $n=1$ we get two functions, $\cos(\pi x / a)$ and $\sin(3 \pi x / 2 a)$ which are orthogonal and should therefore both be permissible in the solution.
+This is happening because our presumed form of $X_n$ is ``wrong'' in the sense that it's not an eigenvector of the $X$ equation, i.e. because the sine and cosine parts have different numbers of cycles over the interval and therefore have different eigenvalues.
+Fortunately, it's clear how to fix the problem.
+Notice that over the interval $[-a a]$ the cosines have an integer number of cycles while the sines have half-integer number of cycles (remember that the length of the interval is $2 a$.).
+Therefore, let's enumerate the solutions by the number of half-cycles by rewriting all of them as cosines ($c_n$ here is not the same $c_n$ as above -- we're redefining it):
+\begin{equation*}
+  X_n(x) = \cos \left( \left[ \frac{\pi x}{2 a} + \frac{\pi}{2} \right] n \right)
+  \, .
+\end{equation*}
+This enumeration over shifted cosines runs over the same set of functions as our previous enumeration over unshifted sines and cosines.
+You can easily check that for even $n$ we get the cosines (with $-1$ factors in front that can be absorbed into our new definition of $c_n$) and for odd $n$ we get the sines.
+Now, each $X_n$ is an eigenfunction of $(\partial / \partial x)^2$ with $\lambda_n = - (n \pi / 2 a)^2$.
+
+We could have just stated the shifted cosines as the original choice of $X_n$ and saved some text, so why didn't we?
+I chose to write the solution in the way we find here because \emph{this is how I figured it out in real life}.
+In fact, I spent weeks trying to solve this problem by starting with a Fourier series
+\begin{equation*}
+  \sum_{n=0}^\infty c_n \cos(2 \pi n x / 2 a) + s_n \sin(2 \pi n x / 2 a)
+\end{equation*}
+which doesn't work because (I think) it makes the wrong assumptions about the boundary conditions.
+It was only after retreating from my presupposed form of the spatial functions that I finally figured out how to solve this problem, and only after struggling to understand why the original form of $X_n$ written above doesn't work.
+
+Anyway, now that we have a good form of $X_n$ we can continue.
+We solve for the time dependence via Fourier transformation.
+Express $T_n$ in the Fourier domain:
+\begin{equation*}
+  p(x, t)
+  = \int \frac{d\omega}{2\pi} \sum_{n=0}^\infty
+    e^{i \omega t} \tilde{T}_n(\omega) X_n(x)
+  \, .
+\end{equation*}
+Now apply $(\partial / \partial t) - D (\partial / \partial x)^2$ to each side to get
+\begin{equation*}
+  \delta(x - x_0) \delta(t - t_0)
+    = \dot{T}_0(t) + \int \frac{d \omega}{2\pi}
+    \sum_{n=1}^\infty (i \omega + D (\pi n / 2a)^2)
+    \tilde{T}_n(\omega) e^{i \omega t}
+    X_n(x)
+  \, .
+\end{equation*}
+where we put just the $n=0$ term back into the time domain because it simplifies the next step.
+We're going to solve for $T_0$ first, and then $T_n$ for $n \geq 1$.
+To find $T_0$, integrate both sides over $x$ to get (noting that the integral over $x$ of $X_n$ is zero)
+\begin{equation*}
+  \delta(t - t_0) = (2 a) \dot{T}_0(t)
+\end{equation*}
+with solution
+\begin{equation*}
+  T_0(t) = \frac{1}{2 a} \Theta(t - t_0)
+  \, .
+\end{equation*}
+To find the other $T_n$, multiply both sides of the equation by $X_m$ and integrate over $x$ to get (noting that the integral over $x$ of $X_n X_m$ is $a \delta_{m, n}$)
+\begin{equation*}
+  X_m(x_0) \delta(t - t_0)
+  = a \int \frac{d\omega}{2\pi} (i\omega + D(\pi m / 2a)^2) \tilde{T}_m(\omega) e^{i \omega t} \\
+\end{equation*}
+and then multiply both sides by $\exp(-i \omega' t)$ and integrate over $t$ to get
+\begin{align*}
+  X_m(x_0) e^{-i \omega' t_0}
+  &= a (i \omega' + D(\pi m / 2 a)^2) \tilde{T}_m(\omega') \\
+  \Rightarrow \tilde{T}_m(\omega)
+  &= \frac{1}{a} \frac{X_m(x_0) \exp(-i \omega t_0)}{i \omega + D (\pi m / 2 a)^2} \\
+  &= \frac{-i}{a} \frac{X_m(x_0) \exp(-i \omega t_0)}{\omega - i D (\pi m / 2 a)^2} \\
+  T_m(t) = \int \frac{d\omega}{2\pi} e^{i \omega t} \tilde{T}_m(\omega)
+  &= \frac{-i}{a} X_m(x_0) \int \frac{d\omega}{2\pi} \frac{\exp(i \omega (t - t_0))}{\omega - i D (\pi m / 2 a)^2} \\
+  (\text{contour integration}) \quad \Rightarrow
+  T_m(t) &= \frac{1}{a} X_m(x_0) \exp \left( -D (\pi m / 2 a)^2 (t - t_0) \right)
+  \, .
+\end{align*}
+So finally the solution is
+\begin{equation*}
+  p(x, t) = \frac{1}{2a} \Theta(t - t_0)
+  + \frac{1}{a} \sum_{n=1}^\infty X_n(x) X_n(x_0) \exp \left( -D \left( \frac{\pi n}{2 a} \right)^2 (t - t_0) \right)
+\end{equation*}
