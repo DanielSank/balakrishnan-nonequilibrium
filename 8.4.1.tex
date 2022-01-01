@@ -1,4 +1,4 @@
-\levelstaynon{8.4.1 - Solution by separaiton of variables: Special Edition}
+\levelstaynon{8.4.1 - Solution by separation of variables: Special Edition}
 
 \leveldownnon{Problem}
 
@@ -53,7 +53,7 @@ From these conditions, it follows logically that for each $n$ only one of $c_n$ 
 But that is suspicious because for $n=1$ we get two functions, $\cos(\pi x / a)$ and $\sin(3 \pi x / 2 a)$ which are orthogonal and should therefore both be permissible in the solution.
 This is happening because our presumed form of $X_n$ is ``wrong'' in the sense that it's not an eigenvector of the $X$ equation, i.e. because the sine and cosine parts have different numbers of cycles over the interval and therefore have different eigenvalues.
 Fortunately, it's clear how to fix the problem.
-Notice that over the interval $[-a a]$ the cosines have an integer number of cycles while the sines have half-integer number of cycles (remember that the length of the interval is $2 a$.).
+Notice that over the interval $[-a, a]$ the cosines have an integer number of cycles while the sines have half-integer number of cycles (remember that the length of the interval is $2 a$.).
 Therefore, let's enumerate the solutions by the number of half-cycles by rewriting all of them as cosines ($c_n$ here is not the same $c_n$ as above -- we're redefining it):
 \begin{equation*}
   X_n(x) = \cos \left( \left[ \frac{\pi x}{2 a} + \frac{\pi}{2} \right] n \right)
@@ -123,6 +123,6 @@ So finally the solution is
 \begin{equation*}
   p(x, t) = \frac{1}{2a} \Theta(t - t_0)
   + \frac{1}{a} \sum_{n=1}^\infty X_n(x) X_n(x_0) \exp \left( -D \left( \frac{\pi n}{2 a} \right)^2 (t - t_0) \right)
+  \, .
 \end{equation*}
-
 A Python script providing an animation of this solution is provided in \textbf{exercise\_841.py} included in the source repository of this document.
