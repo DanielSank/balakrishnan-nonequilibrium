@@ -1,0 +1,177 @@
+\levelstaynon{8.4.3 - Applicaiton of Poisson's summation formula}
+
+The Poisson summation formula is a personal favorite of mine so we're doing to do a bit of extra credit.
+
+\leveldownnon{Proof of the Poisson summation formula}
+
+Consider the sum
+\begin{equation*}
+  S(x) = \sum_{n=-\infty}^\infty f(x - n L)
+\end{equation*}
+i.e. the sum of a set of samples, spaced by $L$ of a function $f$.
+The Poisson summation formula re-expresses $S$ in terms of the Fourier transform of $f$.
+There are several ways to get to the target formula, each of them shedding new light on the nature of the Fourier transform and $S$.
+We note that $S(x)$ is periodic with period $L$, and therefore can be represented by a Fourier series.
+It's Fourier coefficients are
+\begin{align*}
+  S_m
+  &= \frac{1}{L} \int_0^L \, dx \, S(x) e^{-i 2\pi m x / L} \\
+  &= \frac{1}{L} \int_0^L \, dx \sum_{n=-\infty}^\infty f(x - n L) e^{-i 2\pi m x / L} \\
+  \text{(Let $x - n L = y$)} \quad 
+  &= \frac{1}{L} \sum_{n=-\infty}^\infty \int_{-nL}^{(-n+1)L} \, dy f(y)
+    e^{-i 2\pi m y / L} \underbrace{e^{-i 2 \pi m n}}_1 \\
+  &= \frac{1}{L} \int_{-\infty}^\infty \, dy \, f(y) e^{-i 2 \pi m y / L} \\
+  &= \frac{1}{L} \tilde{f} \left( \frac{2 \pi m}{L} \right)
+\end{align*}
+where $\tilde{f}$ is the Fourier transform of $f$ defined by the equations
+\begin{equation*}
+  f(x) = \int \frac{dk}{2\pi} \tilde{f}(k) e^{i k x}
+  \qquad
+  \tilde{f}(k) = \int dx f(x) e^{-i k x}
+  \, .
+\end{equation*}
+Now that we know the Fourier coefficients $S_m$ we can express $S$ as a Fourier series
+\begin{equation*}
+  S(x)
+  = \sum_{m=-\infty}^\infty S_m e^{i 2 \pi m x / L}
+  = \frac{1}{L} \sum_{m=-\infty}^\infty \tilde{f}\left(\frac{2 \pi m}{L} \right) e^{i 2 \pi m x / L}
+\end{equation*}
+which is the Poisson summation formula.
+
+\leveldownnon{Problem}
+
+The problem has two parts:
+
+\begin{itemize}
+  \item \textbf{(a)} Using the Poisson summation formula, show that the solutions (8.10) and (8.2) are identical.
+  \item \textbf{(b)} Using the Poisson summation formula, show that the solutions (8.12) and (8.6) are identical.
+\end{itemize}
+
+\levelstaynon{Solution}
+
+For part \textbf{(a)}, we apply the Poisson summation formula to Balki's Eq.~(8.10), which is
+\begin{align*}
+  p(x, t)
+  &= \frac{1}{\sqrt{2 \pi \sigma(t)^2}} \sum_{n=-\infty}^\infty \exp \left(
+    - \frac{(x + 2 n a )^2}{2 \sigma(t)^2}
+  \right)
+  \, .
+\end{align*}
+Our function $f$ for the Poisson formula is defined by the equation
+\begin{equation*}
+  f(x) = \exp \left( - \frac{x^2}{2 \sigma(t)^2} \right)
+  \, .
+\end{equation*}
+The Fourier transform of $f$ is
+\begin{align*}
+  \tilde{f}(k)
+  &= \int \, dx \, f(x) e^{-i k x} \\
+  &= \int \, dx \, \exp \left( -\frac{x^2}{2 \sigma(t)^2} - i k x \right) \\
+  &= \int \, dx \, \exp \left( -
+    \left(
+      \frac{x}{\sqrt{2 \sigma(t)^2}} + i k \frac{\sqrt{2 \sigma(t)^2}}{2}
+    \right)^2
+    - \frac{k^2 \sigma(t)^2}{2}
+  \right) \\
+  &= \sqrt{2 \pi \sigma(t)^2} \exp \left( - \frac{k^2 \sigma(t)^2}{2} \right)
+  \, .
+\end{align*}
+Therefore, the Poisson summation formula tells us that (note that $L = 2a$ here)
+\begin{align*}
+  p(x, t)
+  &= \frac{1}{\sqrt{2 \pi \sigma(t)^2}}
+    \left( \frac{1}{2a} \right)
+    \sum_{n=-\infty}^\infty
+    \tilde{f} \left(\frac{2 \pi n}{2a} \right)
+    \exp \left( \frac{i 2 \pi n x}{2 a}\right)
+    \\
+  &= \frac{1}{2a}
+    \sum_{n=-\infty}^\infty
+    \exp \left( - \frac{(2 \pi)^2 n^2 \sigma(t)^2}{2 (2 a)^2} \right)
+    \exp \left( \frac{i 2 \pi n x}{2 a} \right)
+    \\
+  (\text{combine $\pm n$ terms}) \quad
+  &= \frac{1}{2a} + \frac{1}{a} \sum_{n=1}^\infty
+    \cos \left( \frac{\pi n x}{a} \right)
+    \exp \left( - \frac{n^2 \pi^2 D t}{a^2} \right)
+\end{align*}
+which is Balki's Eq.~(8.2) as intended.
+
+For \textbf{part (b)} we follow a similar procedure.
+The starting expression, Balki's Eq.~(8.12), is
+\begin{equation*}
+  S = \frac{1}{\sqrt{2 \pi \sigma(t)^2}} \sum_{n=-\infty}^\infty
+    (-1)^n \exp \left( - \frac{(x + n (2 a))^2}{2 \sigma(t)^2} \right)
+  \, .
+\end{equation*}
+We need to handle the factor of $(-1)^n$.
+Alex's solution shows a nice way to do so by proper definition of the function $f$ involved in the Poisson summation formula.
+For fun, here we take another approach by separating our sum into even and odd terms.
+\begin{align*}
+  S
+  &= \underbrace{\frac{1}{\sqrt{2\pi \sigma(t)^2}} \sum_{n=-\infty}^\infty
+    \exp \left(- \frac{(x + (2n    )(2a))^2}{2 \sigma(t)^2} \right)}_{S_\text{even}} \\
+  &- \underbrace{\frac{1}{\sqrt{2\pi \sigma(t)^2}} \sum_{n=-\infty}^\infty
+    \exp \left(- \frac{(x + (2n + 1)(2a))^2}{2 \sigma(t)^2} \right)}_{S_\text{odd}}
+\end{align*}
+where $S_\text{even}$ and $S_\text{odd}$ are the even and odd terms in $S$.
+We know how to transform $S_\text{even}$ with the Poisson formula because we already did so in \textbf{part (a)}, the only difference being that where we had $a$ we now have $2a$.
+Therefore,
+\begin{equation*}
+  S_\text{even} = \frac{1}{4 a} + \frac{1}{2 a}\sum_{n=1}^\infty
+    \cos \left( \frac{n \pi x}{2 a} \right)
+    \exp \left( \frac{n^2 \pi^2 D t}{(2a)^2} \right)
+  \, .
+\end{equation*}
+For $S_\text{odd}$, we first expand the stuff in the exponential function and flip the sign on $n$,
+\begin{equation*}
+  S_\text{odd}
+  = \frac{1}{\sqrt{2 \pi \sigma(t)^2}}
+    \sum_{n=-\infty}^\infty \exp \left(- \frac{(x - n(4a) + 2a)^2}{2 \sigma(t)^2} \right)
+  \, .
+\end{equation*}
+This sum has the form needed for the Poisson summation formula, with
+\begin{equation*}
+  f(x) = \exp \left( - \frac{(x + 2 a)^2}{2 \sigma(t)^2} \right)
+\end{equation*}
+and $L = 4 a$.
+We've done the Fourier transform of Gaussian functions enough time to know that
+\begin{equation*}
+  \tilde{f}(k) = \sqrt{2 \pi \sigma(t)^2}
+    \exp \left( - \frac{k^2 \sigma(t)^2}{2} \right)
+    \exp \left( i k (2a) \right)
+\end{equation*}
+from which we get, using the Poisson summation formula,
+\begin{align*}
+  S_\text{odd}
+  &= \frac{1}{4 a} \sum_{n=-\infty}^\infty
+    \exp \left( - \frac{(2\pi)^2 n^2 \sigma(t)^2}{(4a)^2 2} \right)
+    \exp \left( \frac{i (2\pi) n (2a)}{4a} \right)
+    \exp \left( \frac{i 2 \pi n x}{4 a} \right) \\
+  &= \frac{1}{4 a} \sum_{n=-\infty}^\infty
+    \exp \left( - \frac{\pi^2 n^2 D t}{(2 a)^2} \right)
+    \exp \left( i \pi n \right)
+    \exp \left( \frac{i n \pi x}{2 a} \right) \\
+  (\text{combine $\pm n$ terms}) \quad
+  &= \frac{1}{4a} + \frac{1}{2a} \sum_{n=1}^\infty
+    \exp \left( - \frac{\pi^2 n^2 D t}{(2 a)^2} \right)
+    (-1)^n \cos \left( \frac{n \pi x}{2 a} \right)
+  \, .
+\end{align*}
+Hey look! the $(-1)^n$ factor re-appeared.
+Finally,
+\begin{align*}
+  S &= S_\text{even} - S_\text{odd} \\
+  &= \frac{1}{2a} \sum_{n=1}^\infty
+    \exp \left( - \frac{\pi^2 n^2 D t}{(2 a)^2} \right)
+    \cos \left( \frac{n \pi x}{2a} \right)
+    \underbrace{\left( 1 - (-1)^n \right)}_{\substack{\text{0 for $n$ even}\\ \text{2 for $n$ odd}}} \\
+  &= \frac{1}{a} \sum_{n=\{1, 3, 5,\ldots\}}
+    \exp \left( - \frac{\pi^2 n^2 D t}{(2 a)^2} \right)
+    \cos \left( \frac{n \pi x}{2a} \right)\\
+  (\text{relabel odd terms}) \quad
+  &= \frac{1}{a} \sum_{n=0}^\infty
+    \exp \left( - \frac{(2n + 1)^2 \pi^2 D t}{(2 a)^2} \right)
+    \cos \left( \frac{(2n + 1) \pi x}{2a} \right)
+\end{align*}
+as we wanted to show.

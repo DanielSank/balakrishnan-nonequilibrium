@@ -1,0 +1,22 @@
+\levelstaynon{8.4.2 - Nothing here to see, folks}
+
+\leveldownnon{Problem}
+
+Balki literally tells us to ``write down'' the solution to diffusion on a semi-infinite line $[-\infty, a]$ with (i) reflecting and (ii) absorbing boundary conditions at $x=a$.
+
+
+\levelstaynon{Solution}
+
+Uh, ok.
+If the source is at $x_0 < a$ then the image is at $a + (a - x_0) = 2a - x_0$ in both cases.
+For reflecting boundary conditions we need the derivative at the boundary to be zero, so we sum the main and image source solutions, while for absorbing boundary conditions we need the probability density to be zero, so we take the difference.
+Therefore,
+\begin{equation*}
+  p(x, t) = \frac{1}{\sqrt{2 \pi \sigma(t)^2}} \left[
+    \exp \left( - \frac{(x - x_0)^2}{2 \sigma(t)^2} \right)
+    \pm
+    \exp \left( - \frac{(x - (2a - x_0))^2}{2 \sigma(t)^2} \right)
+  \right]
+\end{equation*}
+where $\sigma(t)^2 = 2 D t$, the upper sign is for the reflecting boundary (i), and the lower sign is for the absorbing boundary (ii).
+This is the same as Bali's solution, just with the signs grouped slightly differently in the second exponential function.
