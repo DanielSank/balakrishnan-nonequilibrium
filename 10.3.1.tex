@@ -1,0 +1,84 @@
+\levelstaynon{10.3.1 - Divergence of the mean first-passage time}
+
+\leveldownnon{Problem}
+
+Consider Browninan motion on the semi-infinite line $[-L , \infty]$ with a reflecting boundary at $-L$.
+We want to find the probability density for a particle released at time $t=0$ and position $x_0 > -L$, and also the mean first-passage time.
+
+\levelstaynon{Solution}
+
+The method of images tells us that the probability density is
+\begin{equation*}
+  p(x, t | x_0) = g(x, t | x_0) + g(x, t | -2L - x_0)
+\end{equation*}
+where $g$ is the solution to the diffusion equation on the infinite line with no boundary conditions (what Balki calls ``natural boundary conditions''.).
+To find the mean first-passage time, we need the generating function
+\begin{align*}
+  \tilde{q}(x, s | x_0)
+  &= \frac{\tilde{p}(x', s | x_0)}{\tilde{p}(x', s | x)}
+  \, .
+\end{align*}
+We work out the numerator first.
+\begin{align*}
+  \tilde{p}(x', s | x_0)
+  &= \tilde{g}(x', s | x_0) + \tilde{g}(x', s | -2L - x_0) \\
+  &= \frac{1}{\sqrt{4 D s}} \left(
+    \exp \left( - \abs{x' - x_0} \sqrt{s / D} \right)
+    + \exp \left( - \abs{x' - (-2L - x_0)} \sqrt{s / D} \right)
+  \right) \\
+  &= \frac{1}{\sqrt{4 D s}} \left(
+    \exp \left( (-x' + x_0) \sqrt{s/D} \right)
+    + \exp \left( -x' - 2L - x_0 ) \sqrt{s/D} \right)
+  \right) \\
+  &= \frac{\exp(-(x' + L))}{\sqrt{4 D s}} \left(
+    \exp \left( (x_0 + L) \sqrt{s/D} \right)
+    + \exp \left( - (x_0 + L) \sqrt{s/D} \right)
+  \right) \\
+  &= \frac{\exp(-(x' + L))}{\sqrt{4 D s}}
+  \cosh \left( (x_0 + L) \sqrt{s/D} \right)
+\end{align*}
+and by inspection
+\begin{equation*}
+  \tilde{p} (x', s | x)
+  = \frac{\exp(-(x' + L))}{\sqrt{4 D s}}
+  \cosh \left( (x + L) \sqrt{s/D} \right)
+\end{equation*}
+so
+\begin{equation*}
+  \tilde{q}(x, s | x_0) = \frac{\cosh \left( (x_0 + L) \sqrt{s/D} \right)}{\cosh \left( (x + L) \sqrt{s/D} \right)}
+  \, .
+\end{equation*}
+Now for the mean first-passage time is
+\begin{equation*}
+  \baravg{t(x_0 \rightarrow x)} = \left(- \frac{\partial}{\partial s} \tilde{q} \right) (s=0, x | x_0)
+\end{equation*}
+so we need to compute the derivative, which we do using the quotient rule.
+\begin{align*}
+  & \left( \frac{\partial}{\partial s} \tilde{q} \right)(x, s | x_0) \\
+  =& \frac{1}{2 \sqrt{Ds}}
+    \frac{\cosh((x + L) \sqrt{s/D})\sinh((x_0 + L) \sqrt{s/D}) (x_0 + L) - \cosh((x_0 + L)\sqrt{s/D})\sinh((x + L) \sqrt{s/D}) (x + L)}{\cosh((x + L) \sqrt{s/D})^2}
+  \, .
+\end{align*}
+The value of this expression at $s=0$ is ambiguous because it is $0/0$.
+However, there is no real divergence as we can see by evaluating the \emph{limit} $s \rightarrow 0$.
+The $\cosh$ factors all go to 1 so we only need to check the $\sinh$ factors.
+For example, letting $\alpha = (x_0 + L) / \sqrt{D}$, the first $\sinh$ term is
+\begin{align*}
+  \frac{1}{2 \sqrt{D}} \lim_{s \rightarrow 0} \frac{\sinh \left( \alpha \sqrt{s} \right)}{\sqrt{s}}
+  &= \frac{1}{2 \sqrt{D}} \lim_{s \rightarrow 0}
+  \frac{\exp \left( \alpha \sqrt{s} \right) - \exp \left( -\alpha \sqrt{s} \right)}{2 \sqrt{s}} \\
+  \text{(L'Hopital's rule)} \quad &= \frac{\alpha}{4 \sqrt{D}} \lim_{s \rightarrow 0} \frac{\exp \left( \alpha \sqrt{s} \right)s^{-1/2} + \exp \left( -\alpha \sqrt{s} \right) s^{-1/2}}{s^{-1/2}}
+  \\
+  &= \frac{\alpha}{2 \sqrt{D}} \\
+  &= \frac{(x_0 + L) }{2 D}
+  \, .
+\end{align*}
+Therefore,
+\begin{align*}
+  \baravg{t(x_0 \rightarrow x)}
+  &= \left( -\frac{\partial}{\partial s} \tilde{q}\right) (x, s \rightarrow 0 | x_0) \\
+  &= -\frac{(x_0 + L)^2 - (x + L)^2}{2 D} \\
+  &= \frac{-x_0^2 - 2 x_0 L + x^2 + 2 x L}{2 D} \\
+  &= \frac{(2L + x + x_0)(x - x_0)}{2D}
+  \, .
+\end{align*}
