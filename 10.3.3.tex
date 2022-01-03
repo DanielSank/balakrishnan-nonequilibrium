@@ -1,0 +1,63 @@
+\levelstaynon{10.3.3 - Yet another aspect of the $x^2 \sim t$ scaling}
+
+\leveldownnon{Problem}
+
+Here we consider the probability distribution of the ratio of two first passage times, each one corresponding to a different point in the real line.
+We have the time $t_1$ to make the first-passage to position $x_1$, and time $t_2$ to make the first-passage to position $x_2$.
+We then define the ratio $u = t_1 / t_2$ and study its probability distribution.
+There are two parts:
+\begin{enumerate}[\indent a.]
+  \item Solve for the probability density of $u$.
+  \item Solve for the probability density of $\tau \equiv \sqrt{u}$.
+\end{enumerate}
+
+\levelstaynon{Solution}
+
+For \textbf{part a} we just use the delta function trick:
+\begin{align*}
+  p_u(u)
+  &= \int_0^\infty dt_1 \int_0^\infty dt_2 \, q(x_1, t_1 | 0) \, q(x_2, t_2 | 0)
+    \delta( u - t_1 / t_2) \\
+  &= \int_0^\infty dt_1 \int_0^\infty dt_2 \, \frac{\abs{x_1 x_2}}{4 \pi D \sqrt{t_1^3 t_2^3}}
+    \exp \left( - \frac{x_1^2}{4 D t_1} \right)
+    \exp \left( - \frac{x_2^2}{4 D t_2} \right)
+    \delta( u - t_1 / t_2) \\
+  \text{(Let $x \equiv t_1 / t_2$)} \quad
+  &= \frac{\abs{x_1 x_2}}{4 \pi D}
+    \int_0^\infty dx \int_0^\infty dt_2 \, \frac{t_2}{\sqrt{x^3 t_2^6}}
+    \exp \left( - \frac{x_1^2}{4 D x t_2} \right)
+    \exp \left( - \frac{x_2^2}{4 D t_2} \right)
+    \delta(u - x) \\
+  &= \frac{\abs{x_1 x_2}}{4 \pi D} \frac{1}{\sqrt{u^3}}
+    \int_0^\infty dt_2 \, \frac{1}{t_2^2}
+    \exp \left( - \frac{x_1^2}{4 D u t_2} \right)
+    \exp \left( - \frac{x_2^2}{4 D t_2} \right)
+    \\
+  &= \frac{\abs{x_1 x_2}}{4 \pi D} \frac{1}{\sqrt{u^3}}
+    \int_0^\infty dt_2 \, \frac{1}{t_2^2}
+    \exp \left( - \frac{x_1^2 + u x_2^2}{4 D u t_2} \right)
+    \\
+  &= \frac{\abs{x_1 x_2}}{4 \pi D} \frac{1}{\sqrt{u^3}}
+    \left( \frac{4 D u}{x_1^2 + u x_2^2} \right)
+    \\
+  &= \frac{\abs{x_1 x_2}}{\pi \sqrt{u} (x_1^2 + u x_2^2)}
+\end{align*}
+which agrees with Bali up to a factor of 2.
+However, my result correctly satisfies the normalization condition
+\begin{equation*}
+  \int_0^\infty \, du \, p_u(u) = 1
+\end{equation*}
+so I think my result is correct if we take the domain of $u$ to be $[0, \infty)$.
+For \textbf{part b} we just use the change of variables formula as we did back in Exercise 7.5.6.
+In this case, the variable transformation funcition $f$ is defined by $f(u) = \sqrt{u}$, and so
+\begin{align*}
+  \int_{u \in S} p_u(u) du
+  &= \int_{\tau \in f(S)} p_u(f^{-1}(\tau)) \abs{\text{det}Df^{-1}(y)} \, d\tau \\
+  &= \int_{\tau \in f(S)} \frac{\abs{x_1 x_2}}{\pi \tau (x_1^2 + \tau^2 x_2^2)} 2 \tau \, d\tau \\
+  &= \frac{2\abs{x_1 x_2}}{\pi} \int_{\tau \in f(S)} \frac{1}{x_1^2 + \tau^2 x_2^2} \, d\tau
+\end{align*}
+which shows that the probability density for $\tau$ is
+\begin{equation*}
+  p_\tau(\tau) = \frac{2 \abs{x_1 x_2}}{\pi (x_1^2 + \tau^2 x_2^2)}
+  \, .
+\end{equation*}
