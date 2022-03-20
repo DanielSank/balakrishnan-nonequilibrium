@@ -1,0 +1,74 @@
+\levelstaynon{11.7.2 - Variance of $X$ from its mean squared value}
+
+\leveldownnon{Problem}
+
+Show that Eq~(11.27) for the variance $\angavg{(\delta X(t))^2}_\text{eq}$, namely,
+\begin{displaymath}
+  \angavg{(\delta X(t))^2}_\text{eq} = \frac{D}{\gamma} \left(2 \gamma t - 3 + 4 e^{-\gamma t} - e^{-2\gamma t} \right)
+  \, ,
+\end{displaymath}
+follows from Eq.~(11.5) for $\angavg{X^2(t)}_\text{eq}$, that is,
+\begin{displaymath}
+  \angavg{X^2(t)}_\text{eq} = 2 \frac{D}{\gamma} \left( \gamma t - 1 + e^{-\gamma t} \right)
+  \, .
+\end{displaymath}
+Use the definition $\delta X(x) = X(t) - \baravg{X(t)}$, and hence
+\begin{displaymath}
+  \left( \delta X(t) \right)^2 = X^2(t) - 2 X(t) \baravg{X(t)} + \left( \baravg{X(t)} \right)^2
+  \, .
+\end{displaymath}
+Now take ``equilibrium averages'' on both sides, after using Eq.~(11.17) for $\baravg{X(t)}$.
+
+\levelstaynon{Solution}
+
+First of all, note that there's a typo in Balki's Eq.~(11.33) where there is a missing factor of 2 (it has been corrected in the copying of the problem written above).
+Second, we drop the ``eq'' subscripts for brevity.
+
+We solve this problem by evaluating the three terms
+\begin{displaymath}
+  \angavg{\left( \delta X(t) \right)^2}
+  =
+  \underbrace{\angavg{X^2(t)}}_A
+  - 2 \underbrace{\angavg{X(t) \baravg{X(t)}}}_B
+  + \underbrace{\angavg{\left( \baravg{X(t)} \right)^2}}_C
+  \, .
+\end{displaymath}
+Term $A$ is free:
+\begin{displaymath}
+  A = \angavg{X^2(t)} = 2 \frac{D}{\gamma} \left( \gamma t - 1 + e^{-\gamma t} \right)
+  \, .
+\end{displaymath}
+Term $B$ is also pretty straightforward:
+\begin{align*}
+  B
+  &= \angavg{X(t) \baravg{X(t)}} \\
+  &= \angavg{
+    \underbrace{\left[ \frac{v_0}{\gamma} \left( 1 - e^{-\gamma t} \right) + \frac{1}{m \gamma} \int_0^t dt' \, \left( 1 - e^{-\gamma (t - t')} \right) \eta(t') \right]}_{X(t)}
+    \underbrace{\frac{v_0}{\gamma} \left( 1 - e^{-\gamma t} \right)}_{\baravg{X(t)}}
+  } \\
+  &= \frac{\angavg{v_0^2}}{\gamma^2} \left( 1 - e^{-\gamma t} \right)^2 \\
+  &= \frac{k_b T}{m \gamma^2} \left( 1 - e^{-\gamma t} \right)^2
+\end{align*}
+where we dropped the integral over the noise because it averages to zero.
+By entirely similar computations,
+\begin{equation*}
+  C = \frac{k_b T}{m \gamma^2} \left( 1 - e^{-\gamma t} \right)^2
+  \, .
+\end{equation*}
+Now using $k_b T / m \gamma^2 = D / \gamma$, we have
+\begin{align*}
+  \angavg{(\delta X(t))^2}
+  &= A - 2 B + C \\
+  &= \frac{D}{\gamma} \left(
+    2 \gamma t - 2 + 2 e^{-\gamma t}
+    - 2 \left( 1 - e^{-\gamma t} \right)^2
+    + \left( 1 - e^{-\gamma t} \right)^2
+  \right) \\
+  &= \frac{D}{\gamma} \left(
+    2 \gamma t - 2 + 2 e^{-\gamma t} - \left( 1 - e^{-\gamma t} \right)^2
+  \right) \\
+  &= \frac{D}{\gamma} \left(
+    2 \gamma t - 3 + 4 e^{-\gamma t} - e^{-2 \gamma t}
+  \right)
+\end{align*}
+as we wanted to show.
