@@ -1,0 +1,69 @@
+\levelstaynon{11.7.1 - Verification}
+
+\leveldownnon{Problem}
+
+Derive Eq.~(11.11) using the result
+\begin{displaymath}
+  \angavg{v(t_1) v(t_2)} = (k_b T / m) e^{-\gamma \abs{t_1 - t_2}}
+  \, .
+\end{displaymath}
+
+\levelstaynon{Solution}
+
+\quickfig{0.8\columnwidth}{11.7.1_region.pdf}{caption}{fig:11.7.1_region}
+
+Equation (11.11) gives the two time displacement correlator
+\begin{equation*}
+  \angavg{X(t) X(t')} = \frac{k_b T}{m \gamma^2}
+    \left( 2 \gamma t' - 1 + e^{-\gamma t'} + e^{-\gamma t} - e^{-\gamma (t - t')} \right)
+\end{equation*}
+for $t' > t$.
+To recover this from the two-time velocity correlator, we just integrate.
+\begin{align*}
+  \angavg{X(t) X(t')} 
+  &= \int_0^{t} dt_1 \int_0^{t'} dt_2 \angavg{v(t_1) v(t_2)} \\
+  &= \frac{k_b T}{m} \int_0^t dt_1 \int_0^{t'} dt_2 \exp \left( -\gamma \abs{t_1 - t_2} \right)
+  \, .
+\end{align*}
+If $t' > t$ then the domain of integration is as shown in Figure~\ref{fig:11.7.1_region}.
+\begin{align*}
+  \angavg{X(t) X(t')} 
+  &= \frac{k_b T}{m} \int_{A+B} \exp \left( -\gamma \abs{t_1 - t_2} \right)
+  \, .
+\end{align*}
+We work out each term separately.
+\begin{align*}
+  \text{Term }A
+  &= \int_A \exp \left( -\gamma \abs{t_1 - t_2} \right) \\
+  &= 2 \int_0^t dt_2 \int_0^{t_2} dt_1 \exp \left( -\gamma (t_2 - t_1) \right) \\
+  &= 2 \int_0^t dt_2 \exp \left( -\gamma t_2 \right) \int_0^{t_2} dt_1 \exp \left( \gamma t_1 \right) \\
+  &= 2 \int_0^t dt_2 \, e^{-\gamma t_2} \left( \frac{1}{\gamma} e^{\gamma t_2} - 1 \right) \\
+  &= \frac{2}{\gamma} \int_0^t dt_2 \, \left( 1 - e^{-\gamma t_2} \right) \\
+  &= \frac{2}{\gamma^2} \left( \gamma t + e^{-\gamma t} - 1 \right)
+  \, .
+\end{align*}
+\begin{align*}
+  \text{Term B}
+  &= \int_0^t dt_1 \int_t^{t'} dt_2 \, \exp \left( -\gamma \abs{t_1 - t_2} \right) \\
+  &= \int_0^t dt_1 \int_t^{t'} dt_2 \, \exp \left( -\gamma (t_2 - t_1) \right) \\
+  &= \int_0^t dt_1 \, e^{\gamma t_1} \int_t^{t'} dt_2 \, e^{-\gamma t_2} \\
+  &= -\left( \frac{1}{\gamma^2} \right)
+    \left( e^{\gamma t} - 1 \right)
+    \left( e^{-\gamma t'} - e^{-\gamma t} \right) \\
+  &= \left( \frac{1}{\gamma^2} \right)
+    \left(
+      - e^{-\gamma (t' - t)} + 1 + e^{-\gamma t'} - e^{-\gamma t}
+    \right)
+\end{align*}
+so
+\begin{align*}
+  \angavg{X(t) X(t')}
+  &= \frac{k_b T}{m} \left( \text{Term }A + \text{Term } B \right) \\
+  &= \frac{k_b T}{\gamma^2 m} \left(
+    2 \gamma t + 2 e^{-\gamma t} - 2 - e^{-\gamma(t' - t)} + 1 + e^{-\gamma t'} - e^{-\gamma t}
+  \right) \\
+  &= \frac{k_b T}{\gamma^2 m} \left(
+    2 \gamma t - 1 + e^{-\gamma t} + e^{-\gamma t'} - e^{-\gamma(t' - t)}
+  \right)
+\end{align*}
+which is the same as Balki's Eq.~(11.11) for $t' > t$.
