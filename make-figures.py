@@ -3,7 +3,8 @@ import os
 
 figures = [
     "3.3.3.svg",
-    "change_of_variables.svg"
+    "change_of_variables.svg",
+    "11.7.1_region.svg",
 ]
 
 
